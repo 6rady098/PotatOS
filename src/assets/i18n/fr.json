@@ -138,5 +138,9 @@
     "exists":"existe",
     "userorpass_error": "Erreur de nom d'utilisateur ou de mot de passe",
     "password_nomatcherror":"Les mots de passe ne correspondent pas"
+  },
+
+  "researcher-login": {
+    "user-type": "Chercheurs"
   }
 }

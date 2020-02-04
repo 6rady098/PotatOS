@@ -23,6 +23,7 @@ function initDb(callback) {
 
     function connected(err, db) {
         if (err) {
+            console.log(err);
             return callback(err);
         }
         _db = db;
