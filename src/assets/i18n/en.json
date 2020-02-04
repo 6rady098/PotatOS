@@ -140,5 +140,9 @@
     "exists":"exists",
     "userorpass_error": "Username or Password Error",
     "password_nomatcherror":"Passwords do not match"
+  },
+
+  "researcher-login": {
+    "user-type": "Researchers"
   }
 }

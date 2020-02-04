@@ -30,6 +30,7 @@ import { FindValuePipe } from './pipes/findValue.pipe';
 import { LoginComponent } from './views/login/login.component';
 import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-completed-studies.component';
 import { ParticipantComponent } from './views/participant/participant.component';
+import { ResearcherloginComponent } from './views/researcherlogin/researcherlogin.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ParticipantComponent } from './views/participant/participant.component'
     ResearcherCompletedStudiesComponent,
     FindValuePipe,
     LoginComponent,
-    ParticipantComponent
+    ParticipantComponent,
+    ResearcherloginComponent
   ],
   imports: [
     BrowserModule,
