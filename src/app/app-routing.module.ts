@@ -8,6 +8,8 @@ import { InprogressStudiesComponent } from './views/studies/inprogress.component
 import { CompleteStudiesComponent } from './views/studies/complete.component';
 import { ChatLogViewComponent } from './views/studies/chatlogview.component';
 import { LoginComponent } from './views/login/login.component';
+import { ResearcherloginComponent } from './views/researcherlogin/researcherlogin.component';
+import { TestpageComponent } from './views/testpage/testpage.component';
 
 import { AuthGuard } from './auth/auth.guard';
 import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-completed-studies.component';
@@ -21,7 +23,9 @@ const routes: Routes = [
   { path: 'complete-studies', component: CompleteStudiesComponent, canActivate: [AuthGuard] },
   { path: 'chatlog-view', component: ChatLogViewComponent, canActivate: [AuthGuard] },
   { path: 'researcher-completed-studies', component: ResearcherCompletedStudiesComponent, canActivate: [AuthGuard] },
-  { path: '', component: LoginComponent}
+  { path: '', component: LoginComponent},
+  { path: 'researcher-login', component: ResearcherloginComponent },
+  { path: 'test-page', component: TestpageComponent }
 ];
 
 @NgModule({

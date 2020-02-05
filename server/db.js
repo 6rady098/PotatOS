@@ -13,6 +13,8 @@ const QUESTIONNAIRES_COLLECTION = 'questionnaires';
 const RESEARCHERS_COLLECTION = 'researchers';
 
 const url = "mongodb+srv://admin:" + config.MONGO_ATLAS_PW + "@mongo-cluster-i6meo.mongodb.net/link-the-masses";
+console.log(config.MONGO_ATLAS_PW);
+console.log(config.JWT_KEY);
 
 let _db;
 
@@ -23,6 +25,7 @@ function initDb(callback) {
 
     function connected(err, db) {
         if (err) {
+            console.log(err);
             return callback(err);
         }
         _db = db;
