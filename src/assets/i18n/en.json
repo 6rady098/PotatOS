@@ -102,6 +102,9 @@
   },
 
   "landing-page": {
+    "Researcher": "Researcher click here",
+    "Participant": "Participant click here",  
+    "Register_choice": "Please choose one to register",
     "welcome": "Welcome to Link the Masses",
     "welcome_2": "A web application for supporting a network for researchers and participants",
     "login": "Login",
