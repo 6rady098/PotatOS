@@ -22,14 +22,6 @@ export class ResearcherloginComponent extends InitPageComponent implements OnIni
   model: User;
   showRegisterForm: boolean;
   showLoginForm: boolean;
-  roles: any;
-  sex: any;
-
-  postalCode: string;
-  streetAddress: string;
-  province: string;
-  country: string;
-  city: string;
 
   passwordMatches: boolean;
   userFound: boolean;
@@ -40,11 +32,6 @@ export class ResearcherloginComponent extends InitPageComponent implements OnIni
   passwordFormControl: any;
   registrationPasswordFormControl: any;
   confirmPasswordFormControl: any;
-  roleFormControl: any;
-  firstNameFormControl: any;
-  lastNameFormControl: any;
-  ageFormControl: any;
-  sexFormControl: any;
 
   matcher = new MyErrorStateMatcher();
 
@@ -59,11 +46,6 @@ export class ResearcherloginComponent extends InitPageComponent implements OnIni
 
   ngOnInit() {
     this.initializeOnLoad();
-
-    this.codetableService.getData().subscribe(res => {
-      this.roles = res[0]['roles'];
-      this.sex = res[0]['sex'];
-    });
 
     this.authService
       .getAuthStatusListener()
@@ -96,32 +78,10 @@ export class ResearcherloginComponent extends InitPageComponent implements OnIni
     this.confirmPasswordFormControl = new FormControl('', [
       Validators.required
     ]);
-  
-    this.roleFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.firstNameFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.lastNameFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.ageFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.sexFormControl = new FormControl('', [
-      Validators.required
-    ]);
   }
 
   initializeOnLoad() {
     this.showRegisterForm = false;
-    this.roles = [];
-    this.sex = [];
     this.passwordMatches = true;
     this.userFound = true;
     this.userExists = false;
@@ -141,32 +101,10 @@ export class ResearcherloginComponent extends InitPageComponent implements OnIni
   }
 
   registrationValid() {
-    let sexCheck = false;
-    if (this.model.sex || this.model.sex === 0) {
-      sexCheck = true;
-    }
-    if (this.model.role === 0) {
+    if (this.model.role === 1) {
       return !this.model.username
         || !this.model.password
         || !this.confirmationPassword
-        || !this.model.firstName
-        || !this.model.lastName
-        || !this.model.age
-        || !sexCheck
-        ? false : true;
-    } else if (this.model.role === 1) {
-      return !this.model.username
-        || !this.model.password
-        || !this.confirmationPassword
-        ? false : true;
-    } else if (this.model.role === 2) {
-      return !this.model.username
-        || !this.model.password
-        || !this.confirmationPassword
-        || !this.model.firstName
-        || !this.model.lastName
-        || !this.model.age
-        || !sexCheck
         ? false : true;
     }
   }
@@ -199,20 +137,6 @@ export class ResearcherloginComponent extends InitPageComponent implements OnIni
   }
 
   create() {
-    if (!this.streetAddress || this.streetAddress === undefined) {
-      this.streetAddress = '';
-    }
-    if (!this.city || this.city === undefined) {
-      this.city = '';
-    }
-    if (!this.province || this.province === undefined) {
-      this.province = '';
-    }
-    if (!this.country || this.country === undefined) {
-      this.country = '';
-    }
-    this.model.address = this.streetAddress + ' ' + this.city
-      + ' ' + this.province + ' ' + this.country;
     if (this.model.password === this.confirmationPassword) {
       this.userService.create(this.model).subscribe(
         res => {
