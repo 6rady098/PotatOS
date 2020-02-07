@@ -1,4 +1,3 @@
-
 import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/users.service';
