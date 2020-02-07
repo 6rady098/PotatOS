@@ -9,3 +9,25 @@
   color: white;
   background-color: dodgerblue;
 }
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-card {
+  margin-bottom: 1em;
+}
+
+.register-form {
+  padding-bottom: 1em;
+}
+
+mat-hint {
+  font-size: x-small;
+}
+
+#error {
+  color: red;
+  padding-bottom: 1em;
+  font-size: small;
+}

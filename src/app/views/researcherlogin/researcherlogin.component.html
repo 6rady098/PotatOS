@@ -4,12 +4,12 @@
     <button class="buttons" color="accent" mat-raised-button (click)="loginForm()">{{'landing-page.login' | translate}}</button>
   </div>
   <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center" style="margin-top: 80px;">
-    <button class="buttons" color="accent" mat-raised-button (click)="loginForm()">{{'landing-page.register' | translate}}</button>
+    <button class="buttons" color="accent" mat-raised-button (click)="register()">{{'landing-page.register' | translate}}</button>
   </div>
 </div>
 
 
-<!-- The code below will need to be refactored in order to function correctly -- keeping it before it can still be useful -->
+<!-- This section is responsible for the Login form -->
 <mat-card *ngIf="!showRegisterForm && showLoginForm">
 <mat-card-title>{{'landing-page.login' | translate}}</mat-card-title>
 <form>
@@ -39,6 +39,7 @@
 </mat-card-actions>
 </mat-card>
 
+<!-- This section is responsible for the Registration Form -->
 <mat-card *ngIf="showRegisterForm">
 <mat-card-title>{{'landing-page.register' | translate}}</mat-card-title>
 <div class="register-form">
@@ -70,82 +71,7 @@
         {{'landing-page.password_confirm_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
     </mat-error>
   </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{'landing-page.role_select' | translate}}</mat-label>
-    <mat-select [(ngModel)]="model.role" (click)="model.role = $event.id" [formControl]="roleFormControl"
-      [errorStateMatcher]="matcher">
-      <mat-option *ngFor="let role of roles" [value]="role.id">
-        {{selectedLanguage === 'en' ? role.nameEn : role.nameFr}}
-      </mat-option>
-    </mat-select>
-    <mat-hint>{{'landing-page.required_field' | translate}}</mat-hint>
-    <mat-error *ngIf="roleFormControl.hasError('required')">
-        {{'landing-page.role_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
-    </mat-error>
-  </mat-form-field>
-  <mat-card *ngIf="model.role === 0 || model.role === 2">
-    <mat-card-subtitle><strong>{{'landing-page.profile_info' | translate}}</strong></mat-card-subtitle>
-    <mat-form-field>
-      <input matInput placeholder="{{'landing-page.first_name' | translate}}" [(ngModel)]="model.firstName" [formControl]="firstNameFormControl"
-        [errorStateMatcher]="matcher">
-      <mat-hint>{{'landing-page.required_field' | translate}}</mat-hint>
-      <mat-error *ngIf="firstNameFormControl.hasError('required')">
-          {{'landing-page.fname_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="{{'landing-page.last_name' | translate}}" [(ngModel)]="model.lastName" [formControl]="lastNameFormControl"
-        [errorStateMatcher]="matcher">
-      <mat-hint>{{'landing-page.required_field' | translate}}</mat-hint>
-      <mat-error *ngIf="lastNameFormControl.hasError('required')">
-          {{'landing-page.lname_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
-      </mat-error>
-    </mat-form-field>
-    <div fxLayout="row" fxLayoutGap="1em">
-      <mat-form-field>
-        <input matInput type="number" placeholder="{{'landing-page.age' | translate}}" [(ngModel)]="model.age" [formControl]="ageFormControl"
-          [errorStateMatcher]="matcher">
-          <mat-hint>{{'landing-page.required_field' | translate}}</mat-hint>
-          <mat-error *ngIf="ageFormControl.hasError('required')">
-              {{'landing-page.age_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
-          </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>{{'landing-page.gender' | translate}}</mat-label>
-        <mat-select [(ngModel)]="model.sex" (click)="model.sex = $event.id" [formControl]="sexFormControl"
-          [errorStateMatcher]="matcher">
-          <mat-option *ngFor="let s of sex" [value]="s.id">
-            {{selectedLanguage === 'en' ? s.nameEn : s.nameFr}}
-          </mat-option>
-        </mat-select>
-        <mat-hint>{{'landing-page.required_field' | translate}}</mat-hint>
-        <mat-error *ngIf="sexFormControl.hasError('required')">
-            {{'landing-page.gender_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <mat-form-field>
-      <input matInput placeholder="{{'landing-page.address' | translate}}" [(ngModel)]="streetAddress">
-    </mat-form-field>
-    <div fxLayout="row" fxLayoutGap="1em">
-      <mat-form-field>
-        <input matInput placeholder="{{'landing-page.city' | translate}}" [(ngModel)]="city">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="{{'landing-page.province_state' | translate}}" [(ngModel)]="province">
-        <mat-hint>{{'landing-page.applicable_field' | translate}}</mat-hint>
-      </mat-form-field>
-    </div>
-    <div fxLayout="row" fxLayoutGap="1em">
-      <mat-form-field>
-        <input matInput placeholder="{{'landing-page.country' | translate}}" [(ngModel)]="country">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="{{'landing-page.zip_postal' | translate}}" [(ngModel)]="postalCode">
-        <mat-hint>{{'landing-page.applicable_field' | translate}}</mat-hint>
-      </mat-form-field>
-    </div>
-  </mat-card>
+
 </div>
 <mat-divider [inset]="true"></mat-divider>
 <mat-card-actions align="end">
