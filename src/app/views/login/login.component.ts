@@ -5,14 +5,9 @@ import { InitPageComponent } from '../init-page.component';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CodetableService } from 'src/app/services/codetable.service';
 import { Router } from '@angular/router';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { MyErrorStateMatcher } from './errorstatematcher';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -40,23 +35,14 @@ export class LoginComponent extends InitPageComponent implements OnInit, OnDestr
   userExists: boolean;
 
   usernameFormControl: any;
-
   registrationUsernameFormControl: any;
-
   passwordFormControl: any;
-
   registrationPasswordFormControl: any;
-
   confirmPasswordFormControl: any;
-
   roleFormControl: any;
-
   firstNameFormControl: any;
-
   lastNameFormControl: any;
-
   ageFormControl: any;
-
   sexFormControl: any;
 
   matcher = new MyErrorStateMatcher();
