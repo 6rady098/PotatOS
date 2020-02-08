@@ -1,19 +1,29 @@
 import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/users.service';
-import { MyErrorStateMatcher } from '../login/errorstatematcher';
+//import { MyErrorStateMatcher } from '../login/login.component'
 import { AuthService } from 'src/app/auth/auth.service';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { InitPageComponent } from '../init-page.component';
 import { CodetableService } from 'src/app/services/codetable.service';
 import { Router } from '@angular/router';
 
+//errorstatematcher
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 @Component({
-  selector: 'app-researcherlogin',
-  templateUrl: './researcherlogin.component.html',
-  styleUrls: ['./researcherlogin.component.css']
+  selector: 'app-participantlogin',
+  templateUrl: './participant.component.html',
+  styleUrls: ['./participant.component.css']
 })
-export class ResearcherloginComponent extends InitPageComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class ParticipantComponent extends InitPageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   username: string;
   password: string;

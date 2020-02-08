@@ -6,8 +6,18 @@ import { InitPageComponent } from '../init-page.component';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CodetableService } from 'src/app/services/codetable.service';
 import { Router } from '@angular/router';
-import { MyErrorStateMatcher } from './errorstatematcher';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+
+
+
+//errorstatematcher
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
 selector: 'app-login',
