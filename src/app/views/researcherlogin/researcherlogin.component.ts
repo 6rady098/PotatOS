@@ -101,12 +101,10 @@ export class ResearcherloginComponent extends InitPageComponent implements OnIni
   }
 
   registrationValid() {
-    if (this.model.role === 1) {
       return !this.model.username
         || !this.model.password
         || !this.confirmationPassword
         ? false : true;
-    }
   }
 
   login(loginUsername, loginPassword) {
@@ -138,6 +136,7 @@ export class ResearcherloginComponent extends InitPageComponent implements OnIni
 
   create() {
     if (this.model.password === this.confirmationPassword) {
+      this.model.role = 1;
       this.userService.create(this.model).subscribe(
         res => {
           if (res.status === 201) {
