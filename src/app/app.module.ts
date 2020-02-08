@@ -29,6 +29,7 @@ import { CodetableService } from './services/codetable.service';
 import { FindValuePipe } from './pipes/findValue.pipe';
 import { LoginComponent } from './views/login/login.component';
 import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-completed-studies.component';
+import { ParticipantComponent } from './views/participant/participant.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-
     ChatLogViewComponent,
     ResearcherCompletedStudiesComponent,
     FindValuePipe,
-    LoginComponent
+    LoginComponent,
+    ParticipantComponent
   ],
   imports: [
     BrowserModule,

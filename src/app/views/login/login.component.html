@@ -6,6 +6,8 @@
     <button color="accent" mat-raised-button (click)="loginForm()">{{'landing-page.login' | translate}}</button>
     &nbsp;
     <button color="accent" mat-raised-button (click)="register()">{{'landing-page.register' | translate}}</button>
+    <button color="accent" mat-raised-button routerLink="/participant-login">To participant login</button>
+    <button color="accent" mat-raised-button routerLink="/test-page">To test page</button>
   </div>
 </div>
 
@@ -27,7 +29,7 @@
         {{'landing-page.password_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
       </mat-error>
     </mat-form-field>
-    <mat-label fxLayout="row" fxLayoutAlign="center center" 
+    <mat-label fxLayout="row" fxLayoutAlign="center center"
       id="error" *ngIf="!userFound">{{'landing-page.userorpass_error' | translate}}</mat-label>
   </form>
   <mat-divider [inset]="true"></mat-divider>
@@ -43,7 +45,7 @@
   <mat-card-title>{{'landing-page.register' | translate}}</mat-card-title>
   <div class="register-form">
     <mat-form-field>
-      <input matInput placeholder="{{'landing-page.enter_username' | translate}}" [(ngModel)]="model.username" 
+      <input matInput placeholder="{{'landing-page.enter_username' | translate}}" [(ngModel)]="model.username"
         [formControl]="registrationUsernameFormControl"
         [errorStateMatcher]="matcher">
       <mat-hint style="color: red;" *ngIf="userExists">{{'landing-page.user_exists' | translate}} <strong>{{'landing-page.exists' | translate}}</strong></mat-hint>
@@ -62,7 +64,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="password" placeholder="{{'landing-page.password_confirm' | translate}}" [(ngModel)]="confirmationPassword" 
+      <input matInput type="password" placeholder="{{'landing-page.password_confirm' | translate}}" [(ngModel)]="confirmationPassword"
         [formControl]="confirmPasswordFormControl" [errorStateMatcher]="matcher">
       <mat-hint style="color: red;" *ngIf="!passwordMatches">{{'landing-page.password_nomatcherror' | translate}}</mat-hint>
       <mat-hint *ngIf="passwordMatches">{{'landing-page.required_field' | translate}}</mat-hint>
