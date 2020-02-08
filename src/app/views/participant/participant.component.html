@@ -1,10 +1,11 @@
 <div *ngIf="!showLoginForm && !showRegisterForm" style="margin-top: 120px;">
-  <h1 fxLayout="row" fxLayoutAlign="center center">{{'researcher-login.user-type' | translate}}</h1>
+  <h1 fxLayout="row" fxLayoutAlign="center center">{{'Welcome Participants!!' | translate}}</h1>
   <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center" style="margin-top: 80px;">
     <button class="buttons" color="accent" mat-raised-button (click)="loginForm()">{{'landing-page.login' | translate}}</button>
   </div>
   <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center" style="margin-top: 80px;">
     <button class="buttons" color="accent" mat-raised-button (click)="register()">{{'landing-page.register' | translate}}</button>
+
   </div>
 </div>
 
