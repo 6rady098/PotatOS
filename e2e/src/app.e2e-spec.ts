@@ -10,7 +10,18 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('link-the-masses app is running!');
+    expect(page.getTitleText()).toEqual('Welcome to Link the Masses');
+    
+  });
+
+  it('should display \'Researcher\'', () => {
+    page.navigateTo();
+    expect(page.clickResearcherLogin()).toEqual('Researchers');
+  });
+
+  it('should login', () => {
+    page.navigateTo();
+    page.loginResearcher();
   });
 
   afterEach(async () => {
