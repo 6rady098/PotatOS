@@ -2,8 +2,16 @@ mat-form-field {
     width: 100%;
 }
 
+mat-form-field-2 {
+    width: 50%;
+}
+
 mat-card {
     margin-bottom: 1em;
+    border: 1px red solid;
+    border-radius: 20px;
+    width: 50%;
+    margin: auto;
 }
 
 .register-form {
@@ -18,4 +26,19 @@ mat-hint {
     color: red;
     padding-bottom: 1em;
     font-size: small;
+}
+
+.welcome-title {
+    font-size: 62px;
+    margin-bottom: 25px;
+}
+
+.login-button {
+    width: 300px;
+    margin-bottom: 15px;
+}
+
+.register-button {
+    width: 300px;
+    margin-bottom: 15px;
 }

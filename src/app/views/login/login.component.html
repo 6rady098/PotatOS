@@ -1,4 +1,17 @@
-<div *ngIf="!showLoginForm && !showRegisterForm" style="margin-top: 120px;">
+<div *ngIf="showHome">
+    <h1 class="welcome-title" fxLayout="row" fxLayoutAlign="center center">{{'landing-page.welcome' | translate}}</h1>
+    <p fxLayout="row" fxLayoutAlign="center center">{{'landing-page.welcome_2' | translate}}</p>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center" style="margin-top: 80px;">
+        <button class="btn-gradient green large" mat-raised-button
+            (click)="hideHome()">{{'landing-page.researcher' | translate}}</button>
+        &nbsp;
+        <button class="btn-gradient blue large" mat-raised-button
+            (click)="hideHome()">{{'landing-page.participant' | translate}}</button>
+    </div>
+</div>
+
+<div *ngIf="!showLoginForm && !showRegisterForm && !showHome" style="margin-top: 120px;">
     <h1 fxLayout="row" fxLayoutAlign="center center">{{'landing-page.welcome' | translate}}</h1>
     <p fxLayout="row" fxLayoutAlign="center center">{{'landing-page.welcome_2' | translate}}</p>
     <mat-divider></mat-divider>

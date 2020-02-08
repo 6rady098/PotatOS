@@ -30,6 +30,7 @@ password: string;
 confirmationPassword: string;
 users: any;
 model: User;
+showHome: boolean;
 showRegisterForm: boolean;
 showLoginForm: boolean;
 roles: any;
@@ -129,6 +130,7 @@ resetFieldErrors() {
 }
 
 initializeOnLoad() {
+  this.showHome = true;
   this.showRegisterForm = false;
   this.roles = [];
   this.sex = [];
@@ -179,6 +181,14 @@ registrationValid() {
       || !sexCheck
       ? false : true;
   }
+}
+
+homePage() {
+  this.showHome = true;
+}
+
+hideHome() {
+  this.showHome = false;
 }
 
 login(loginUsername, loginPassword) {
