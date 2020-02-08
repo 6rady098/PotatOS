@@ -1,9 +1,11 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
+
 // import ngx-translate and the http loader
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -30,6 +32,8 @@ import { FindValuePipe } from "./pipes/findValue.pipe";
 import { LoginComponent } from "./views/login/login.component";
 import { ResearcherCompletedStudiesComponent } from "./views/studies/researcher-completed-studies.component";
 import { HomeComponent } from './views/home/home.component';
+import { ParticipantComponent } from './views/participant/participant.component';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +49,9 @@ import { HomeComponent } from './views/home/home.component';
     ResearcherCompletedStudiesComponent,
     FindValuePipe,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ParticipantComponent
+
   ],
   imports: [
     BrowserModule,

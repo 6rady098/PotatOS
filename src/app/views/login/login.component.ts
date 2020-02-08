@@ -1,23 +1,17 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  AfterViewChecked,
-  ChangeDetectorRef
-} from "@angular/core";
-import { User } from "src/app/models/user";
-import { UserService } from "src/app/services/users.service";
-import { InitPageComponent } from "../init-page.component";
-import { AuthService } from "src/app/auth/auth.service";
-import { CodetableService } from "src/app/services/codetable.service";
-import { Router } from "@angular/router";
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators
-} from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material/core";
+import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/users.service';
+import { InitPageComponent } from '../init-page.component';
+import { AuthService } from 'src/app/auth/auth.service';
+import { CodetableService } from 'src/app/services/codetable.service';
+import { Router } from '@angular/router';
+
+
+
+//errorstatematcher
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
@@ -31,55 +25,117 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     );
   }
 }
+
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+
+selector: 'app-login',
+templateUrl: './login.component.html',
+styleUrls: ['./login.component.css']
 })
-export class LoginComponent extends InitPageComponent
-  implements OnInit, OnDestroy, AfterViewChecked {
-  username: string;
-  password: string;
-  confirmationPassword: string;
-  users: any;
-  model: User;
-  showRegisterForm: boolean;
-  showLoginForm: boolean;
-  showHome: boolean;
-  roles: any;
-  sex: any;
+export class LoginComponent extends InitPageComponent implements OnInit, OnDestroy, AfterViewChecked {
+username: string;
+password: string;
+confirmationPassword: string;
+users: any;
+model: User;
+showRegisterForm: boolean;
+showLoginForm: boolean;
+showHome: boolean;
+roles: any;
+sex: any;
 
-  postalCode: string;
-  streetAddress: string;
-  province: string;
-  country: string;
-  city: string;
+postalCode: string;
+streetAddress: string;
+province: string;
+country: string;
+city: string;
 
-  passwordMatches: boolean;
-  userFound: boolean;
-  userExists: boolean;
+passwordMatches: boolean;
+userFound: boolean;
+userExists: boolean;
 
-  usernameFormControl: any;
+usernameFormControl: any;
+registrationUsernameFormControl: any;
+passwordFormControl: any;
+registrationPasswordFormControl: any;
+confirmPasswordFormControl: any;
+roleFormControl: any;
+firstNameFormControl: any;
+lastNameFormControl: any;
+ageFormControl: any;
+sexFormControl: any;
 
-  registrationUsernameFormControl: any;
+matcher = new MyErrorStateMatcher();
 
-  passwordFormControl: any;
+constructor(
+  private userService: UserService,
+  private authService: AuthService,
+  private codetableService: CodetableService,
+  private router: Router,
+  private cdr: ChangeDetectorRef) {
+  super();
+}
 
-  registrationPasswordFormControl: any;
+ngOnInit() {
+  this.initializeOnLoad();
 
-  confirmPasswordFormControl: any;
+  this.codetableService.getData().subscribe(res => {
+    this.roles = res[0]['roles'];
+    this.sex = res[0]['sex'];
+  });
 
-  roleFormControl: any;
+  this.authService
+    .getAuthStatusListener()
+    .subscribe(res => {
+      if (res === false) {
+        this.userFound = false;
+      } else {
+        this.userFound = true;
+      }
+    });
+}
 
-  firstNameFormControl: any;
+resetFieldErrors() {
+  this.usernameFormControl = new FormControl('', [
+    Validators.required
+  ]);
 
-  lastNameFormControl: any;
+  this.registrationUsernameFormControl = new FormControl('', [
+    Validators.required
+  ]);
 
-  ageFormControl: any;
+  this.passwordFormControl = new FormControl('', [
+    Validators.required
+  ]);
 
-  sexFormControl: any;
+  this.registrationPasswordFormControl = new FormControl('', [
+    Validators.required
+  ]);
 
-  matcher = new MyErrorStateMatcher();
+  this.confirmPasswordFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  this.roleFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  this.firstNameFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  this.lastNameFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  this.ageFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  this.sexFormControl = new FormControl('', [
+    Validators.required
+  ]);
+}
 
   constructor(
     private userService: UserService,
@@ -91,51 +147,11 @@ export class LoginComponent extends InitPageComponent
     super();
   }
 
-  ngOnInit() {
-    this.initializeOnLoad();
 
-    this.codetableService.getData().subscribe(res => {
-      this.roles = res[0]["roles"];
-      this.sex = res[0]["sex"];
-    });
-
-    this.authService.getAuthStatusListener().subscribe(res => {
-      if (res === false) {
-        this.userFound = false;
-      } else {
-        this.userFound = true;
-      }
-    });
-  }
-
-  resetFieldErrors() {
-    this.usernameFormControl = new FormControl("", [Validators.required]);
-
-    this.registrationUsernameFormControl = new FormControl("", [
-      Validators.required
-    ]);
-
-    this.passwordFormControl = new FormControl("", [Validators.required]);
-
-    this.registrationPasswordFormControl = new FormControl("", [
-      Validators.required
-    ]);
-
-    this.confirmPasswordFormControl = new FormControl("", [
-      Validators.required
-    ]);
-
-    this.roleFormControl = new FormControl("", [Validators.required]);
-
-    this.firstNameFormControl = new FormControl("", [Validators.required]);
-
-    this.lastNameFormControl = new FormControl("", [Validators.required]);
-
-    this.ageFormControl = new FormControl("", [Validators.required]);
-
-    this.sexFormControl = new FormControl("", [Validators.required]);
-  }
-
+ngAfterViewChecked() {
+  this.cdr.detectChanges();
+}
+     
   initializeOnLoad() {
     this.showHome = true;
     this.showRegisterForm = false;
@@ -145,19 +161,64 @@ export class LoginComponent extends InitPageComponent
     this.userFound = true;
     this.userExists = false;
     this.resetFieldErrors();
-  }
 
-  ngAfterViewChecked() {
-    this.cdr.detectChanges();
-  }
+ngOnDestroy() {
+  this.cdr.detach();
+}
 
-  ngOnDestroy() {
-    this.cdr.detach();
-  }
+loginValid() {
+  return !this.username || !this.password ? false : true;
+}
 
-  loginValid() {
-    return !this.username || !this.password ? false : true;
+registrationValid() {
+  let sexCheck = false;
+  if (this.model.sex || this.model.sex === 0) {
+    sexCheck = true;
   }
+  if (this.model.role === 0) {
+    return !this.model.username
+      || !this.model.password
+      || !this.confirmationPassword
+      || !this.model.firstName
+      || !this.model.lastName
+      || !this.model.age
+      || !sexCheck
+      ? false : true;
+  } else if (this.model.role === 1) {
+    return !this.model.username
+      || !this.model.password
+      || !this.confirmationPassword
+      ? false : true;
+  } else if (this.model.role === 2) {
+    return !this.model.username
+      || !this.model.password
+      || !this.confirmationPassword
+      || !this.model.firstName
+      || !this.model.lastName
+      || !this.model.age
+      || !sexCheck
+      ? false : true;
+  }
+}
+
+login(loginUsername, loginPassword) {
+  if (loginPassword !== undefined) {
+    this.authService.login(loginUsername, loginPassword);
+  }
+}
+
+loginForm() {
+  this.showLoginForm = true;
+}
+
+register() {
+  this.model = new User();
+  this.confirmationPassword = '';
+  this.showRegisterForm = true;
+  this.passwordMatches = true;
+  this.userExists = false;
+  this.resetFieldErrors();
+}
 
   registrationValid() {
     let sexCheck = false;
@@ -193,16 +254,15 @@ export class LoginComponent extends InitPageComponent
     }
   }
 
-  login(loginUsername, loginPassword) {
-    if (loginPassword !== undefined) {
-      this.authService.login(loginUsername, loginPassword);
-    }
-  }
 
-  loginForm() {
-    this.showLoginForm = true;
+create() {
+  if (!this.streetAddress || this.streetAddress === undefined) {
+    this.streetAddress = '';
   }
-
+  if (!this.city || this.city === undefined) {
+    this.city = '';
+  }
+  
   homePage() {
     this.showHome = true;
   }
@@ -235,35 +295,29 @@ export class LoginComponent extends InitPageComponent
     if (!this.city || this.city === undefined) {
       this.city = "";
     }
-    if (!this.province || this.province === undefined) {
-      this.province = "";
-    }
-    if (!this.country || this.country === undefined) {
-      this.country = "";
-    }
-    this.model.address =
-      this.streetAddress +
-      " " +
-      this.city +
-      " " +
-      this.province +
-      " " +
-      this.country;
-    if (this.model.password === this.confirmationPassword) {
-      this.userService.create(this.model).subscribe(
-        res => {
-          if (res.status === 201) {
-            this.close();
-          }
-        },
-        error => {
-          if (error.status === 422) {
-            this.userExists = true;
-          }
-        }
-      );
-    } else {
-      this.passwordMatches = false;
-    }
+  if (!this.province || this.province === undefined) {
+    this.province = '';
   }
+  if (!this.country || this.country === undefined) {
+    this.country = '';
+  }
+  this.model.address = this.streetAddress + ' ' + this.city
+    + ' ' + this.province + ' ' + this.country;
+  if (this.model.password === this.confirmationPassword) {
+    this.userService.create(this.model).subscribe(
+      res => {
+        if (res.status === 201) {
+          this.close();
+        }
+      },
+      error => {
+        if (error.status === 422) {
+          this.userExists = true;
+        }
+      }
+    );
+  } else {
+    this.passwordMatches = false;
+  }
+}
 }

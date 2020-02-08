@@ -1,0 +1,33 @@
+
+.buttons {
+  font-size: large;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  color: orange;
+  background-color: darkgreen;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-card {
+  margin-bottom: 1em;
+}
+
+.register-form {
+  padding-bottom: 1em;
+}
+
+mat-hint {
+  font-size: x-small;
+}
+
+#error {
+  color: pink;
+  padding-bottom: 1em;
+  font-size: small;
+}
