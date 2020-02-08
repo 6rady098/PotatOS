@@ -1,0 +1,13 @@
+<p>(home component html)</p>
+<div *ngIf="!showLoginForm && !showRegisterForm" style="margin-top: 120px;">
+    <h1 class="welcome-title" fxLayout="row" fxLayoutAlign="center center">{{'landing-page.welcome' | translate}}</h1>
+    <p fxLayout="row" fxLayoutAlign="center center">{{'landing-page.welcome_2' | translate}}</p>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center" style="margin-top: 80px;">
+        <button class="btn-gradient green large" mat-raised-button
+            (click)="loginForm()">{{'landing-page.login' | translate}}</button>
+        &nbsp;
+        <button class="btn-gradient cyan large" mat-raised-button
+            (click)="register()">{{'landing-page.register' | translate}}</button>
+    </div>
+</div>

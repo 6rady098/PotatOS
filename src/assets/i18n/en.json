@@ -13,6 +13,11 @@
     "rights": "2019 © Link the Masses. All Rights Reserved."
   },
 
+  "app-home": {
+    "researcher": "Researcher",
+    "participant": "Participant"
+  },
+
   "profile-components": {
     "type_admin": "Administrator",
     "type_participant": "Participant",
@@ -26,16 +31,16 @@
     "address": "Address",
     "research_info": "Research Information",
     "participated_in": "Participated in",
-    "studies":"studies"
+    "studies": "studies"
   },
 
   "studies-components": {
     "studies_available": "Available",
     "studies_inprogress": "In Progress",
     "studies_completed": "Complete",
-    "published_studies":"Published Studies",
-    "chat_logs":"Chat Logs",
-    "completed_studies":"Completed Studies",
+    "published_studies": "Published Studies",
+    "chat_logs": "Chat Logs",
+    "completed_studies": "Completed Studies",
     "search": "Search",
     "update": "Update",
     "submit": "Submit",
@@ -51,7 +56,7 @@
     "action_edit": "Edit",
     "action_delete": "Delete",
     "action_start": "Start",
-    "view":"View",
+    "view": "View",
     "description": "Description",
     "pagination": "Items per page",
     "pagination_of": "of",
@@ -63,23 +68,23 @@
     "creation_date": "Creation Date",
     "author": "Author",
     "question": "Question",
-    "completion_status":"Select completion status",
-    "date_choose":"Choose a date",
-    "entry":"Entry",
-    "required_field":"* Required Field",
-    "title_req":"Title is",
-    "type_req":"Study type is",
-    "required":"required",
-    "target_participant":"Target Participants",
-    "lower_range":"Lower Age Range",
-    "upper_range":"Upper Age Range",
+    "completion_status": "Select completion status",
+    "date_choose": "Choose a date",
+    "entry": "Entry",
+    "required_field": "* Required Field",
+    "title_req": "Title is",
+    "type_req": "Study type is",
+    "required": "required",
+    "target_participant": "Target Participants",
+    "lower_range": "Lower Age Range",
+    "upper_range": "Upper Age Range",
     "gender": "Gender",
-    "clear":"Clear",
-    "message":"Message",
-    "enter":"Enter",
-    "participant":"Participant",
+    "clear": "Clear",
+    "message": "Message",
+    "enter": "Enter",
+    "participant": "Participant",
     "researcher": "Researcher",
-    "continue":"Continue"
+    "continue": "Continue"
   },
 
   "users-components": {
@@ -102,6 +107,8 @@
   },
 
   "landing-page": {
+    "researcher": "Researcher",
+    "participant": "Participant",
     "welcome": "Welcome to Link the Masses",
     "welcome_2": "A web application for supporting a network for researchers and participants",
     "login": "Login",
@@ -110,10 +117,10 @@
     "enter_username": "Username",
     "password": "Password",
     "password_confirm": "Confirm Password",
-    "submit":"Submit",
+    "submit": "Submit",
     "close": "Close",
     "required_field": "* Required Field",
-    "applicable_field":"* If Applicable",
+    "applicable_field": "* If Applicable",
     "role_select": "Select a role",
     "profile_info": "Profile Information",
     "first_name": "First Name",
@@ -134,9 +141,9 @@
     "age_req": "An age is",
     "gender_req": "A sex is",
     "required": "required",
-    "user_exists":"User already",
-    "exists":"exists",
+    "user_exists": "User already",
+    "exists": "exists",
     "userorpass_error": "Username or Password Error",
-    "password_nomatcherror":"Passwords do not match"
+    "password_nomatcherror": "Passwords do not match"
   }
 }

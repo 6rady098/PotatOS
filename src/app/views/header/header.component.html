@@ -1,4 +1,3 @@
-
 <mat-toolbar color="primary">
     <ul>
         <li>
@@ -9,6 +8,7 @@
             <button (click)="clickLanguage()">{{'app-header.languageLabel' | translate}}</button>
         </li>
     </ul>
+
     <span class="spacer"></span>
     <ul>
         <li *ngIf="userIsAuthenticated && token.role !== 1">

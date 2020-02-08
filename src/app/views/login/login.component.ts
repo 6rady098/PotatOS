@@ -1,24 +1,43 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/users.service';
-import { InitPageComponent } from '../init-page.component';
-import { AuthService } from 'src/app/auth/auth.service';
-import { CodetableService } from 'src/app/services/codetable.service';
-import { Router } from '@angular/router';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewChecked,
+  ChangeDetectorRef
+} from "@angular/core";
+import { User } from "src/app/models/user";
+import { UserService } from "src/app/services/users.service";
+import { InitPageComponent } from "../init-page.component";
+import { AuthService } from "src/app/auth/auth.service";
+import { CodetableService } from "src/app/services/codetable.service";
+import { Router } from "@angular/router";
+import {
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  Validators
+} from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
-export class LoginComponent extends InitPageComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class LoginComponent extends InitPageComponent
+  implements OnInit, OnDestroy, AfterViewChecked {
   username: string;
   password: string;
   confirmationPassword: string;
@@ -26,6 +45,7 @@ export class LoginComponent extends InitPageComponent implements OnInit, OnDestr
   model: User;
   showRegisterForm: boolean;
   showLoginForm: boolean;
+  showHome: boolean;
   roles: any;
   sex: any;
 
@@ -66,7 +86,8 @@ export class LoginComponent extends InitPageComponent implements OnInit, OnDestr
     private authService: AuthService,
     private codetableService: CodetableService,
     private router: Router,
-    private cdr: ChangeDetectorRef) {
+    private cdr: ChangeDetectorRef
+  ) {
     super();
   }
 
@@ -74,64 +95,49 @@ export class LoginComponent extends InitPageComponent implements OnInit, OnDestr
     this.initializeOnLoad();
 
     this.codetableService.getData().subscribe(res => {
-      this.roles = res[0]['roles'];
-      this.sex = res[0]['sex'];
+      this.roles = res[0]["roles"];
+      this.sex = res[0]["sex"];
     });
 
-    this.authService
-      .getAuthStatusListener()
-      .subscribe(res => {
-        if (res === false) {
-          this.userFound = false;
-        } else {
-          this.userFound = true;
-        }
-      });
+    this.authService.getAuthStatusListener().subscribe(res => {
+      if (res === false) {
+        this.userFound = false;
+      } else {
+        this.userFound = true;
+      }
+    });
   }
 
   resetFieldErrors() {
-    this.usernameFormControl = new FormControl('', [
+    this.usernameFormControl = new FormControl("", [Validators.required]);
+
+    this.registrationUsernameFormControl = new FormControl("", [
       Validators.required
     ]);
-  
-    this.registrationUsernameFormControl = new FormControl('', [
+
+    this.passwordFormControl = new FormControl("", [Validators.required]);
+
+    this.registrationPasswordFormControl = new FormControl("", [
       Validators.required
     ]);
-  
-    this.passwordFormControl = new FormControl('', [
+
+    this.confirmPasswordFormControl = new FormControl("", [
       Validators.required
     ]);
-  
-    this.registrationPasswordFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.confirmPasswordFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.roleFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.firstNameFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.lastNameFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.ageFormControl = new FormControl('', [
-      Validators.required
-    ]);
-  
-    this.sexFormControl = new FormControl('', [
-      Validators.required
-    ]);
+
+    this.roleFormControl = new FormControl("", [Validators.required]);
+
+    this.firstNameFormControl = new FormControl("", [Validators.required]);
+
+    this.lastNameFormControl = new FormControl("", [Validators.required]);
+
+    this.ageFormControl = new FormControl("", [Validators.required]);
+
+    this.sexFormControl = new FormControl("", [Validators.required]);
   }
 
   initializeOnLoad() {
+    this.showHome = true;
     this.showRegisterForm = false;
     this.roles = [];
     this.sex = [];
@@ -159,28 +165,31 @@ export class LoginComponent extends InitPageComponent implements OnInit, OnDestr
       sexCheck = true;
     }
     if (this.model.role === 0) {
-      return !this.model.username
-        || !this.model.password
-        || !this.confirmationPassword
-        || !this.model.firstName
-        || !this.model.lastName
-        || !this.model.age
-        || !sexCheck
-        ? false : true;
+      return !this.model.username ||
+        !this.model.password ||
+        !this.confirmationPassword ||
+        !this.model.firstName ||
+        !this.model.lastName ||
+        !this.model.age ||
+        !sexCheck
+        ? false
+        : true;
     } else if (this.model.role === 1) {
-      return !this.model.username
-        || !this.model.password
-        || !this.confirmationPassword
-        ? false : true;
+      return !this.model.username ||
+        !this.model.password ||
+        !this.confirmationPassword
+        ? false
+        : true;
     } else if (this.model.role === 2) {
-      return !this.model.username
-        || !this.model.password
-        || !this.confirmationPassword
-        || !this.model.firstName
-        || !this.model.lastName
-        || !this.model.age
-        || !sexCheck
-        ? false : true;
+      return !this.model.username ||
+        !this.model.password ||
+        !this.confirmationPassword ||
+        !this.model.firstName ||
+        !this.model.lastName ||
+        !this.model.age ||
+        !sexCheck
+        ? false
+        : true;
     }
   }
 
@@ -194,9 +203,17 @@ export class LoginComponent extends InitPageComponent implements OnInit, OnDestr
     this.showLoginForm = true;
   }
 
+  homePage() {
+    this.showHome = true;
+  }
+
+  hideHome() {
+    this.showHome = false;
+  }
+
   register() {
     this.model = new User();
-    this.confirmationPassword = '';
+    this.confirmationPassword = "";
     this.showRegisterForm = true;
     this.passwordMatches = true;
     this.userExists = false;
@@ -205,7 +222,7 @@ export class LoginComponent extends InitPageComponent implements OnInit, OnDestr
 
   close() {
     this.model = new User();
-    this.confirmationPassword = '';
+    this.confirmationPassword = "";
     this.showRegisterForm = false;
     this.userExists = false;
     this.resetFieldErrors();
@@ -213,19 +230,25 @@ export class LoginComponent extends InitPageComponent implements OnInit, OnDestr
 
   create() {
     if (!this.streetAddress || this.streetAddress === undefined) {
-      this.streetAddress = '';
+      this.streetAddress = "";
     }
     if (!this.city || this.city === undefined) {
-      this.city = '';
+      this.city = "";
     }
     if (!this.province || this.province === undefined) {
-      this.province = '';
+      this.province = "";
     }
     if (!this.country || this.country === undefined) {
-      this.country = '';
+      this.country = "";
     }
-    this.model.address = this.streetAddress + ' ' + this.city
-      + ' ' + this.province + ' ' + this.country;
+    this.model.address =
+      this.streetAddress +
+      " " +
+      this.city +
+      " " +
+      this.province +
+      " " +
+      this.country;
     if (this.model.password === this.confirmationPassword) {
       this.userService.create(this.model).subscribe(
         res => {
