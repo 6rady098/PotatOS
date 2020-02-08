@@ -4,7 +4,7 @@
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center" style="margin-top: 80px;">
         <button class="btn-gradient green large" mat-raised-button
-            (click)="hideHome()">{{'landing-page.researcher' | translate}}</button>
+            routerLink="/researcher-login">{{'landing-page.researcher' | translate}}</button>
         &nbsp;
         <button class="btn-gradient blue large" mat-raised-button
              routerLink="/participant-login">{{'landing-page.participant' | translate}}</button>
