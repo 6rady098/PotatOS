@@ -7,10 +7,10 @@
             (click)="hideHome()">{{'landing-page.researcher' | translate}}</button>
         &nbsp;
         <button class="btn-gradient blue large" mat-raised-button
-            (click)="hideHome()">{{'landing-page.participant' | translate}}</button>
+             routerLink="/participant-login">{{'landing-page.participant' | translate}}</button>
     </div>
 </div>
-
+<!-- old landing page
 <div *ngIf="!showLoginForm && !showRegisterForm && !showHome" style="margin-top: 120px;">
     <h1 fxLayout="row" fxLayoutAlign="center center">{{'landing-page.welcome' | translate}}</h1>
     <p fxLayout="row" fxLayoutAlign="center center">{{'landing-page.welcome_2' | translate}}</p>
@@ -20,31 +20,34 @@
     &nbsp;
     <button color="accent" mat-raised-button (click)="register()">{{'landing-page.register' | translate}}</button>
     <button color="accent" mat-raised-button routerLink="/participant-login">To participant login</button>
-
   </div>
 </div>
-
+-->
 
 <mat-card *ngIf="!showRegisterForm && showLoginForm">
-  <mat-card-title>{{'landing-page.login' | translate}}</mat-card-title>
-  <form>
-    <mat-form-field>
-      <input matInput placeholder="{{'landing-page.enter_username' | translate}}" name="username" [(ngModel)]="username" [formControl]="usernameFormControl"
-        [errorStateMatcher]="matcher">
-      <mat-error *ngIf="usernameFormControl.hasError('required')">
-        {{'landing-page.username_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="password" placeholder="{{'landing-page.password' | translate}}" name="password" [(ngModel)]="password" [formControl]="passwordFormControl"
-        [errorStateMatcher]="matcher">
-      <mat-error *ngIf="passwordFormControl.hasError('required')">
-        {{'landing-page.password_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-label fxLayout="row" fxLayoutAlign="center center"
-      id="error" *ngIf="!userFound">{{'landing-page.userorpass_error' | translate}}</mat-label>
-  </form>
+  <mat-card-title class="text-center">{{'landing-page.login' | translate}}</mat-card-title>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <form>
+        <mat-form-field>
+          <input class="username" matInput placeholder="{{'landing-page.enter_username' | translate}}" name="username"
+            [(ngModel)]="username" [formControl]="usernameFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="usernameFormControl.hasError('required')">
+            {{'landing-page.username_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input class="password" matInput type="password" placeholder="{{'landing-page.password' | translate}}"
+              name="password" [(ngModel)]="password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="passwordFormControl.hasError('required')">
+            {{'landing-page.password_req' | translate}} <strong>{{'landing-page.required' | translate}}</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-label fxLayout="row" fxLayoutAlign="center center" id="error" *ngIf="!userFound">
+          {{'landing-page.userorpass_error' | translate}}</mat-label>
+      </form>
+    </div>
+  </div>
   <mat-divider [inset]="true"></mat-divider>
   <mat-card-actions align="end">
     <button color="accent" mat-raised-button (click)="login(username, password)"

@@ -104,6 +104,8 @@
   "landing-page": {
     "welcome": "Welcome to Link the Masses",
     "welcome_2": "A web application for supporting a network for researchers and participants",
+    "researcher": "Researcher",
+    "participant": "Participant",
     "login": "Login",
     "login_2": "Login",
     "register": "Register",

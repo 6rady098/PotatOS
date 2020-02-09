@@ -104,6 +104,8 @@
   "landing-page": {
     "welcome": "Bienvenu chez Link the Masses",
     "welcome_2": "Une application web pour soutenir un réseau de chercheurs et de participants",
+    "researcher": "Chercheur",
+    "participant": "Participant",
     "login": "Ouvrir une session",
     "login_2": "Se connecter",
     "register": "Créer un compte",
