@@ -17,7 +17,8 @@ import {
   MatTabsModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatGridListModule
 } from '@angular/material';
 
 @NgModule({
@@ -41,7 +42,8 @@ import {
     MatTabsModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatGridListModule
   ]
 })
 export class AngularMaterialModule {}

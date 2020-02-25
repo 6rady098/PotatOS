@@ -12,6 +12,7 @@ import { ResearcherloginComponent } from './views/researcherlogin/researcherlogi
 import { TestpageComponent } from './views/testpage/testpage.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-completed-studies.component';
+import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'participant-login', component: ParticipantComponent },//constant path for participant login buttonrr
   { path: 'researcher-login', component: ResearcherloginComponent },
-  { path: 'test-page', component: TestpageComponent }
+  { path: 'test-page', component: TestpageComponent },
+  { path: 'survey-maker', component: SurveyMakerComponent }
 ];
 
 @NgModule({

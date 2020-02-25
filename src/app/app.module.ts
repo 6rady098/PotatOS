@@ -32,6 +32,8 @@ import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-
 import { ParticipantComponent } from './views/participant/participant.component';
 import { ResearcherloginComponent } from './views/researcherlogin/researcherlogin.component';
 import { TestpageComponent } from './views/testpage/testpage.component';
+import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.component';
+import { SurveyViewComponent } from './views/surveys/survey-view/survey-view.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { TestpageComponent } from './views/testpage/testpage.component';
     LoginComponent,
     ParticipantComponent,
     ResearcherloginComponent,
-    TestpageComponent
+    TestpageComponent,
+    SurveyMakerComponent,
+    SurveyViewComponent
   ],
   imports: [
     BrowserModule,
