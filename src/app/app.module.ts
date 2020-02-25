@@ -33,6 +33,7 @@ import { ParticipantComponent } from './views/participant/participant.component'
 import { ResearcherloginComponent } from './views/researcherlogin/researcherlogin.component';
 import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.component';
 import { SurveyViewComponent } from './views/surveys/survey-view/survey-view.component';
+import { CheckboxFormComponent } from './views/surveys/survey-maker/checkbox-form/checkbox-form.component';
 
 @NgModule({
   declarations: [
@@ -50,9 +51,9 @@ import { SurveyViewComponent } from './views/surveys/survey-view/survey-view.com
     LoginComponent,
     ParticipantComponent,
     ResearcherloginComponent,
-    TestpageComponent,
     SurveyMakerComponent,
-    SurveyViewComponent
+    SurveyViewComponent,
+    CheckboxFormComponent
   ],
   imports: [
     BrowserModule,

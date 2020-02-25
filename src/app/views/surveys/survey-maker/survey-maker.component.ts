@@ -3,7 +3,6 @@ import * as Survey from 'survey-angular';
 import * as PageModel from 'survey-angular';
 import { SurveyViewComponent } from '../survey-view/survey-view.component';
 
-//@ViewChild(SurveyViewComponent, null)
 @Component({
   selector: 'app-survey-maker',
   templateUrl: './survey-maker.component.html',
@@ -14,8 +13,10 @@ export class SurveyMakerComponent implements OnInit {
   public json: Survey.Model;
   public readonly navigationBarPositions = [ 'none', 'top', 'bottom', 'both' ];
   public readonly elementTypes = [ 'text', 'checkbox', 'radiogroup', 'dropdown', 'comment', 'boolean', 'rating' ];
-  public showDebug = false;
+  private readonly pageMode = 'singlePage';
+  public showDebug = true;
   public JSONstring: string;
+  public questionType: string;
 
   constructor() {
     this.initialize();
@@ -27,51 +28,71 @@ export class SurveyMakerComponent implements OnInit {
 
   private initialize() {
     this.json = new Survey.Model();
-    this.addPage();
     this.json.showProgressBar = "none";
-    this.json.questionsOnPageMode = "standard";
+    this.json.questionsOnPageMode = this.pageMode;
     //this.json.pages.push(new Survey.PageModel());
     this.json.mode = "display";
 
-  }
-
-  public addPage() {
-    this.json.pages.push(new Survey.PageModel());
-    this.addQuestion(0);
-    this.printPages();
-  }
-
-  public removePage() {
-    if(this.json.pages.length > 1){
-      this.json.pages.pop();
-      this.printPages();
-    }
   }
 
   private printPages() {
     console.log("There are " + this.json.pages.length + " pages in the array");
   }
 
-  private printElements(index: number) {
-    console.log("There are " + this.json.pages[index].elements.length + " elements in the page");
+  private printElements() {
+    console.log("There are " + this.json.pages[0].elements.length + " elements in the page");
   }
 
-  public addQuestion(index: number) {
-    var i = this.json.pages[index].elements.length + 1;
-    this.json.pages[index].elements.push(new Survey.Question('question ' + (index + 1)));
-    this.printElements(index);
+  public addQuestion(type: string) {
+
+    switch(type) {
+      case 'checkbox': {
+        this.pushPageElement(new Survey.QuestionCheckboxModel('Checkbox Question'), 0);
+        break;
+      }
+      case 'text': {
+        this.pushPageElement(new Survey.QuestionTextModel('Text Question'), 0);
+        break;
+      }
+      case 'radiogroup': {
+        this.pushPageElement(new Survey.QuestionRadiogroupModel('Radiogroup Question'), 0);
+        break;
+      }
+      case 'dropdown': {
+        this.pushPageElement(new Survey.QuestionDropdownModel('Dropdown Question'), 0);
+        break;
+      }
+      case 'comment': {
+        this.pushPageElement(new Survey.QuestionCommentModel('Comment Question'), 0);
+        break;
+      }
+      case 'boolean': {
+        this.pushPageElement(new Survey.QuestionBooleanModel('Boolean Question'), 0);
+        break;
+      }
+      case 'rating': {
+        this.pushPageElement(new Survey.QuestionRatingModel('Rating Question'), 0);
+        break;
+      }
+      default: {
+        alert('You must select a question type');
+      }
+    }
+
+    
   }
 
-  public removeQuestion(index: number) {
+  private pushPageElement(question: Survey.Question, pageIndex: number) {
+    this.json.pages[pageIndex].elements.push(question);
+  }
 
-    if(this.json.pages[index].elements.length > 1) {
-      this.json.pages[index].elements.pop();
-      this.printElements(index);
+  public removeQuestion(pageIndex: number) {
+    if(this.json.pages[pageIndex].elements.length > 1) {
+      this.json.pages[pageIndex].elements.pop();
     }
   }
 
   public debug() {
-    var message = "showProgressBar value = " + this.json.showProgressBar;
-    alert(message);
+    alert(JSON.stringify(this.json));
   }
 }

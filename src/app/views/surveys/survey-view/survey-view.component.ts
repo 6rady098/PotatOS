@@ -21,6 +21,8 @@ export class SurveyViewComponent implements OnInit {
   ngOnInit() {
     
     //this.model = new Survey.Model(this.json);
+
+    Survey.StylesManager.applyTheme("bootstrap");
     Survey.SurveyNG.render("surveyElement", {
       model: this.model,
       isExpanded: true

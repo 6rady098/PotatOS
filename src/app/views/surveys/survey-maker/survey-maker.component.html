@@ -3,125 +3,65 @@
 
   <!-- This div puts the two cards on their own row where they are displayed side-by-side using fxFlex-->
   <div fxLayout="row" fxLayoutAlign="space-between">
-    <mat-card fxFlex="40%">
+    <mat-card fxFlex="45%">
 
-      <!-- This table displays form elements that determine the attributes of the Survey as a whole, such as its title and description -->
-      <table class="form-table">
-        <tr>
-          <td><label for="surveyTitle">Survey Title: </label></td>
-          <td><input matInput id="surveyTitle" type="text" name="title" [(ngModel)]="json.title"></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <mat-label>Show Navigation Bar</mat-label>
+      <!-- This part of the form handles general information about the survey -->
+      <mat-form-field>
+        <mat-label>Survey Title</mat-label>
+        <input matInput id="surveyTitle" type="text" name="title" [(ngModel)]="json.title">
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <mat-label>Show Navigation Bar</mat-label>
             <mat-select [(ngModel)]="json.showProgressBar">
               <mat-option *ngFor="let option of navigationBarPositions" [value]="option">
                 {{option}}
               </mat-option>
             </mat-select>
-          </td>
-        </tr>
-      </table>
+      </mat-form-field>
       <br/>
-
-      <!-- This table represents a single page of the survey - more are created automatically as the user adds pages -->
-      <div *ngFor="let page of json.pages; index as i;">
-        <mat-card>
-          <table class="form-table">
-            <!-- This section contains all information pertaining to the survey as a whole -->
-            <tr>
-              <td colspan="2">Page {{i + 1}}</td>
-            </tr>
-            <tr>
-              <td><label for="pageTitle{{i}}">Page {{i + 1}} Title: </label></td>
-              <td><input matInput id="pageTitle{{i}}" type="text" name="page-title" [(ngModel)]="page.title"></td>
-            </tr>
-            <mat-divider></mat-divider>
-            <br/>
-
-            <!-- This section represents the individual questions that will appear on each page -->
-            <tr>
-              <td colspan="2">
-                <span *ngFor="let element of page.elements; index as j;">
-                  <!-- Text field for setting the title of the question, which takes precedence over a question's name -->
-                  <tr>
-                    <td><label for="questionTitle{{j}}">Question {{j + 1}} Title:</label></td>
-                    <td >
-                      <input matInput id="questionTitle{{j}}" type="text" name="question-title" [(ngModel)]="element.title">
-                    </td>
-                  </tr>
-                  <!-- Drop-down for selecting the type of question -->
-                  <tr>
-                    <td>
-                      <mat-label>Question Type: </mat-label>
-                      <mat-select [(ngModel)]="element.type">
-                        <mat-option *ngFor="let option of elementTypes" [value]="option">
-                          {{option}}
-                        </mat-option>
-                        <!--
-
-                        TODO: Add individual components for each type of question, then put ngIfs to dynamically select the proper form
-
-                        -->
-                      </mat-select>
-                    </td>
-                    <td></td>
-                  </tr>
-                    <mat-divider></mat-divider>
-                    <br/>
-                    <br/>
-                </span>
-              </td>
-            </tr>
-            <!-- These are the buttons for adding/removing new questions -->
-            <tr>
-              <td><button mat-raised-button color="accent" (click)="addQuestion(i)">Add Question</button></td>
-              <td><button mat-raised-button color="accent" *ngIf="page.elements.length > 1" (click)="removeQuestion(i)">Remove Question</button></td>
-            </tr>
-          </table>
-        </mat-card>
+      <mat-divider></mat-divider>
+      <br/>
+      <!-- This part of the form handles the individual questions/elements of the survey -->
+      <span *ngFor="let page of json.pages;">
+        <span *ngFor="let element of page.elements; index as j;">
+          <!-- The question title is what is displayed as the question, and replaces the question's name if it is defined -->
+          <mat-form-field>
+            <mat-label>Question {{j + 1}} Title</mat-label>
+            <input matInput id="questionTitle{{j}}" type="text" name="question-title" [(ngModel)]="element.title">
+          </mat-form-field>
+          <br/>
+          <br/>
+          <!-- This section loads different components based on the type of question that the user selects -->
+          <span *ngIf="element.type === 'checkbox'">
+            <checkbox-form [element]="element"></checkbox-form>
+            <button mat-raised-button color="warn">Delete</button>
+          </span>
+          <mat-divider></mat-divider>
+          <br/>
+        </span>
         <br/>
-      </div>
+        <!-- These buttons handle adding/removing questions to the survey. The remove button is only displayed if there is more than one question -->
+        <mat-card>
+          <mat-form-field>
+            <mat-label>Question Type: </mat-label>
+            <mat-select [(ngModel)]="questionType">
+              <mat-option *ngFor="let option of elementTypes" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          &nbsp;&nbsp;
+          <button mat-raised-button color="accent" (click)="addQuestion(questionType)">Add Question</button>
+        </mat-card>
+      </span>
+      
       <br/>
-
-      <!-- This table contains the last few buttons that shouldn't be repeated -->
-      <table class="form-table">
-        <tr>
-          <td><button mat-raised-button color="accent" (click)="addPage()">Add Page</button></td>
-          <!-- The "Remove Page" button is only displayed if there is more than 1 page - it is assumed that there will always be at least 1 page -->
-          <td><button mat-raised-button color="warn" (click)="removePage()" *ngIf="json.pages.length > 1">Remove Page</button></td>
-        </tr>
-        <tr>
-          <td colspan="2"><button mat-raised-button color="accent" (click)="debug()" *ngIf="showDebug">Debug Info</button></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
+      <button mat-raised-button color="accent" *ngIf="showDebug" (click)="debug()">Show Debug Information</button>
     </mat-card>
     &nbsp;
   <!-- This grid-tile displays a preview of the survey -->
-    <mat-card fxFlex="40%">
+    <mat-card fxFlex="45%">
       <survey-view [(model)]="json"></survey-view>
     </mat-card>
   </div>
-
-<br/>
-
-<mat-card>
-  <table>
-    <div *ngFor="let page of json.pages; index as i;">
-      <tr>
-        <td>{{page}}</td>
-        <td></td>
-      </tr>
-      <div *ngFor="let element of page.elements; index as j;">
-        <tr>
-          <td>{{element.name}}</td>
-          <td>{{element.type}}</td>
-        </tr>
-      </div>
-    </div>
-  </table>
-</mat-card>
