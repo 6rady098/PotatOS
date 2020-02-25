@@ -29,7 +29,7 @@ export class SurveyMakerComponent implements OnInit {
     this.json = new Survey.Model();
     this.addPage();
     this.json.showProgressBar = "none";
-    this.json.questionsOnPageMode = "singlePage";
+    this.json.questionsOnPageMode = "standard";
     //this.json.pages.push(new Survey.PageModel());
     this.json.mode = "display";
 
