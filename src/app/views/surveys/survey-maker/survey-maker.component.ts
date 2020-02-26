@@ -82,14 +82,13 @@ export class SurveyMakerComponent implements OnInit {
     
   }
 
-  private pushPageElement(question: Survey.Question, pageIndex: number) {
+  private pushPageElement(question: Survey.IElement, pageIndex: number) {
     this.json.pages[pageIndex].elements.push(question);
   }
 
-  public removeQuestion(pageIndex: number) {
-    if(this.json.pages[pageIndex].elements.length > 1) {
-      this.json.pages[pageIndex].elements.pop();
-    }
+  public removeQuestion(pageIndex: number, elementIndex: number) {
+    //console.log(this.json.pages[pageIndex].elements[elementIndex])
+    this.json.pages[pageIndex].elements.pop();
   }
 
   public debug() {

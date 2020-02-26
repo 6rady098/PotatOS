@@ -19,14 +19,16 @@ export class CheckboxFormComponent implements OnInit {
 
   ngOnInit() {
     this.element.choices = [];
-
+/*
     for(let i = 0; i < this.limit; i++) {
       this.addItem();
-    }
+    }*/
   }
 
   public addItem(): void {
     let choices = this.element.choices;
+
+    //TODO: fix this method, invalid item format?
     this.element.choices.push('item' + choices.length);
   }
 

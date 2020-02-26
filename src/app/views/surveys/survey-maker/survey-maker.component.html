@@ -33,9 +33,9 @@
           <br/>
           <br/>
           <!-- This section loads different components based on the type of question that the user selects -->
-          <span *ngIf="element.type === 'checkbox'">
+          <span *ngIf="element.getType() == 'checkbox'">
+            <button mat-raised-button color="warn" (click)="removeQuestion(0, j)">Delete Question</button>
             <checkbox-form [element]="element"></checkbox-form>
-            <button mat-raised-button color="warn">Delete</button>
           </span>
           <mat-divider></mat-divider>
           <br/>
