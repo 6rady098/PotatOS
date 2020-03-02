@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import * as Survey from 'survey-angular';
-import * as PageModel from 'survey-angular';
-import { SurveyViewComponent } from '../survey-view/survey-view.component';
+import { ModelSurvey } from '../../../models/survey-models/survey';
+import { Checkbox } from '../../../models/survey-models/checkbox';
+import { IElement } from 'src/app/models/survey-models/IElement';
+import { Page } from 'src/app/models/survey-models/page';
 
 @Component({
   selector: 'app-survey-maker',
@@ -10,13 +11,14 @@ import { SurveyViewComponent } from '../survey-view/survey-view.component';
 })
 export class SurveyMakerComponent implements OnInit {
 
-  public json: Survey.Model;
   public readonly navigationBarPositions = [ 'none', 'top', 'bottom', 'both' ];
   public readonly elementTypes = [ 'text', 'checkbox', 'radiogroup', 'dropdown', 'comment', 'boolean', 'rating' ];
   private readonly pageMode = 'singlePage';
-  public showDebug = true;
-  public JSONstring: string;
-  public questionType: string;
+  showDebug = true;
+  questionType: string;
+  model: ModelSurvey;
+  pages: Page[];
+  elements: IElement[];
 
   constructor() {
     this.initialize();
@@ -27,71 +29,34 @@ export class SurveyMakerComponent implements OnInit {
   }
 
   private initialize() {
-    this.json = new Survey.Model();
-    this.json.showProgressBar = "none";
-    this.json.questionsOnPageMode = this.pageMode;
-    //this.json.pages.push(new Survey.PageModel());
-    this.json.mode = "display";
+    this.model = new ModelSurvey();
+    this.pages = this.model.pages;
+    this.elements = this.pages[0].elements;
 
-  }
+    this.model.title = "Test Survey: Answer the damn questions!";
+    var question = new Checkbox();
+    question.name = "Is this damn survey working?";
+    question.addChoice("Yes");
+    question.addChoice("No");
 
-  private printPages() {
-    console.log("There are " + this.json.pages.length + " pages in the array");
-  }
+    this.elements.push(question);
 
-  private printElements() {
-    console.log("There are " + this.json.pages[0].elements.length + " elements in the page");
+    console.log(this.model);
   }
 
   public addQuestion(type: string) {
-
     switch(type) {
-      case 'checkbox': {
-        this.pushPageElement(new Survey.QuestionCheckboxModel('Checkbox Question'), 0);
+      case "checkbox": {
         break;
       }
-      case 'text': {
-        this.pushPageElement(new Survey.QuestionTextModel('Text Question'), 0);
-        break;
+
+      case "rating": {
+
       }
-      case 'radiogroup': {
-        this.pushPageElement(new Survey.QuestionRadiogroupModel('Radiogroup Question'), 0);
-        break;
-      }
-      case 'dropdown': {
-        this.pushPageElement(new Survey.QuestionDropdownModel('Dropdown Question'), 0);
-        break;
-      }
-      case 'comment': {
-        this.pushPageElement(new Survey.QuestionCommentModel('Comment Question'), 0);
-        break;
-      }
-      case 'boolean': {
-        this.pushPageElement(new Survey.QuestionBooleanModel('Boolean Question'), 0);
-        break;
-      }
-      case 'rating': {
-        this.pushPageElement(new Survey.QuestionRatingModel('Rating Question'), 0);
-        break;
-      }
+      
       default: {
-        alert('You must select a question type');
+        throw new Error('The question type that was provided is invalid');
       }
     }
-
-    
-  }
-
-  private pushPageElement(question: Survey.IElement, pageIndex: number) {
-    this.json.pages[pageIndex].elements.push(question);
-  }
-
-  public removeQuestion(pageIndex: number, elementIndex: number) {
-    //console.log(this.json.pages[pageIndex].elements[elementIndex])
-    this.json.pages[pageIndex].elements.pop();
-  }
-
-  public debug() {
-    alert(JSON.stringify(this.json));
   }
 }

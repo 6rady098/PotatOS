@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as Survey from 'survey-angular';
+import { ModelSurvey } from '../../../models/survey-models/survey';
 
 @Component({
   selector: 'survey-view',
@@ -9,9 +10,7 @@ import * as Survey from 'survey-angular';
 export class SurveyViewComponent implements OnInit {
 
   @Input()
-  json: any;
-
-  @Input()
+  template: ModelSurvey;
   model: Survey.Model;
 
   constructor() {
@@ -20,7 +19,9 @@ export class SurveyViewComponent implements OnInit {
   
   ngOnInit() {
     
-    //this.model = new Survey.Model(this.json);
+    this.model = new Survey.Model(this.template);
+
+    console.log(this.model);
 
     Survey.StylesManager.applyTheme("bootstrap");
     Survey.SurveyNG.render("surveyElement", {
