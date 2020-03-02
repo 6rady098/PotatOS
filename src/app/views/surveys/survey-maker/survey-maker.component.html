@@ -8,7 +8,7 @@
       <!-- This part of the form handles general information about the survey -->
       <mat-form-field>
         <mat-label>Survey Title</mat-label>
-        <input matInput id="surveyTitle" type="text" name="title">
+        <input matInput id="surveyTitle" type="text" name="title" [(ngModel)]="model.title">
       </mat-form-field>
       <br/>
       <mat-form-field>
@@ -33,8 +33,8 @@
           <br/>
           <br/>
           <!-- This section loads different components based on the type of question that the user selects -->
-          <span *ngIf="element.getType() == 'checkbox'">
-            <button mat-raised-button color="warn" (click)="removeQuestion(0, j)">Delete Question</button>
+          <span *ngIf="element.type == 'checkbox'">
+            <button mat-raised-button color="warn" >Delete Question</button>
             <checkbox-form [element]="element"></checkbox-form>
           </span>
           <mat-divider></mat-divider>
@@ -52,7 +52,7 @@
             </mat-select>
           </mat-form-field>
           &nbsp;&nbsp;
-          <button mat-raised-button color="accent" (click)="addQuestion(questionType)">Add Question</button>
+          <button mat-raised-button color="accent" >Add Question</button>
         </mat-card>
       </span>
       

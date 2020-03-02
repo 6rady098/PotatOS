@@ -4,6 +4,7 @@ import { IElement } from './IElement';
 export class ModelSurvey {
   title: string;
   showProgression: string;
+  progressBarType: string;
   mode: string;
   questionsOnPageMode: string;
   pages: Page[];
@@ -12,6 +13,7 @@ export class ModelSurvey {
   public constructor() {
     this.title = "";
     this.showProgression = "top";
+    this.progressBarType = "questions";
     this.mode = "display";
     this.questionsOnPageMode = "singlePage";
     this.pages = [new Page()];

@@ -32,12 +32,15 @@ export class SurveyMakerComponent implements OnInit {
     this.model = new ModelSurvey();
     this.pages = this.model.pages;
     this.elements = this.pages[0].elements;
+    this.questionType = "";
 
     this.model.title = "Test Survey: Answer the damn questions!";
     var question = new Checkbox();
     question.name = "Is this damn survey working?";
     question.addChoice("Yes");
     question.addChoice("No");
+    question.hasSelectAll = true;
+    question.hasNone = true;
 
     this.elements.push(question);
 
@@ -53,10 +56,14 @@ export class SurveyMakerComponent implements OnInit {
       case "rating": {
 
       }
-      
+
       default: {
         throw new Error('The question type that was provided is invalid');
       }
     }
+  }
+
+  public debug() {
+    alert(this.model.title);
   }
 }
