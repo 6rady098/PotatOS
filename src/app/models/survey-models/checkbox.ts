@@ -3,10 +3,12 @@ import { IElement } from './IElement';
 export class Checkbox implements IElement {
   type: string;  
   name: string;
+  title: string;
   isRequired: boolean;
   choices: string[];
   hasSelectAll: boolean;
   hasNone: boolean;
+  description: string;
   
   public constructor() {
     this.type = "checkbox";
