@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from "@angular/core";
 import {
   MatInputModule,
   MatCardModule,
@@ -17,8 +17,9 @@ import {
   MatTabsModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatNativeDateModule
-} from '@angular/material';
+  MatNativeDateModule,
+  MatGridListModule
+} from "@angular/material";
 
 @NgModule({
   // Auto imports
@@ -41,7 +42,8 @@ import {
     MatTabsModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatGridListModule
   ]
 })
 export class AngularMaterialModule {}
