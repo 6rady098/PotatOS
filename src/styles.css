@@ -1,16 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background: linear-gradient(70deg, #847bce,
-            #b1afd4,
-            #acccf7);
+html {
+    height: 100%;
 }
 
-
-
+html,
+body {
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 0px 0px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background: linear-gradient(70deg, #847bce,
+            #e6e6e6,
+            #e6e6e6,
+            #acccf7);
+    background-repeat: no-repeat;
+    background: -webkit-linear-gradient(70deg, #847bce,
+            #e6e6e6,
+            #e6e6e6,
+            #acccf7);
+    background: -moz-linear-gradient(70deg, #847bce,
+            #e6e6e6,
+            #e6e6e6,
+            #acccf7);
+    background: -ms-linear-gradient(70deg, #847bce,
+            #e6e6e6,
+            #e6e6e6,
+            #acccf7);
+    background: -o-linear-gradient(70deg, #847bce,
+            #e6e6e6,
+            #e6e6e6,
+            #acccf7);
+    background: linear-gradient(70deg, #847bce,
+            #e6e6e6,
+            #e6e6e6,
+            #acccf7);
+}
 
 
 
@@ -206,7 +236,7 @@ button[class*="btn"] {
 
 .btn.green:active {
     box-shadow: 0 0 #87a86f;
-    background-color: #87a86f;
+    background-color: #a86f6f;
 }
 
 .btn.red {
@@ -511,4 +541,12 @@ button[class*="btn"] {
 
 .btn-gradient.green:active {
     background: #72B08E;
+}
+
+.btn-gradient.green:hover {
+    background: rgb(92, 151, 118);
+}
+
+.btn-gradient.blue:hover {
+    background: rgb(78, 121, 163);
 }

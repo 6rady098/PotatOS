@@ -1,6 +1,5 @@
-
 <mat-toolbar color="primary">
-    <ul>
+    <ul class="alignleft">
         <li>
             <a routerLink="/">{{'app-header.project_name' | translate}}</a>
         </li>
@@ -10,19 +9,56 @@
         </li>
     </ul>
     <span class="spacer"></span>
-    <ul>
-        <li *ngIf="userIsAuthenticated && token.role !== 1">
-            <button mat-button routerLink="/profile">{{'app-header.profile' | translate}}</button>
+    <ul *ngIf="userIsAuthenticated && token.role !== 1 || userIsAuthenticated && token.role === 0" class="aligncenter">
+        <li>
+            <button style="border-right: 1px solid rgb(129, 193, 253); border-radius: 0px;" mat-button
+                routerLink="/available-studies"
+                routerLinkActive="mat-accent">{{'studies-components.studies_available' | translate}}</button>
         </li>
-        <li *ngIf="userIsAuthenticated">
-            <button mat-button routerLink="/available-studies">{{'app-header.studies' | translate}}</button>
+        <li>
+            <button style="border-right: 1px solid rgb(129, 193, 253); border-radius: 0px;" mat-button
+                routerLink="/inprogress-studies"
+                routerLinkActive="mat-accent">{{'studies-components.studies_inprogress' | translate}}</button>
+        </li>
+        <li>
+            <button mat-button routerLink="/complete-studies"
+                routerLinkActive="mat-accent">{{'studies-components.studies_completed' | translate}}</button>
+        </li>
+    </ul>
+    <ul *ngIf="userIsAuthenticated && token.role == 1 || userIsAuthenticated && token.role === 0" class="aligncenter">
+        <li>
+            <button style="border-right: 1px solid rgb(129, 193, 253); border-radius: 0px;" mat-button
+                routerLink="/available-studies"
+                routerLinkActive="mat-accent">{{'studies-components.published_studies' | translate}}</button>
+        </li>
+        <li>
+            <button style="border-right: 1px solid rgb(129, 193, 253); border-radius: 0px;" mat-button
+                routerLink="/chatlog-view"
+                routerLinkActive="mat-accent">{{'studies-components.chat_logs' | translate}}</button>
+        </li>
+        <li>
+            <button mat-button routerLink="/researcher-completed-studies"
+                routerLinkActive="mat-accent">{{'studies-components.completed_studies' | translate}}</button>
+        </li>
+    </ul>
+    <span class="spacer"></span>
+    <ul class="alignright">
+        <li *ngIf="userIsAuthenticated && token.role !== 1">
+            <button mat-button routerLink="/profile" routerLinkActive="mat-accent">{{loggedInUser.firstName}}
+                {{loggedInUser.lastName}}</button>
+        </li>
+        <li *ngIf="userIsAuthenticated && token.role === 1">
+            <button mat-button routerLinkActive="mat-accent">{{loggedInUser.firstName}}
+                {{loggedInUser.lastName}}</button>
         </li>
         <li *ngIf="userIsAuthenticated && token.role === 0">
-            <button mat-button routerLink="/users">{{'app-header.users' | translate}}</button>
+            <button mat-button routerLink="/users"
+                routerLinkActive="mat-accent">{{'app-header.users' | translate}}</button>
         </li>
         <mat-divider [vertical]="true"></mat-divider>
         <li *ngIf="userIsAuthenticated">
-            <button mat-button (click)="logout()">{{'app-header.logout' | translate}}</button>
+            <button mat-button (click)="logout()"
+                routerLinkActive="mat-accent">{{'app-header.logout' | translate}}</button>
         </li>
     </ul>
 </mat-toolbar>

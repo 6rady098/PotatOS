@@ -1,9 +1,9 @@
- import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
 // import ngx-translate and the http loader
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +34,7 @@ import { ResearcherloginComponent } from './views/researcherlogin/researcherlogi
 import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.component';
 import { SurveyViewComponent } from './views/surveys/survey-view/survey-view.component';
 import { CheckboxFormComponent } from './views/surveys/survey-maker/checkbox-form/checkbox-form.component';
+import { StudyCardComponent } from './views/study-card/study-card.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { CheckboxFormComponent } from './views/surveys/survey-maker/checkbox-for
     ResearcherloginComponent,
     SurveyMakerComponent,
     SurveyViewComponent,
-    CheckboxFormComponent
+    CheckboxFormComponent,
+    StudyCardComponent
   ],
   imports: [
     BrowserModule,
@@ -67,17 +69,24 @@ import { CheckboxFormComponent } from './views/surveys/survey-maker/checkbox-for
     // ngx-translate and the loader module
     HttpClientModule,
     TranslateModule.forRoot({
-        loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-        }
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     })
   ],
-  providers: [UserService, AuthService, QuestionnaireService, DiaryService, ChatService, CodetableService],
+  providers: [
+    UserService,
+    AuthService,
+    QuestionnaireService,
+    DiaryService,
+    ChatService,
+    CodetableService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {
