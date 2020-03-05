@@ -24,7 +24,7 @@ export class SurveyService {
     return this.http.delete(BACKEND_URL + id, {observe: 'response'});
   }
 
-  getData(): Observable<any[]> {
-    return this.http.get<any[]>(BACKEND_URL);
+  getData(): Observable<ModelSurvey[]> {
+    return this.http.get<ModelSurvey[]>(BACKEND_URL);
   }
 }

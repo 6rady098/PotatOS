@@ -5,6 +5,7 @@ import { IElement } from 'src/app/models/survey-models/IElement';
 import { Radiogroup } from 'src/app/models/survey-models/radiogroup';
 import { TextElement } from 'src/app/models/survey-models/textelement';
 import { SurveyViewComponent } from '../survey-view/survey-view.component';
+import { SurveyService } from 'src/app/services/survey.service';
 
 @Component({
   selector: 'app-survey-maker',
@@ -24,8 +25,12 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
   model: ModelSurvey;
   elements: IElement[];
   showSurvey: boolean;
+  surveys: ModelSurvey[];
+  displayedColumns = [ 'title' ];
 
-  constructor() {
+  constructor(
+    private surveyService: SurveyService
+  ) {
     this.initialize();
   }
 
@@ -48,6 +53,7 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
     this.model.progressBarType = "questions";
     this.questionType = "";
     this.model.mode = '';
+    this.refreshData();
   }
 
   public addQuestion(type: string) {
@@ -104,5 +110,19 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
     //this.surveyView.ngOnInit();
     this.surveyView.template = this.model;
     this.surveyView.render(this.model);
+  }
+
+  public createSurvey() {
+    this.surveyService.create(this.model).subscribe((res) => {
+      this.refreshData();
+    })
+  }
+
+  refreshData() {
+    this.surveyService.getData().subscribe(res => {
+      this.surveys = res;
+      //this.surveys.push(res);
+      console.log(this.surveys);
+    });
   }
 }

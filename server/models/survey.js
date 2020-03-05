@@ -11,8 +11,18 @@ const surveySchema = mongoose.Schema({
   mode: { type: String },
 
   pages: [{
+
     name: { type: String },
-    title: { type: String },
+    elements: [{
+
+      type: { type: String },
+      title: { type: String },
+      name: { type: String },
+      description: { type: String },
+      isRequired: { type: Boolean },
+      choices: [{ type: String }]
+
+    }]
     
   }]
 
