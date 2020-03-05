@@ -8,24 +8,14 @@ export class ModelSurvey {
   mode: string;
   questionsOnPageMode: string;
   pages: Page[];
-  page: Page;
 
   public constructor() {
-    this.title = "";
+    this.title = "The title of the survey goes here";
     this.showProgression = "top";
     this.progressBarType = "questions";
     this.mode = "display";
     this.questionsOnPageMode = "singlePage";
     this.pages = [new Page()];
-    this.page = this.pages[0];
-  }
-
-  public addPage(page: Page) {
-    this.pages.push(page);
-  }
-
-  public popPage() {
-    this.pages.pop();
   }
 
   public getElements(): IElement[] {

@@ -3,12 +3,11 @@
 
   <!-- This div puts the two cards on their own row where they are displayed side-by-side using fxFlex-->
   <div fxLayout="row" fxLayoutAlign="space-between">
-    <mat-card fxFlex="45%">
-
+    <mat-card fxFlex="47%">
       <!-- This part of the form handles general information about the survey -->
       <mat-form-field>
         <mat-label>Survey Title</mat-label>
-        <input matInput id="surveyTitle" type="text" name="title" [(ngModel)]="model.title">
+        <input matInput id="surveyTitle" type="text" name="surveyTitle" [(ngModel)]="model.title">
       </mat-form-field>
       <br/>
       <mat-form-field>
@@ -20,48 +19,63 @@
             </mat-select>
       </mat-form-field>
       <br/>
-      <mat-divider></mat-divider>
       <br/>
       <!-- This part of the form handles the individual questions/elements of the survey -->
-      <span *ngFor="let page of model.pages;">
-        <span *ngFor="let element of elements; index as j;">
+        <div *ngFor="let element of elements; index as j;">
+          <mat-divider></mat-divider>
+          <br/>
           <!-- The question title is what is displayed as the question, and replaces the question's name if it is defined -->
           <mat-form-field>
             <mat-label>Question {{j + 1}} Title</mat-label>
-            <input matInput id="questionTitle{{j}}" type="text" name="question-title">
+            <input matInput id="questionTitle{{j}}" type="text" name="question-title" [(ngModel)]="element.title">
           </mat-form-field>
+          <br/>
+          <mat-form-field>
+            <mat-label>Question Name</mat-label>
+            <input matInput type="text" name="checkbox-name" [(ngModel)]="element.name">
+          </mat-form-field>
+          <br/>
+          <mat-form-field>
+            <mat-label>Question Description</mat-label>
+            <textarea matInput name="text-name" [(ngModel)]="element.description"></textarea>
+          </mat-form-field>
+          <br/>
+          <mat-checkbox color="primary" [(ngModel)]="element.isRequired">Make Question Required</mat-checkbox>
+          <br/>
+          &nbsp;
+          <button mat-raised-button color="warn" (click)="removeQuestion(j)">Delete Question {{j + 1}}</button>
           <br/>
           <br/>
           <!-- This section loads different components based on the type of question that the user selects -->
-          <span *ngIf="element.type == 'checkbox'">
-            <button mat-raised-button color="warn" >Delete Question</button>
+          <div *ngIf="element.type === 'checkbox'">
             <checkbox-form [element]="element"></checkbox-form>
-          </span>
-          <mat-divider></mat-divider>
+          </div>
           <br/>
-        </span>
+        </div>
         <br/>
         <!-- These buttons handle adding/removing questions to the survey. The remove button is only displayed if there is more than one question -->
-        <mat-card>
-          <mat-form-field>
-            <mat-label>Question Type: </mat-label>
-            <mat-select [(ngModel)]="questionType">
-              <mat-option *ngFor="let option of elementTypes" [value]="option">
-                {{option}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          &nbsp;&nbsp;
-          <button mat-raised-button color="accent" >Add Question</button>
-        </mat-card>
-      </span>
-      
+        <mat-divider></mat-divider>
+        <br/>
+        <mat-form-field>
+          <mat-label>Question Type: </mat-label>
+          <mat-select [(ngModel)]="questionType">
+            <mat-option *ngFor="let option of elementTypes" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;&nbsp;
+        <button mat-raised-button color="accent" (click)="addQuestion(questionType)">Add Question</button>
       <br/>
+      <button mat-raised-button color="accent" (click)="preview()">Show Preview</button>
+      &nbsp;
       <button mat-raised-button color="accent" *ngIf="showDebug" (click)="debug()">Show Debug Information</button>
     </mat-card>
     &nbsp;
   <!-- This grid-tile displays a preview of the survey -->
-    <mat-card fxFlex="45%">
-      <survey-view [(template)]="model"></survey-view>
+    <mat-card fxFlex="47%" *ngIf="showSurvey">
+      <span *ngIf="showSurvey"> 
+        <survey-view [(template)]="model"></survey-view>
+      </span>
     </mat-card>
   </div>

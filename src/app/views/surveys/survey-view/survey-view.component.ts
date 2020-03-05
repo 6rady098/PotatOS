@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output } from '@angular/core';
 import * as Survey from 'survey-angular';
 import { ModelSurvey } from '../../../models/survey-models/survey';
 
@@ -7,28 +7,31 @@ import { ModelSurvey } from '../../../models/survey-models/survey';
   template: `<div id="surveyElement"></div>`
   //styleUrls: ['./survey-view.component.css']
 })
-export class SurveyViewComponent implements OnInit, OnChanges {
+export class SurveyViewComponent implements OnInit {
 
-  @Input()
-  template: ModelSurvey;
-
-  model: Survey.Model;
+  @Input() template: ModelSurvey;
+  //model: Survey.Model;
 
   constructor() {
-    console.log('Survey-View OnInit() called');
-    
   }
   
   ngOnInit() {
-    this.model = new Survey.Model(this.template);
-    Survey.StylesManager.applyTheme("bootstrap");
-    Survey.SurveyNG.render("surveyElement", {
-      model: this.model,
-      isExpanded: true
-    });
+    this.render(this.template);
   }
 
-  ngOnChanges() {
+  public render(template: ModelSurvey) {
+
+    let model = new Survey.Model(template);
+    model.onComplete
+      .add((results) => {
+        console.log(results.data);
+      });
+
+    Survey.StylesManager.applyTheme("bootstrap");
+    Survey.SurveyNG.render("surveyElement", {
+      model: model,
+      isExpanded: true
+    })
     
   }
 }

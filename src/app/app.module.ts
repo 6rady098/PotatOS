@@ -35,6 +35,11 @@ import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.
 import { SurveyViewComponent } from './views/surveys/survey-view/survey-view.component';
 import { CheckboxFormComponent } from './views/surveys/survey-maker/checkbox-form/checkbox-form.component';
 import { StudyCardComponent } from './views/study-card/study-card.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RadiogroupFormComponent } from './views/surveys/survey-maker/radiogroup-form/radiogroup-form.component';
+import { BooleanelementFormComponent } from './views/surveys/survey-maker/booleanelement-form/booleanelement-form.component';
+import { RatingFormComponent } from './views/surveys/survey-maker/rating-form/rating-form.component';
+import { SurveyService } from './services/survey.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +60,10 @@ import { StudyCardComponent } from './views/study-card/study-card.component';
     SurveyMakerComponent,
     SurveyViewComponent,
     CheckboxFormComponent,
-    StudyCardComponent
+    StudyCardComponent,
+    RadiogroupFormComponent,
+    BooleanelementFormComponent,
+    RatingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +76,7 @@ import { StudyCardComponent } from './views/study-card/study-card.component';
     ReactiveFormsModule,
     // ngx-translate and the loader module
     HttpClientModule,
+    MatCheckboxModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -82,7 +91,8 @@ import { StudyCardComponent } from './views/study-card/study-card.component';
     QuestionnaireService,
     DiaryService,
     ChatService,
-    CodetableService
+    CodetableService,
+    SurveyService
   ],
   bootstrap: [AppComponent]
 })

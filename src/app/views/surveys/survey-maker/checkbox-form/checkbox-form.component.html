@@ -1,8 +1,19 @@
-<div *ngFor="let choice of element.choices">
+<mat-checkbox color="primary" [(ngModel)]="element.hasSelectAll">Include 'Select All' Option</mat-checkbox>
+<br/>
+<mat-checkbox color="primary" [(ngModel)]="element.hasNone">Include 'None' Option</mat-checkbox>
+
+<!-- This DIV repeats for each checkbox contained within this element -->
+<div *ngFor="let choice of choices; index as i;">
   <mat-form-field>
-    <input matInput type="text" name="checkbox-choice" [(ngModel)]="choice">
+    <mat-label>Option {{i + 1}}</mat-label>
+    <input matInput type="text" name="option{{i}}" [(ngModel)]="choice.choice">
   </mat-form-field>
+  &nbsp;
+  <button mat-raised-button color="warn"(click)="removeItem(i)">Remove Item</button>
 </div>
+
+<br/>
 <button mat-raised-button color="accent" (click)="addItem()">Add Item</button>
-&nbsp;&nbsp;
-<button mat-raised-button color="warn" (click)="removeItem()">Remove Item</button>
+&nbsp;
+<button mat-raised-button color="accent" (click)="sendElement()">Save Question</button>
+&nbsp;

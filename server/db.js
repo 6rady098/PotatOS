@@ -11,6 +11,7 @@ const DIARY_COLLECTION = 'diary';
 const PARTICIPANTS_COLLECTION = 'participants';
 const QUESTIONNAIRES_COLLECTION = 'questionnaires';
 const RESEARCHERS_COLLECTION = 'researchers';
+const SURVEY_COLLECTION = 'surveys';
 
 const url = "mongodb+srv://admin:" + config.MONGO_ATLAS_PW + "@mongo-cluster-i6meo.mongodb.net/link-the-masses";
 
