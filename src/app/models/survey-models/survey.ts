@@ -2,6 +2,7 @@ import { Page } from './page';
 import { IElement } from './IElement';
 
 export class ModelSurvey {
+  public _id: string;
   title: string;
   showProgression: string;
   progressBarType: string;

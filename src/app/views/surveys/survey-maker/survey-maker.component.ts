@@ -26,7 +26,7 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
   elements: IElement[];
   showSurvey: boolean;
   surveys: ModelSurvey[];
-  displayedColumns = [ 'title' ];
+  displayedColumns = [ 'title', 'showProgressBar', 'mode', 'elements', 'options' ];
 
   constructor(
     private surveyService: SurveyService
@@ -107,8 +107,6 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
       }
     }
 
-    //this.surveyView.ngOnInit();
-    this.surveyView.template = this.model;
     this.surveyView.render(this.model);
   }
 
@@ -118,11 +116,37 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
     })
   }
 
-  refreshData() {
+  public refreshData() {
     this.surveyService.getData().subscribe(res => {
       this.surveys = res;
       //this.surveys.push(res);
       console.log(this.surveys);
+    },
+    (err) => {
+      console.log('Something went wrong connecting to the database');
+      console.log(err);
     });
+  }
+
+  public deleteSurvey(index: number) {
+    console.log('Index is ' + index);
+    var survey = this.surveys[index];
+
+    this.surveyService.delete(survey._id).subscribe(res => {
+      if(res.status == 200) {
+        this.refreshData();
+      }
+    },
+    err => {
+      if(err) {
+        console.log(err);
+        throw err;
+      }
+    })
+  }
+
+  public loadSurvey(index: number) {
+    this.model = this.surveys[index];
+    this.elements = this.model.pages[0].elements;
   }
 }

@@ -42,7 +42,7 @@
           <br/>
           <mat-checkbox color="primary" [(ngModel)]="element.isRequired">Make Question Required</mat-checkbox>
           <br/>
-          &nbsp;
+          &nbsp;&nbsp;
           <button mat-raised-button color="warn" (click)="removeQuestion(j)">Delete Question {{j + 1}}</button>
           <br/>
           <br/>
@@ -70,6 +70,7 @@
       <button mat-raised-button color="accent" (click)="preview()">Show Preview</button>
       &nbsp;
       <button mat-raised-button color="accent" *ngIf="showDebug" (click)="debug()">Show Debug Information</button>
+      &nbsp;
       <button mat-raised-button color="primary" (click)="createSurvey()">Save Survey</button>
     </mat-card>
     &nbsp;
@@ -80,12 +81,36 @@
       </span>
     </mat-card>
   </div>
-
+  <br/>
   <div fxLayout="row" fxLayoutAlign="space-between">
-    <table mat-table [dataSource]="surveys">
+    <table mat-table fxFlex="100%" [dataSource]="surveys">
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> Survey Title </th>
         <td mat-cell *matCellDef="let survey"> {{survey.title}} </td>
+      </ng-container>
+      <ng-container matColumnDef="showProgressBar">
+        <th mat-header-cell *matHeaderCellDef> Progress Bar </th>
+        <td mat-cell *matCellDef="let survey"> {{survey.showProgressBar}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mode">
+        <th mat-header-cell *matHeaderCellDef> Display Mode </th>
+        <td mat-cell *matCellDef="let survey"> {{survey.mode}} </td>
+      </ng-container>
+      <ng-container matColumnDef="elements">
+        <th mat-header-cell *matHeaderCellDef> Survey Questions </th>
+        <td mat-cell *matCellDef="let survey">
+          <span *ngFor="let  element of survey.pages[0].elements">
+            {{element.title}}
+            <br>
+          </span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Options </th>
+        <td mat-cell *matCellDef="let survey; let i = index">
+          <button mat-raised-button color="accent" (click)="loadSurvey(i)">Load</button>
+          <button mat-raised-button color="warn" (click)="deleteSurvey(i)">Delete</button>
+        </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
