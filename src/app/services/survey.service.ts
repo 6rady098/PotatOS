@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ModelSurvey } from '../models/survey-models/survey';
 import { environment } from 'src/environments/environment';
 
-const BACKEND_URL = environment.apiUrl + '/questionnaires/';
+const BACKEND_URL = environment.apiUrl + '/surveys/';
 @Injectable({
   providedIn: 'root'
 })
