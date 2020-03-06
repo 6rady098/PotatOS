@@ -9,11 +9,9 @@
     <input matInput type="text" name="option{{i}}" [(ngModel)]="choice.choice">
   </mat-form-field>
   &nbsp;
-  <button mat-raised-button color="warn"(click)="removeItem(i)">Remove Item</button>
+  <button mat-raised-button color="warn"(click)="removeItem(i)">Remove Option</button>
 </div>
 
 <br/>
 <button mat-raised-button color="accent" (click)="addItem()">Add Item</button>
-&nbsp;
-<button mat-raised-button color="accent" (click)="sendElement()">Save Question</button>
 &nbsp;

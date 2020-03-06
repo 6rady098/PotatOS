@@ -20,8 +20,10 @@ const surveySchema = mongoose.Schema({
       name: { type: String },
       description: { type: String },
       isRequired: { type: Boolean },
+      refChoices: [{
+        choice: { type: String }
+      }],
       choices: [{ type: String }]
-
     }]
     
   }]

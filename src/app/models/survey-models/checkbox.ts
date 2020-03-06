@@ -59,6 +59,7 @@ export class Checkbox extends TextElement implements IElement {
     if(index > -1) {
       console.log('Removing choice at index ' + index);
       console.log(this.refChoices.splice(index, 1));
+      console.log(this.choices.splice(index, 1));
     }
   }
 

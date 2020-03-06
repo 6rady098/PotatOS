@@ -11,7 +11,7 @@ export class ModelSurvey {
   pages: Page[];
 
   public constructor() {
-    this.title = "The title of the survey goes here";
+    this.title = "Title";
     this.showProgression = "top";
     this.progressBarType = "questions";
     this.mode = "display";

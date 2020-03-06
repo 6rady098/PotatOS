@@ -18,15 +18,16 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(SurveyViewComponent, null) surveyView;
 
   public readonly navigationBarPositions = [ 'top', 'bottom', 'both' ];
-  public readonly elementTypes = [ 'text', 'checkbox', 'radiogroup', 'dropdown', 'comment', 'boolean', 'rating' ];
+  public readonly elementTypes = [ 'text', 'checkbox'/*, 'radiogroup', 'dropdown', 'comment', 'boolean', 'rating'*/ ];
   private readonly pageMode = 'singlePage';
-  showDebug = true;
+  showDebug = false;
   questionType: string;
   model: ModelSurvey;
   elements: IElement[];
   showSurvey: boolean;
   surveys: ModelSurvey[];
   displayedColumns = [ 'title', 'showProgressBar', 'mode', 'elements', 'options' ];
+  showTable = false;
 
   constructor(
     private surveyService: SurveyService
@@ -52,7 +53,7 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
     this.elements = this.model.pages[0].elements;
     this.model.progressBarType = "questions";
     this.questionType = "";
-    this.model.mode = '';
+    this.model.mode = 'display';
     this.refreshData();
   }
 
@@ -62,6 +63,7 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
       case 'checkbox': {
         question = new Checkbox();
         question.addChoice('Option 1');
+        question.addChoice('Option 2');
         break;
       }
 
@@ -76,7 +78,6 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
 
       case 'radiogroup': {
         question = new Radiogroup();
-        question.choices.push([ "Choice 1", "Choice 2", "Choice 3" ]);
         break;
       }
 
@@ -148,5 +149,10 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
   public loadSurvey(index: number) {
     this.model = this.surveys[index];
     this.elements = this.model.pages[0].elements;
+  }
+
+  public toggleTable() {
+    this.showTable = !this.showTable;
+    this.refreshData();
   }
 }
