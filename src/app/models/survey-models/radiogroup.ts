@@ -12,7 +12,6 @@ export class Radiogroup extends Checkbox implements IElement {
   protected initialize() {
     this.type = "radiogroup";
     console.log('Initializing ' + this.type);
-    this.refChoices = [];
     this.hasNone = false;
     this.hasSelectAll = false;
   }

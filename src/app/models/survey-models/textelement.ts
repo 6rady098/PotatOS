@@ -1,6 +1,8 @@
 import { IElement } from './IElement';
 
 export class TextElement implements IElement {
+  [x: string]: any;
+  _id: string;
   type: string;  
   name: string;
   isRequired: boolean;

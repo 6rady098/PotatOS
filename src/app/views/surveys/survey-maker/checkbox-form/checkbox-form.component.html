@@ -1,6 +1,8 @@
-<mat-checkbox color="primary" [(ngModel)]="element.hasSelectAll">Include 'Select All' Option</mat-checkbox>
-<br/>
-<mat-checkbox color="primary" [(ngModel)]="element.hasNone">Include 'None' Option</mat-checkbox>
+<span *ngIf="element.type === 'checkbox'">
+  <mat-checkbox color="primary" [(ngModel)]="element.hasSelectAll">Include 'Select All' Option</mat-checkbox>
+  <br/>
+  <mat-checkbox color="primary" [(ngModel)]="element.hasNone">Include 'None' Option</mat-checkbox>
+</span>
 
 <!-- This DIV repeats for each checkbox contained within this element -->
 <div *ngFor="let choice of choices; index as i;">

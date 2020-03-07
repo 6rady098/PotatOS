@@ -3,13 +3,15 @@ import { TextElement } from './textelement';
 import { Choice } from './choice';
 
 export class Checkbox extends TextElement implements IElement {
+  _id: string;
   type: string;  
   name: string;
   title: string;
   isRequired: boolean;
   /**
-   * By virtue of being objects, this array allows the values of the choices on the
-   * form to be shared between components.
+   * Objects are passed by reference, but strings are not. Passing the choices as choice objects
+   * allows us to share data between components more easily. These will later be converted to strings
+   * for the refChoices array, as the Survey model can only interpret strings.
    */
   refChoices: Choice[];
   /**
@@ -27,21 +29,19 @@ export class Checkbox extends TextElement implements IElement {
   
   public constructor() {
     super();
-  }
-
-  protected initialize() {
-    this.type = "checkbox";
-    console.log('Initializing ' + this.type);
-    
     this.refChoices = [];
     this.choices = [];
     this.hasNone = false;
     this.hasSelectAll = false;
   }
 
+  protected initialize() {
+    this.type = "checkbox";
+    console.log('Initializing ' + this.type);
+  }
+
   public addChoice(choice: string) {
     let newChoice = new Choice(choice);
-    console.log('Checkbox: inserting choice = ' + choice);
     this.refChoices.push(newChoice);
   }
 
@@ -50,16 +50,14 @@ export class Checkbox extends TextElement implements IElement {
     var index = this.refChoices.indexOf(tempChoice);
     
     if(index > -1) {
-      console.log('Removing choice at index ' + index);
-      console.log(this.refChoices.splice(index, 1));
+      this.refChoices.splice(index, 1);
     }
   }
 
   public removeChoiceByIndex(index: number) {
     if(index > -1) {
-      console.log('Removing choice at index ' + index);
-      console.log(this.refChoices.splice(index, 1));
-      console.log(this.choices.splice(index, 1));
+      this.refChoices.splice(index, 1);
+      this.choices.splice(index, 1);
     }
   }
 

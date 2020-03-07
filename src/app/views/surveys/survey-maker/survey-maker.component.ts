@@ -18,7 +18,7 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(SurveyViewComponent, null) surveyView;
 
   public readonly navigationBarPositions = [ 'top', 'bottom', 'both' ];
-  public readonly elementTypes = [ 'text', 'checkbox'/*, 'radiogroup', 'dropdown', 'comment', 'boolean', 'rating'*/ ];
+  public readonly elementTypes = [ 'text', 'checkbox', 'radiogroup'/*, 'dropdown', 'comment', 'boolean', 'rating'*/ ];
   private readonly pageMode = 'singlePage';
   showDebug = false;
   questionType: string;
@@ -26,7 +26,7 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
   elements: IElement[];
   showSurvey: boolean;
   surveys: ModelSurvey[];
-  displayedColumns = [ 'title', 'showProgressBar', 'mode', 'elements', 'options' ];
+  displayedColumns = [ 'title', 'elements', 'options' ];
   showTable = false;
 
   constructor(
@@ -40,7 +40,7 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    this.surveyView.ngOnChanges();
+    //this.surveyView.ngOnChanges();
   }
 
   ngAfterViewInit(): void {
@@ -78,6 +78,8 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
 
       case 'radiogroup': {
         question = new Radiogroup();
+        question.addChoice('Option 1');
+        question.addChoice('Option 2');
         break;
       }
 
@@ -105,6 +107,8 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
     for(let i = 0; i < this.elements.length; i++) {
       if(this.elements[i] instanceof Checkbox) {
         <Checkbox>this.elements[i].convertChoices();
+      } else if(this.elements[i] instanceof Radiogroup) {
+        <Radiogroup>this.elements[i].convertChoices();
       }
     }
 
@@ -146,13 +150,43 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
     })
   }
 
+  public updateSurvey() {
+    this.surveyService.update(this.model, this.model._id).subscribe(
+      res => {
+        console.log('Update successful?');
+      },
+    
+      err => {
+        if(err) {
+          throw err;
+        }
+    })
+  }
+
   public loadSurvey(index: number) {
     this.model = this.surveys[index];
     this.elements = this.model.pages[0].elements;
+    this.preview();
   }
 
   public toggleTable() {
     this.showTable = !this.showTable;
     this.refreshData();
+  }
+
+  public typeOf(value) {
+    return typeof value;
+  }
+
+  public makeEditable() {
+    
+    var mode = this.model.mode;
+    if(mode === 'display') {
+      this.model.mode = '';
+    } else {
+      this.model.mode = 'display';
+    }
+
+    this.surveyView.render(this.model);
   }
 }

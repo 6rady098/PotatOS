@@ -23,7 +23,9 @@ const surveySchema = mongoose.Schema({
       refChoices: [{
         choice: { type: String }
       }],
-      choices: [{ type: String }]
+      choices: [{ type: String }],
+      hasSelectAll: { type: Boolean },
+      hasNone: { type: Boolean }
     }]
     
   }]
