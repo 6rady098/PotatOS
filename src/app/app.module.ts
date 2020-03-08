@@ -5,33 +5,35 @@ import { NgModule } from "@angular/core";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { HeaderComponent } from "./views/header/header.component";
-import { FooterComponent } from "./views/footer/footer.component";
-import { AngularMaterialModule } from "./angular-material.module";
-import { UsersComponent } from "./views/users/users.component";
-import { UserService } from "./services/users.service";
-import { AuthService } from "./auth/auth.service";
-import { HttpClientModule, HttpClient } from "@angular/common/http";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { ProfileComponent } from "./views/profile/profile.component";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { QuestionnaireService } from "./services/questionnaires.service";
-import { DiaryService } from "./services/diary.service";
-import { ChatService } from "./services/chat.service";
-import { AvailableStudiesComponent } from "./views/studies/available.component";
-import { InprogressStudiesComponent } from "./views/studies/inprogress.component";
-import { CompleteStudiesComponent } from "./views/studies/complete.component";
-import { ChatLogViewComponent } from "./views/studies/chatlogview.component";
-import { CodetableService } from "./services/codetable.service";
-import { FindValuePipe } from "./pipes/findValue.pipe";
-import { LoginComponent } from "./views/login/login.component";
-import { ResearcherCompletedStudiesComponent } from "./views/studies/researcher-completed-studies.component";
-import { ParticipantComponent } from "./views/participant/participant.component";
-import { ResearcherloginComponent } from "./views/researcherlogin/researcherlogin.component";
-import { TestpageComponent } from "./views/testpage/testpage.component";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './views/header/header.component';
+import { FooterComponent } from './views/footer/footer.component';
+import { AngularMaterialModule } from './angular-material.module';
+import { UsersComponent } from './views/users/users.component';
+import { UserService } from './services/users.service';
+import { AuthService } from './auth/auth.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ProfileComponent } from './views/profile/profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuestionnaireService } from './services/questionnaires.service';
+import { DiaryService } from './services/diary.service';
+import { ChatService } from './services/chat.service';
+import { AvailableStudiesComponent } from './views/studies/available.component';
+import { InprogressStudiesComponent } from './views/studies/inprogress.component';
+import { CompleteStudiesComponent } from './views/studies/complete.component';
+import { ChatLogViewComponent } from './views/studies/chatlogview.component';
+import { CodetableService } from './services/codetable.service';
+import { FindValuePipe } from './pipes/findValue.pipe';
+import { LoginComponent } from './views/login/login.component';
+import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-completed-studies.component';
+import { ParticipantComponent } from './views/participant/participant.component';
+import { ResearcherloginComponent } from './views/researcherlogin/researcherlogin.component';
+import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.component';
+import { SurveyViewComponent } from './views/surveys/survey-view/survey-view.component';
+import { CheckboxFormComponent } from './views/surveys/survey-maker/checkbox-form/checkbox-form.component';
 import { StudyCardComponent } from './views/study-card/study-card.component';
 
 @NgModule({
@@ -50,7 +52,9 @@ import { StudyCardComponent } from './views/study-card/study-card.component';
     LoginComponent,
     ParticipantComponent,
     ResearcherloginComponent,
-    TestpageComponent,
+    SurveyMakerComponent,
+    SurveyViewComponent,
+    CheckboxFormComponent,
     StudyCardComponent
   ],
   imports: [

@@ -1,0 +1,67 @@
+<h2>Survey Maker</h2>
+<!-- This compontent allows the creation of surveys-->
+
+  <!-- This div puts the two cards on their own row where they are displayed side-by-side using fxFlex-->
+  <div fxLayout="row" fxLayoutAlign="space-between">
+    <mat-card fxFlex="45%">
+
+      <!-- This part of the form handles general information about the survey -->
+      <mat-form-field>
+        <mat-label>Survey Title</mat-label>
+        <input matInput id="surveyTitle" type="text" name="title" [(ngModel)]="model.title">
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <mat-label>Show Navigation Bar</mat-label>
+            <mat-select [(ngModel)]="model.showProgressBar">
+              <mat-option *ngFor="let option of navigationBarPositions" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-select>
+      </mat-form-field>
+      <br/>
+      <mat-divider></mat-divider>
+      <br/>
+      <!-- This part of the form handles the individual questions/elements of the survey -->
+      <span *ngFor="let page of model.pages;">
+        <span *ngFor="let element of elements; index as j;">
+          <!-- The question title is what is displayed as the question, and replaces the question's name if it is defined -->
+          <mat-form-field>
+            <mat-label>Question {{j + 1}} Title</mat-label>
+            <input matInput id="questionTitle{{j}}" type="text" name="question-title">
+          </mat-form-field>
+          <br/>
+          <br/>
+          <!-- This section loads different components based on the type of question that the user selects -->
+          <span *ngIf="element.type == 'checkbox'">
+            <button mat-raised-button color="warn" >Delete Question</button>
+            <checkbox-form [element]="element"></checkbox-form>
+          </span>
+          <mat-divider></mat-divider>
+          <br/>
+        </span>
+        <br/>
+        <!-- These buttons handle adding/removing questions to the survey. The remove button is only displayed if there is more than one question -->
+        <mat-card>
+          <mat-form-field>
+            <mat-label>Question Type: </mat-label>
+            <mat-select [(ngModel)]="questionType">
+              <mat-option *ngFor="let option of elementTypes" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          &nbsp;&nbsp;
+          <button mat-raised-button color="accent" >Add Question</button>
+        </mat-card>
+      </span>
+      
+      <br/>
+      <button mat-raised-button color="accent" *ngIf="showDebug" (click)="debug()">Show Debug Information</button>
+    </mat-card>
+    &nbsp;
+  <!-- This grid-tile displays a preview of the survey -->
+    <mat-card fxFlex="45%">
+      <survey-view [(template)]="model"></survey-view>
+    </mat-card>
+  </div>
