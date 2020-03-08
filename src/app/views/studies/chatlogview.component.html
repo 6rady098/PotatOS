@@ -3,9 +3,11 @@
         <mat-card-title class="entry-card-title">{{model.title}}</mat-card-title>
         <mat-card-subtitle>{{studyTypes | findValue : model.type : selectedLanguage}}</mat-card-subtitle>
         <mat-card>
-            <mat-card-subtitle><strong>{{'studies-components.creation_date' | translate}}:</strong> {{ model.creationDate | date: 'dd/MM/yyyy' }}
+            <mat-card-subtitle><strong>{{'studies-components.creation_date' | translate}}:</strong>
+                {{ model.creationDate | date: 'dd/MM/yyyy' }}
             </mat-card-subtitle>
-            <mat-card-subtitle><strong>{{'studies-components.author' | translate}}:</strong> {{ model.researcher }}</mat-card-subtitle>
+            <mat-card-subtitle><strong>{{'studies-components.author' | translate}}:</strong> {{ model.researcher }}
+            </mat-card-subtitle>
         </mat-card>
         &nbsp;
         &nbsp;
@@ -24,9 +26,11 @@
             <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center">
                 <mat-label>{{loggedInUser.username}}:</mat-label>
                 <mat-form-field>
-                    <input matInput placeholder="{{'studies-components.message' | translate}}" [(ngModel)]="chatMessage"/>
+                    <input matInput placeholder="{{'studies-components.message' | translate}}"
+                        [(ngModel)]="chatMessage" />
                 </mat-form-field>
-                <button color="accent" mat-raised-button (click)="addChatResponse(); enterResponse()">{{'studies-components.enter' | translate}}</button>
+                <button color="accent" mat-raised-button
+                    (click)="addChatResponse(); enterResponse()">{{'studies-components.enter' | translate}}</button>
             </div>
         </mat-card-content>
         <mat-divider [inset]="true"></mat-divider>
@@ -36,20 +40,19 @@
     </mat-card>
 </div>
 
-<nav mat-tab-nav-bar *ngIf="loggedInUser.role === 0 || loggedInUser.role === 1" selectedIndex="0">
-    <a mat-tab-link label="Available" routerLink="/available-studies">{{'studies-components.published_studies' | translate}}</a>
-    <a mat-tab-link label="Chat Logs" routerLink="/chatlog-view" routerLinkActive #rla="routerLinkActive"
-    [active]="rla.isActive">{{'studies-components.chat_logs' | translate}}</a>
-    <a mat-tab-link label="Completed Studies" routerLink="/researcher-completed-studies">{{'studies-components.completed_studies' | translate}}</a>
-</nav>
 
-<div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center">
-    <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'studies-components.search' | translate}}">
-    </mat-form-field>
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-text1" style="background: #c78fff;">
+            <mat-icon>search</mat-icon>
+        </span>
+    </div>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'studies-components.search' | translate}}"
+        class="form-control my-0 py-1" type="text" aria-label="Search">
 </div>
 
 <div class="mat-elevation-z1">
+    <br>
     <table mat-table [dataSource]="listOfStudies" matSort>
         <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'studies-components.title' | translate}} </th>
@@ -62,7 +65,8 @@
         </ng-container>
 
         <ng-container matColumnDef="participant">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'studies-components.participant' | translate}} </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'studies-components.participant' | translate}}
+            </th>
             <td mat-cell *matCellDef="let study">{{study.participant}}</td>
         </ng-container>
 

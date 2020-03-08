@@ -1,40 +1,139 @@
+
+<div *ngIf="entryFlag || editEntryFlag">
+    <br>
+    <mat-card>
+        <mat-card-title class="entry-card-title">{{editEntryFlag ? "Edit Entry" : "Add Entry"}}</mat-card-title>
+        <mat-card-content>
+            <div fxLayout="row" fxLayoutGap="1em">
+                <mat-form-field>
+                    <input matInput placeholder="{{'profile-components.age' | translate}}">
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-card-actions align="end">
+            <button mat-button (click)="edit()"
+                *ngIf="editEntryFlag">{{'studies-components.update' | translate}}</button>
+            <button mat-button (click)="close()">{{'studies-components.close' | translate}}</button>
+        </mat-card-actions>
+    </mat-card>
+    &nbsp;
+</div>
+
 <mat-card>
     <mat-card-title>{{loggedInUser.firstName}} {{loggedInUser.lastName}}</mat-card-title>
-    <mat-card-subtitle>{{ roles | findValue : loggedInUser.role : selectedLanguage}}</mat-card-subtitle>
+    <div class="d-flex justify-content-between">
+        <mat-card-subtitle>{{ roles | findValue : loggedInUser.role : selectedLanguage}}</mat-card-subtitle>
+        <button class="mb-2" mat-menu-item (click)="editEntry(user)"
+            *ngIf="loggedInUser.role === 0 || loggedInUser.role === 1 || loggedInUser.role !== 1">
+            <mat-icon>edit</mat-icon>
+            <span>{{'studies-components.action_edit' | translate}}</span>
+        </button>
+    </div>
     <mat-card-content *ngIf="loggedInUser.role !== 1">
         <mat-accordion multi="true">
+
             <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>
-                    {{'profile-components.biological_info' | translate}}
+                    <h3>{{'profile-components.biological_info' | translate}}</h3>
                 </mat-expansion-panel-header>
-                <div fxLayout="row" fxLayoutGap="1em">
-                    <mat-label class="label-name">{{'profile-components.age' | translate}}:</mat-label>
-                    <mat-label>{{loggedInUser.age ? loggedInUser.age : 'N/A'}}</mat-label>
+                <mat-divider class="mb-3" [inset]="true"></mat-divider>
+                <div class="row">
+                    <div class="col-md-1">
+                        <mat-label class="label-name">{{'profile-components.age' | translate}}:</mat-label>
+
+                    </div>
+                    <div class="col-md-1">
+                        <mat-label>{{loggedInUser.age ? loggedInUser.age : 'N/A'}}</mat-label>
+                    </div>
                 </div>
                 &nbsp;
-                <div fxLayout="row" fxLayoutGap="1em">
-                    <mat-label class="label-name">{{'profile-components.gender' | translate}}:</mat-label>
-                    <mat-label>{{ sex | findValue : loggedInUser.sex : selectedLanguage}}</mat-label>
+                <div class="row">
+                    <div class="col-md-1">
+                        <mat-label class="label-name">{{'profile-components.gender' | translate}}:</mat-label>
+                    </div>
+                    <div class="col-md-1">
+                        <mat-label>{{ sex | findValue : loggedInUser.sex : selectedLanguage}}</mat-label>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row">
+                    <div class="col-md-1">
+                        <mat-label class="label-name">Ethnicity:</mat-label>
+                    </div>
+                    <div class="col-md-1">
+                        <mat-label>Asian</mat-label>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row">
+                    <div class="col-md-1">
+                        <mat-label class="label-name">Height:</mat-label>
+                    </div>
+                    <div class="col-md-1">
+                        <mat-label>200cm</mat-label>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row">
+                    <div class="col-md-1">
+                        <mat-label class="label-name">Weight:</mat-label>
+                    </div>
+                    <div class="col-md-1">
+                        <mat-label>140 lb</mat-label>
+                    </div>
                 </div>
             </mat-expansion-panel>
+
             <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>
-                    {{'profile-components.geographical_info' | translate}}
+                    <h3>{{'profile-components.geographical_info' | translate}}</h3>
                 </mat-expansion-panel-header>
+                <mat-divider class="mb-3" [inset]="true"></mat-divider>
                 <div fxLayout="row" fxLayoutGap="1em">
                     <mat-label class="label-name">{{'profile-components.address' | translate}}:</mat-label>
                     <mat-label>{{loggedInUser.address}}</mat-label>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center">
-                    <img src="{{getStaticMap(loggedInUser.address)}}"/>
+                    <img src="{{getStaticMap(loggedInUser.address)}}" />
                 </div>
             </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="true">
+                <mat-divider class="mb-3" [inset]="true"></mat-divider>
+                <mat-expansion-panel-header>
+                    <h3>General Information</h3>
+                </mat-expansion-panel-header>
+                <div fxLayout="row" fxLayoutGap="1em">
+                    <mat-label class="label-name">Occupation:</mat-label>
+                    <mat-label>Computer Programmer</mat-label>
+                </div>
+                &nbsp;
+                <div fxLayout="row" fxLayoutGap="1em">
+                    <mat-label class="label-name">Has kids:</mat-label>
+                    <mat-label>Yes</mat-label>
+                </div>
+                &nbsp;
+                <div fxLayout="row" fxLayoutGap="1em">
+                    <mat-label class="label-name">Smoke:</mat-label>
+                    <mat-label>No</mat-label>
+                </div>
+                &nbsp;
+                <div fxLayout="row" fxLayoutGap="1em">
+                    <mat-label class="label-name">Drink:</mat-label>
+                    <mat-label>No</mat-label>
+                </div>
+            </mat-expansion-panel>
+
             <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>
-                    {{'profile-components.research_info' | translate}}
+                    <h3>{{'profile-components.research_info' | translate}}</h3>
                 </mat-expansion-panel-header>
-                <mat-label>{{'profile-components.participated_in' | translate}} {{loggedInUser.studies.length}} {{'profile-components.studies' | translate}}.</mat-label>
+                <mat-divider class="mb-3" [inset]="true"></mat-divider>
+                <mat-label>{{'profile-components.participated_in' | translate}} {{loggedInUser.studies.length}}
+                    {{'profile-components.studies' | translate}}.</mat-label>
             </mat-expansion-panel>
+
         </mat-accordion>
     </mat-card-content>
 </mat-card>

@@ -1,0 +1,131 @@
+<h2>Survey Maker</h2>
+<!-- This compontent allows the creation of surveys-->
+
+<!-- This div puts the two cards on their own row where they are displayed side-by-side using fxFlex-->
+<div fxLayout="row" fxLayoutAlign="space-between">
+  <span fxFlex="60%">
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <mat-card fxFlex="100%">
+        <!-- This part of the form handles general information about the survey -->
+        <mat-form-field>
+          <mat-label>Survey Title</mat-label>
+          <input matInput id="surveyTitle" type="text" name="surveyTitle" [(ngModel)]="model.title">
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-label>Show Progress Bar</mat-label>
+          <mat-select [(ngModel)]="model.showProgressBar">
+            <mat-option *ngFor="let option of navigationBarPositions" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+    <!-- This part of the form handles the individual questions/elements of the survey -->
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngFor="let element of elements; index as j;">
+      <span fxFlex="100%">
+        <mat-card>
+          <!-- The question title is what is displayed as the question, and replaces the question's name if it is defined -->
+          <mat-form-field>
+            <mat-label>Question {{j + 1}} Title</mat-label>
+            <input matInput id="questionTitle{{j}}" type="text" name="question-title" [(ngModel)]="element.title">
+          </mat-form-field>
+          &nbsp;&nbsp;
+          <button mat-raised-button color="warn" (click)="removeQuestion(j)">Delete Question {{j + 1}}</button>
+          <br />
+          <mat-form-field>
+            <mat-label>Question Name</mat-label>
+            <input matInput type="text" name="checkbox-name" [(ngModel)]="element.name">
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>Question Description</mat-label>
+            <textarea matInput name="text-name" [(ngModel)]="element.description"></textarea>
+          </mat-form-field>
+          <br />
+          <mat-checkbox color="primary" [(ngModel)]="element.isRequired">Make Question Required</mat-checkbox>
+          <br />
+          <!-- This section loads different components based on the type of question that the user selects -->
+          <div *ngIf="element.type === 'checkbox' || element.type === 'radiogroup'">
+            <checkbox-form [element]="element"></checkbox-form>
+          </div>
+          <br />
+        </mat-card>
+        <mat-divider></mat-divider>
+      </span>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <mat-card fxFlex="100%">
+        <!-- These buttons handle adding/removing questions to the survey. The remove button is only displayed if there is more than one question -->
+        <span *ngFor="let element of elementTypes">
+          <button mat-raised-button color="accent" (click)="addQuestion(element)">Insert {{element}}</button>
+          &nbsp;
+        </span>
+        <br />
+        <br />
+        <button mat-raised-button color="accent" (click)="makeEditable()">Make Survey Editable</button>
+        &nbsp;
+        <br/>
+        <br />
+        <button mat-raised-button color="accent" (click)="preview()">Show Preview</button>
+        &nbsp;
+        <button mat-raised-button color="accent" *ngIf="showDebug" (click)="debug()">Show Debug Information</button>
+        &nbsp;
+        <button mat-raised-button color="primary" *ngIf="typeOf(model._id) === 'undefined'" (click)="createSurvey()">Save Survey</button>
+        &nbsp;
+        <button mat-raised-button color="primary" *ngIf="typeOf(model._id) !== 'undefined'" (click)="updateSurvey()">Update Survey</button>
+        &nbsp;
+      </mat-card>
+      <!-- This grid-tile displays a preview of the survey -->
+    </div>
+  </span>
+  <mat-divider [vertical]="true"></mat-divider>
+  <mat-divider [vertical]="true"></mat-divider>
+  <mat-card fxFlex="40%" *ngIf="showSurvey">
+    <span *ngIf="showSurvey">
+      <survey-view [(template)]="model"></survey-view>
+    </span>
+  </mat-card>
+</div>
+
+<br />
+
+<div fxLayout="row" fxLayoutAlign="space-between">
+  <button mat-raised-button color="accent" (click)="toggleTable()">Show Table</button>
+</div>
+<br />
+<div fxLayout="row" fxLayoutAlign="space-between" *ngIf="showTable">
+  <div fxFlex="100%">
+    <table mat-table [dataSource]="surveys">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Survey Title </th>
+        <td mat-cell *matCellDef="let survey"> {{survey.title}} </td>
+      </ng-container>
+      <ng-container matColumnDef="elements">
+        <th mat-header-cell *matHeaderCellDef> Survey Questions </th>
+        <td mat-cell *matCellDef="let survey">
+          <span *ngFor="let element of survey.pages[0].elements">
+            {{'Question: ' + element.title}}
+            <br>
+            <span *ngFor="let choice of element.choices; j as index">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{'Choice: ' + choice}}
+              <br/>
+            </span>
+          </span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Options </th>
+        <td mat-cell *matCellDef="let survey; let i = index">
+          <button mat-raised-button color="accent" (click)="loadSurvey(i)">Load</button>
+          <button mat-raised-button color="warn" (click)="deleteSurvey(i)">Delete</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

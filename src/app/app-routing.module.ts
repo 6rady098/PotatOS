@@ -9,12 +9,14 @@ import { ChatLogViewComponent } from './views/studies/chatlogview.component';
 import { LoginComponent } from './views/login/login.component';
 import { ParticipantComponent } from './views/participant/participant.component';
 import { ResearcherloginComponent } from './views/researcherlogin/researcherlogin.component';
-import { TestpageComponent } from './views/testpage/testpage.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-completed-studies.component';
+import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.component';
+import { AgeGateComponent } from './views/age-gate/age-gate.component';
 
 
 const routes: Routes = [
+  { path: '' , component: AgeGateComponent,  },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'available-studies', component: AvailableStudiesComponent, canActivate: [AuthGuard] },
@@ -22,10 +24,10 @@ const routes: Routes = [
   { path: 'complete-studies', component: CompleteStudiesComponent, canActivate: [AuthGuard] },
   { path: 'chatlog-view', component: ChatLogViewComponent, canActivate: [AuthGuard] },
   { path: 'researcher-completed-studies', component: ResearcherCompletedStudiesComponent, canActivate: [AuthGuard] },
-  { path: '', component: LoginComponent},
+  { path: 'login', component: LoginComponent},
   { path: 'participant-login', component: ParticipantComponent },//constant path for participant login buttonrr
   { path: 'researcher-login', component: ResearcherloginComponent },
-  { path: 'test-page', component: TestpageComponent }
+  { path: 'survey-maker', component: SurveyMakerComponent }
 ];
 
 @NgModule({
@@ -33,4 +35,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthGuard]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
