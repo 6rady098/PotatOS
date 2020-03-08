@@ -1,6 +1,5 @@
 <div *ngIf="showHome" class="align-self-center mt-5">
   <div class="row">
-
     <div class="col-md-4">
       <div class="card">
         <div class="card-image"></div>
@@ -19,16 +18,13 @@
         {{'landing-page.welcome_2' | translate}}</p>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <button class="btn-gradient green large" mat-raised-button
             (click)="loginForm()">{{'landing-page.login' | translate}}</button>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <button class="btn-gradient blue large" mat-raised-button
             (click)="register()">{{'landing-page.register' | translate}}</button>
-        </div>
-        <div class="col-md-4">
-          <button class="btn-gradient pink large" routerLink="/survey-maker" mat-raised-button>Survey Form</button>
         </div>
       </div>
     </div>
@@ -43,7 +39,12 @@
         </div>
       </div>
     </div>
+  </div>
 
+
+  <div class="text-center">
+    <button class="btn-gradient purple large" routerLink="/survey-maker" mat-raised-button>Survey
+      Form</button>
   </div>
 </div>
 

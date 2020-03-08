@@ -1,8 +1,3 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
 <div *ngIf="displayStudy" style="padding-bottom: 3em">
     <mat-card *ngIf="model.type === 0">
         <mat-card-title class="entry-card-title">{{model.title}}</mat-card-title>
@@ -110,7 +105,6 @@
 </div>
 
 <div *ngIf="!displayStudy">
-
     <div class="input-group md-form form-sm form-1 pl-0">
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-text1" style="background: #c48cff;">
@@ -248,12 +242,12 @@
                     </button>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="editEntry(study)"
-                            *ngIf="(loggedInUser.role === 0 || loggedInUser.role === 1) && loggedInUser.username === study.researcher">
+                            *ngIf="loggedInUser.role === 0 || loggedInUser.role === 1">
                             <mat-icon>edit</mat-icon>
                             <span>{{'studies-components.action_edit' | translate}}</span>
                         </button>
                         <button mat-menu-item (click)="delete(study)"
-                            *ngIf="(loggedInUser.role === 0 || loggedInUser.role === 1) && loggedInUser.username === study.researcher">
+                            *ngIf="loggedInUser.role === 0 || loggedInUser.role === 1">
                             <mat-icon>delete</mat-icon>
                             <span>{{'studies-components.action_delete' | translate}}</span>
                         </button>

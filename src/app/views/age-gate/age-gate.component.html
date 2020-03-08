@@ -1,0 +1,27 @@
+
+<html>
+<head><!-- this script should point to an external api and needs ot  be in the head or body
+<script src="https://cdn.agechecker.net/static/age-gate/v1/age-gate.js"></script>
+https://agechecker.net/age-gate/create -->
+</head>
+<body>
+
+<h1 fxLayout="row" fxLayoutAlign="center center">Welcome to LinkTheMasses</h1>
+<h2 fxLayout="row" fxLayoutAlign="center center">Only users 18 years of age or older are permitted</h2>
+<p fxLayout="row" fxLayoutAlign="center center">Click upon Login if so, elsewise you may not pro.</p>
+
+
+
+<div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center" style="margin-top: 80px;">
+  <mat-form-field>
+    <mat-label>Choose your birthday</mat-label>
+    <input matInput [matDatepicker]="bdaypicker" [(ngModel)]="birthdate">
+    <mat-datepicker-toggle matSuffix [for]="bdaypicker"></mat-datepicker-toggle>
+    <mat-datepicker #bdaypicker></mat-datepicker>
+  </mat-form-field>
+
+  <button class="btn-gradient green large" mat-raised-button
+      (click)="CalculateAge()">{{'Confirm' | translate}}</button>
+</div>
+</body>
+</html>

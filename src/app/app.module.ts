@@ -40,6 +40,7 @@ import { RadiogroupFormComponent } from './views/surveys/survey-maker/radiogroup
 import { BooleanelementFormComponent } from './views/surveys/survey-maker/booleanelement-form/booleanelement-form.component';
 import { RatingFormComponent } from './views/surveys/survey-maker/rating-form/rating-form.component';
 import { SurveyService } from './services/survey.service';
+import { AgeGateComponent } from './views/age-gate/age-gate.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { SurveyService } from './services/survey.service';
     StudyCardComponent,
     RadiogroupFormComponent,
     BooleanelementFormComponent,
-    RatingFormComponent
+    RatingFormComponent,
+    AgeGateComponent
   ],
   imports: [
     BrowserModule,
