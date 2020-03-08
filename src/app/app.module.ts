@@ -1,9 +1,9 @@
- import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
 // import ngx-translate and the http loader
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,7 +31,10 @@ import { LoginComponent } from './views/login/login.component';
 import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-completed-studies.component';
 import { ParticipantComponent } from './views/participant/participant.component';
 import { ResearcherloginComponent } from './views/researcherlogin/researcherlogin.component';
-import { TestpageComponent } from './views/testpage/testpage.component';
+import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.component';
+import { SurveyViewComponent } from './views/surveys/survey-view/survey-view.component';
+import { CheckboxFormComponent } from './views/surveys/survey-maker/checkbox-form/checkbox-form.component';
+import { StudyCardComponent } from './views/study-card/study-card.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { TestpageComponent } from './views/testpage/testpage.component';
     LoginComponent,
     ParticipantComponent,
     ResearcherloginComponent,
-    TestpageComponent
+    SurveyMakerComponent,
+    SurveyViewComponent,
+    CheckboxFormComponent,
+    StudyCardComponent
   ],
   imports: [
     BrowserModule,
@@ -63,17 +69,24 @@ import { TestpageComponent } from './views/testpage/testpage.component';
     // ngx-translate and the loader module
     HttpClientModule,
     TranslateModule.forRoot({
-        loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-        }
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     })
   ],
-  providers: [UserService, AuthService, QuestionnaireService, DiaryService, ChatService, CodetableService],
+  providers: [
+    UserService,
+    AuthService,
+    QuestionnaireService,
+    DiaryService,
+    ChatService,
+    CodetableService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {

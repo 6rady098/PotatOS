@@ -1,18 +1,32 @@
 ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 a {
   text-decoration: none;
   color: white;
 }
-  
+
 ul {
   display: flex;
 }
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.alignleft {
+  float: left;
+  text-align: left;
+}
+
+.aligncenter {
+  text-align: center;
+}
+
+.alignright {
+  float: right;
+  text-align: right;
 }

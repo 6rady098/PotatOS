@@ -1,0 +1,8 @@
+<div *ngFor="let choice of element.choices">
+  <mat-form-field>
+    <input matInput type="text" name="checkbox-choice" [(ngModel)]="choice">
+  </mat-form-field>
+</div>
+<button mat-raised-button color="accent" (click)="addItem()">Add Item</button>
+&nbsp;&nbsp;
+<button mat-raised-button color="warn" (click)="removeItem()">Remove Item</button>

@@ -1,11 +1,18 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
 <div *ngIf="showDemo" style="padding-bottom: 3em">
     <mat-card *ngIf="model.type === 0">
         <mat-card-title class="entry-card-title">{{model.title}}</mat-card-title>
         <mat-card-subtitle>{{studyTypes | findValue : model.type : selectedLanguage}}</mat-card-subtitle>
         <mat-card>
-            <mat-card-subtitle><strong>{{'studies-components.creation_date' | translate}}:</strong> {{ model.creationDate | date: 'dd/MM/yyyy' }}
+            <mat-card-subtitle><strong>{{'studies-components.creation_date' | translate}}:</strong>
+                {{ model.creationDate | date: 'dd/MM/yyyy' }}
             </mat-card-subtitle>
-            <mat-card-subtitle><strong>{{'studies-components.author' | translate}}:</strong> {{ model.researcher }}</mat-card-subtitle>
+            <mat-card-subtitle><strong>{{'studies-components.author' | translate}}:</strong> {{ model.researcher }}
+            </mat-card-subtitle>
         </mat-card>
         <mat-card-content>
             <div class="qa" *ngFor="let question of model.questions; let i = index">
@@ -15,11 +22,16 @@
                 </div>
                 &nbsp;
                 <mat-radio-group fxLayout="row" fxLayoutAlign="space-evenly" (change)="question.answer = +$event.value">
-                    <mat-radio-button value="1" [checked]="question.answer ===  1">{{'studies-components.stdisagree' | translate}}</mat-radio-button>
-                    <mat-radio-button value="2" [checked]="question.answer ===  2">{{'studies-components.disagree' | translate}}</mat-radio-button>
-                    <mat-radio-button value="3" [checked]="question.answer ===  3">{{'studies-components.neutral' | translate}}</mat-radio-button>
-                    <mat-radio-button value="4" [checked]="question.answer ===  4">{{'studies-components.agree' | translate}}</mat-radio-button>
-                    <mat-radio-button value="5" [checked]="question.answer ===  5">{{'studies-components.stagree' | translate}}</mat-radio-button>
+                    <mat-radio-button value="1" [checked]="question.answer ===  1">
+                        {{'studies-components.stdisagree' | translate}}</mat-radio-button>
+                    <mat-radio-button value="2" [checked]="question.answer ===  2">
+                        {{'studies-components.disagree' | translate}}</mat-radio-button>
+                    <mat-radio-button value="3" [checked]="question.answer ===  3">
+                        {{'studies-components.neutral' | translate}}</mat-radio-button>
+                    <mat-radio-button value="4" [checked]="question.answer ===  4">
+                        {{'studies-components.agree' | translate}}</mat-radio-button>
+                    <mat-radio-button value="5" [checked]="question.answer ===  5">
+                        {{'studies-components.stagree' | translate}}</mat-radio-button>
                 </mat-radio-group>
             </div>
             <mat-form-field>
@@ -41,9 +53,11 @@
         <mat-card-title class="entry-card-title">{{model.title}}</mat-card-title>
         <mat-card-subtitle>{{studyTypes | findValue : model.type : selectedLanguage}}</mat-card-subtitle>
         <mat-card>
-            <mat-card-subtitle><strong>{{'studies-components.creation_date' | translate}}:</strong> {{ model.creationDate | date: 'dd/MM/yyyy' }}
+            <mat-card-subtitle><strong>{{'studies-components.creation_date' | translate}}:</strong>
+                {{ model.creationDate | date: 'dd/MM/yyyy' }}
             </mat-card-subtitle>
-            <mat-card-subtitle><strong>{{'studies-components.author' | translate}}:</strong> {{ model.researcher }}</mat-card-subtitle>
+            <mat-card-subtitle><strong>{{'studies-components.author' | translate}}:</strong> {{ model.researcher }}
+            </mat-card-subtitle>
         </mat-card>
         &nbsp;
         &nbsp;
@@ -62,9 +76,11 @@
             <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center">
                 <mat-label>{{loggedInUser.username}}:</mat-label>
                 <mat-form-field>
-                    <input matInput placeholder="{{'studies-components.message' | translate}}" [(ngModel)]="chatMessage"/>
+                    <input matInput placeholder="{{'studies-components.message' | translate}}"
+                        [(ngModel)]="chatMessage" />
                 </mat-form-field>
-                <button color="accent" mat-raised-button (click)="addChatResponse(); enterResponse()">{{'studies-components.enter' | translate}}</button>
+                <button color="accent" mat-raised-button
+                    (click)="addChatResponse(); enterResponse()">{{'studies-components.enter' | translate}}</button>
             </div>
             <mat-form-field>
                 <mat-label>{{'studies-components.completion_status' | translate}}:</mat-label>
@@ -85,19 +101,23 @@
         <mat-card-title class="entry-card-title">{{model.title}}</mat-card-title>
         <mat-card-subtitle>{{studyTypes | findValue : model.type : selectedLanguage}}</mat-card-subtitle>
         <mat-card>
-            <mat-card-subtitle><strong>{{'studies-components.creation_date' | translate}}:</strong> {{ model.creationDate | date: 'dd/MM/yyyy' }}
+            <mat-card-subtitle><strong>{{'studies-components.creation_date' | translate}}:</strong>
+                {{ model.creationDate | date: 'dd/MM/yyyy' }}
             </mat-card-subtitle>
-            <mat-card-subtitle><strong>{{'studies-components.author' | translate}}:</strong> {{ model.researcher }}</mat-card-subtitle>
+            <mat-card-subtitle><strong>{{'studies-components.author' | translate}}:</strong> {{ model.researcher }}
+            </mat-card-subtitle>
         </mat-card>
         <mat-card-content>
             <div class="qa" *ngFor="let entry of model.entries; let i = index">
                 <mat-form-field>
-                    <input matInput [matDatepicker]="picker" [(ngModel)]="entry.date" placeholder="{{'studies-components.date_choose' | translate}}">
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="entry.date"
+                        placeholder="{{'studies-components.date_choose' | translate}}">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field>
-                    <textarea matInput placeholder="{{'studies-components.entry' | translate}}" [(ngModel)]="entry.entry"></textarea>
+                    <textarea matInput placeholder="{{'studies-components.entry' | translate}}"
+                        [(ngModel)]="entry.entry"></textarea>
                 </mat-form-field>
             </div>
             <div fxLayout="row" fxLayoutAlign="center center">
@@ -122,20 +142,19 @@
     </mat-card>
 </div>
 
-<nav mat-tab-nav-bar *ngIf="loggedInUser.role === 0 || loggedInUser.role === 2" selectedIndex="1">
-    <a mat-tab-link label="Available" routerLink="/available-studies">{{'studies-components.studies_available' | translate}}</a>
-    <a mat-tab-link label="In Progress" routerLink="/inprogress-studies" routerLinkActive #rla="routerLinkActive"
-        [active]="rla.isActive">{{'studies-components.studies_inprogress' | translate}}</a>
-    <a mat-tab-link label="Complete" routerLink="/complete-studies">{{'studies-components.studies_completed' | translate}}</a>
-</nav>
-
-<div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center">
-    <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'studies-components.search' | translate}}">
-    </mat-form-field>
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-text1" style="background: #c78fff;">
+            <mat-icon>search</mat-icon>
+        </span>
+    </div>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'studies-components.search' | translate}}"
+        class="form-control my-0 py-1" type="text" aria-label="Search">
 </div>
 
+
 <div class="mat-elevation-z1">
+    <br>
     <table mat-table [dataSource]="listOfStudies" matSort>
         <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'studies-components.title' | translate}} </th>
