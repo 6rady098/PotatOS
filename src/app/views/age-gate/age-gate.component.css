@@ -1,0 +1,184 @@
+
+.buttons {
+  font-size: large;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  color: orange;
+  background-color: darkgreen;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-card {
+  margin-bottom: 1em;
+}
+
+.register-form {
+  padding-bottom: 1em;
+}
+
+mat-hint {
+  font-size: x-small;
+}
+
+#error {
+  color: pink;
+  padding-bottom: 1em;
+  font-size: small;
+}
+
+
+
+/*
+@import "compass/css3";
+
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
+@import "compass/reset";
+$fontSans : 'Montserrat', sans-serif;
+
+
+
+
+@mixin transition($transition-property, $transition-time, $method) {
+    -webkit-transition: $transition-property $transition-time $method;
+    -moz-transition: $transition-property $transition-time $method;
+    -ms-transition: $transition-property $transition-time $method;
+    -o-transition: $transition-property $transition-time $method;
+    transition: $transition-property $transition-time $method;
+}
+
+@-webkit-keyframes fadeIn {
+  0%   { opacity: 0;  top: -50px;}
+  100% { opacity: 1; top :0;}
+}
+@-moz-keyframes fadeIn {
+  0%   { opacity: 0;  top: -50px;}
+  100% { opacity: 1; top :0;}
+}
+@-o-keyframes fadeIn {
+  0%   { opacity: 0;  top: -50px;}
+  100% { opacity: 1; top :0;}
+}
+@keyframes fadeIn {
+  0%   { opacity: 0;  top: -50px;}
+  100% { opacity: 1; top :0;}
+}
+
+
+*{ box-sizing:border-box;}
+
+body {
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  font-family: $fontSans;
+}
+
+.ageWrap {
+  background: #efefef;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+     	display: -webkit-flex;
+   	display: -moz-flex;
+   	display: -ms-flex;
+   	display: -o-flex;
+   	display: flex;
+align-items: center;
+    justify-content: center;
+}
+
+#ageGate {
+  background: #fff;
+  margin: 0 auto;
+  width: 40%;
+  padding: 2%;
+  box-shadow: 0 0 25px -5px #bebebe;
+  border-radius: 10px ;
+}
+
+#ageGateForm {
+  h4 {
+    font-size: 1.25em;
+  font-weight: bold;
+  padding: 0 0 1em;
+}
+  ul {
+  display: flex;
+   flex-wrap: wrap;
+align-items: center;
+    justify-content: center;
+li {
+  flex: 1;
+  flex-basis: 33%;
+  margin: 1em 0;
+}
+  }
+  label {
+    display: block;
+    font-size: .85em;
+    margin-bottom: 1em;
+    color: #676767;
+    text-align: left;
+
+  }
+  input[type="tel"] {
+    font-size: 16px;
+    padding: .5em;
+    width: 95%;
+    display: block;
+    float: left;
+  }
+  input[type="submit"] {
+    appearance: none;
+  -webkit-appearance: none;
+  background: $blue;
+  border: 0;
+  color: darken( $blue , 50%);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: $fontSans;
+  font-size: .75em;
+  text-align: center;
+  padding: .75em 2.5em;
+  border-radius: 5px;
+  letter-spacing: .025em;
+    cursor: pointer;
+    @include transition(all,.5s,ease);
+    &:hover, &:active, &:focus {
+      outline: 0;
+      background: lighten($blue , 15%);
+      color: darken( $blue , 35%);
+    }
+  }
+
+.errors {
+  color: $red;
+  font-weight: bold;
+}
+} // END AGE GATE FORM NESTED STYLES
+
+.message {
+  font-size: 1.25em;
+  animation: fadeIn;
+}
+
+@media only screen and (max-width:45em){
+  #ageGate {
+    width: 100%;
+  }
+  #ageGateForm {
+      width: 100%;
+      li {
+        width: 100%;
+      }
+      input[type="tel"] {
+
+      }
+    }
+}
+*/

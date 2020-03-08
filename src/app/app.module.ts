@@ -35,6 +35,7 @@ import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.
 import { SurveyViewComponent } from './views/surveys/survey-view/survey-view.component';
 import { CheckboxFormComponent } from './views/surveys/survey-maker/checkbox-form/checkbox-form.component';
 import { StudyCardComponent } from './views/study-card/study-card.component';
+import { AgeGateComponent } from './views/age-gate/age-gate.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { StudyCardComponent } from './views/study-card/study-card.component';
     SurveyMakerComponent,
     SurveyViewComponent,
     CheckboxFormComponent,
-    StudyCardComponent
+    StudyCardComponent,
+    AgeGateComponent
   ],
   imports: [
     BrowserModule,
