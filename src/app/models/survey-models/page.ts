@@ -1,6 +1,7 @@
 import { IElement } from './IElement';
 
 export class Page {
+  _id: string;
   name: string;
   elements: IElement[];
 

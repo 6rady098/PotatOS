@@ -35,6 +35,11 @@ import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.
 import { SurveyViewComponent } from './views/surveys/survey-view/survey-view.component';
 import { CheckboxFormComponent } from './views/surveys/survey-maker/checkbox-form/checkbox-form.component';
 import { StudyCardComponent } from './views/study-card/study-card.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RadiogroupFormComponent } from './views/surveys/survey-maker/radiogroup-form/radiogroup-form.component';
+import { BooleanelementFormComponent } from './views/surveys/survey-maker/booleanelement-form/booleanelement-form.component';
+import { RatingFormComponent } from './views/surveys/survey-maker/rating-form/rating-form.component';
+import { SurveyService } from './services/survey.service';
 import { AgeGateComponent } from './views/age-gate/age-gate.component';
 
 @NgModule({
@@ -57,6 +62,9 @@ import { AgeGateComponent } from './views/age-gate/age-gate.component';
     SurveyViewComponent,
     CheckboxFormComponent,
     StudyCardComponent,
+    RadiogroupFormComponent,
+    BooleanelementFormComponent,
+    RatingFormComponent,
     AgeGateComponent
   ],
   imports: [
@@ -70,6 +78,7 @@ import { AgeGateComponent } from './views/age-gate/age-gate.component';
     ReactiveFormsModule,
     // ngx-translate and the loader module
     HttpClientModule,
+    MatCheckboxModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -84,7 +93,8 @@ import { AgeGateComponent } from './views/age-gate/age-gate.component';
     QuestionnaireService,
     DiaryService,
     ChatService,
-    CodetableService
+    CodetableService,
+    SurveyService
   ],
   bootstrap: [AppComponent]
 })

@@ -28,6 +28,9 @@ app.use('/api/diary', DiaryController);
 var QuestionnairesController = require('./controllers/QuestionnairesController');
 app.use('/api/questionnaires', QuestionnairesController);
 
+var SurveyController = require('./controllers/SurveyController');
+app.use('/api/surveys', SurveyController);
+
 app.all('*', (req, res) => {
     res.status(200).sendFile('/', {root: publicweb});
 });
