@@ -43,9 +43,9 @@
     </ul>
     <span class="spacer"></span>
     <ul class="alignright">
-        <li *ngIf="userIsAuthenticated && token.role === 0 || userIsAuthenticated && token.role !== 1">
+        <li *ngIf="userIsAuthenticated && token.role !== 1 || userIsAuthenticated && token.role === 0">
             <button mat-button routerLink="/profile" routerLinkActive="mat-accent">{{loggedInUser.firstName}}
-               {{loggedInUser.lastName}}</button>
+                {{loggedInUser.lastName}}</button>
         </li>
         <li *ngIf="userIsAuthenticated && token.role === 1">
             <button mat-button routerLinkActive="mat-accent">{{loggedInUser.firstName}}

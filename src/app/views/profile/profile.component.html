@@ -1,3 +1,4 @@
+
 <div *ngIf="entryFlag || editEntryFlag">
     <br>
     <mat-card>
@@ -24,7 +25,7 @@
     <div class="d-flex justify-content-between">
         <mat-card-subtitle>{{ roles | findValue : loggedInUser.role : selectedLanguage}}</mat-card-subtitle>
         <button class="mb-2" mat-menu-item (click)="editEntry(user)"
-            *ngIf="loggedInUser.role === 0 || loggedInUser.role === 1">
+            *ngIf="loggedInUser.role === 0 || loggedInUser.role === 1 || loggedInUser.role !== 1">
             <mat-icon>edit</mat-icon>
             <span>{{'studies-components.action_edit' | translate}}</span>
         </button>
