@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { Survey, IElement, Question } from 'survey-angular';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Checkbox } from 'src/app/models/survey-models/checkbox';
+import { Choice } from 'src/app/models/survey-models/choice';
 
 @Component({
   selector: 'checkbox-form',
@@ -8,35 +9,28 @@ import { Survey, IElement, Question } from 'survey-angular';
 })
 export class CheckboxFormComponent implements OnInit {
 
-  @Input()
-  @Output()
-  public element: any;
-  private readonly limit = 2;
+  @Input() element: Checkbox;
+  choices: Choice[];
 
   constructor() {
 
   }
 
   ngOnInit() {
-    this.element.choices = [];
-/*
-    for(let i = 0; i < this.limit; i++) {
-      this.addItem();
-    }*/
+    console.log('Initializing the value of the choices array');
+    this.choices = this.element.refChoices;
   }
 
   public addItem(): void {
-    let choices = this.element.choices;
-
-    //TODO: fix this method, invalid item format?
-    this.element.choices.push('item' + choices.length);
+    this.choices.push(new Choice('Option ' + (this.choices.length + 1)));
   }
 
-  public removeItem(): void {
-    let choices = this.element.choices;
-    if(choices.length > 1) {
-      choices.pop();
-    }
+  public removeItem(index: number): void {
+    this.element.removeChoiceByIndex(index);
+    console.log(this.choices);
   }
 
+  public save() {
+    this.choices = [...this.choices];
+  }
 }
