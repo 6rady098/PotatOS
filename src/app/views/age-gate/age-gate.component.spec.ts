@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TestpageComponent } from './testpage.component';
+import { AgeGateComponent } from './age-gate.component';
 
-describe('TestpageComponent', () => {
-  let component: TestpageComponent;
-  let fixture: ComponentFixture<TestpageComponent>;
+describe('AgeGateComponent', () => {
+  let component: AgeGateComponent;
+  let fixture: ComponentFixture<AgeGateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TestpageComponent ]
+      declarations: [ AgeGateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestpageComponent);
+    fixture = TestBed.createComponent(AgeGateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
