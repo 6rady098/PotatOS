@@ -23,11 +23,14 @@
     "@angular/platform-browser": "~8.2.4",
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
+
     "@fortawesome/fontawesome-free": "^5.12.1",
+
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
+
     "mdbootstrap": "^4.13.0",
     "popper.js": "^1.16.1",
     "rxjs": "^6.5.3",
@@ -35,6 +38,11 @@
     "survey-angular": "^1.5.10",
     "survey-core": "^1.5.10",
     "survey-knockout": "^1.5.10",
+
+    "popper.js": "^1.16.1",
+    "rxjs": "^6.5.3",
+    "socket.io-client": "^2.3.0",
+
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
@@ -59,4 +67,6 @@
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
   }
+
 }
+
