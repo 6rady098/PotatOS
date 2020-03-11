@@ -1,0 +1,29 @@
+<div fxLayout="row" fxLayoutAlign="space-between">
+
+  <!-- This card represents the side panel for the buttons (e.g. Edit, Delete, etc) and study image -->
+  <mat-card fxFlex="20%">
+    <img src="../../../assets/images/logo2.jpg" style="margin: 20px">
+    <mat-divider></mat-divider>
+    <!--  -->
+    <button mat-button color="primary" class="sidebar-button" *ngIf="!displaySurvey" (click)="renderSurvey()">Start Survey</button>
+    <button mat-button color="primary" class="sidebar-button" *ngIf="displaySurvey" (click)="hideSurvey()">Hide Survey</button>
+    <mat-divider></mat-divider>
+    <button mat-button color="primary" class="sidebar-button">Edit</button>
+    <mat-divider></mat-divider>
+    <button mat-button color="primary" class="sidebar-button">Delete</button>
+    <mat-divider></mat-divider>
+  </mat-card>
+
+  <mat-divider [vertical]="true"></mat-divider>
+  <mat-divider [vertical]="true"></mat-divider>
+  
+  <!-- This card will contain most of the other elements -->
+  <mat-card fxFlex="80%">
+
+    <!-- This element renders a survey if the study is a survey -->
+    <div *ngIf="displaySurvey">
+      <survey-view [template]="survey"></survey-view>
+    </div>
+  </mat-card>
+
+</div>

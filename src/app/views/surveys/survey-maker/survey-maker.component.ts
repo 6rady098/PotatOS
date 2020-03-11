@@ -8,7 +8,7 @@ import { SurveyViewComponent } from '../survey-view/survey-view.component';
 import { SurveyService } from 'src/app/services/survey.service';
 
 @Component({
-  selector: 'app-survey-maker',
+  selector: 'survey-maker',
   templateUrl: './survey-maker.component.html',
   styleUrls: ['./survey-maker.component.css']
 })

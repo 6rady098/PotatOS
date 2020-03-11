@@ -41,6 +41,7 @@ import { BooleanelementFormComponent } from './views/surveys/survey-maker/boolea
 import { RatingFormComponent } from './views/surveys/survey-maker/rating-form/rating-form.component';
 import { SurveyService } from './services/survey.service';
 import { AgeGateComponent } from './views/age-gate/age-gate.component';
+import { StudyPageComponent } from './views/study-page/study-page.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { AgeGateComponent } from './views/age-gate/age-gate.component';
     RadiogroupFormComponent,
     BooleanelementFormComponent,
     RatingFormComponent,
-    AgeGateComponent
+    AgeGateComponent,
+    StudyPageComponent
   ],
   imports: [
     BrowserModule,
