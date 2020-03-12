@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ModelSurvey } from '../../../models/survey-models/survey';
 import { Checkbox } from '../../../models/survey-models/checkbox';
 import { IElement } from 'src/app/models/survey-models/IElement';
@@ -6,23 +6,21 @@ import { Radiogroup } from 'src/app/models/survey-models/radiogroup';
 import { TextElement } from 'src/app/models/survey-models/textelement';
 import { SurveyViewComponent } from '../survey-view/survey-view.component';
 import { SurveyService } from 'src/app/services/survey.service';
+import { InitPageComponent } from '../../init-page.component';
 
 @Component({
   selector: 'survey-maker',
   templateUrl: './survey-maker.component.html',
   styleUrls: ['./survey-maker.component.css']
 })
-export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
-
-  
-  @ViewChild(SurveyViewComponent, null) surveyView;
+export class SurveyMakerComponent extends InitPageComponent implements OnInit {
 
   public readonly navigationBarPositions = [ 'top', 'bottom', 'both' ];
   public readonly elementTypes = [ 'text', 'checkbox', 'radiogroup'/*, 'dropdown', 'comment', 'boolean', 'rating'*/ ];
   private readonly pageMode = 'singlePage';
   showDebug = false;
   questionType: string;
-  model: ModelSurvey;
+  @Input() model: ModelSurvey;
   elements: IElement[];
   showSurvey: boolean;
   surveys: ModelSurvey[];
@@ -32,24 +30,21 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(
     private surveyService: SurveyService
   ) {
-    this.initialize();
+    super();
   }
 
   ngOnInit() {
-    
-  }
-
-  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    //this.surveyView.ngOnChanges();
-  }
-
-  ngAfterViewInit(): void {
-    
+    this.initialize();
   }
 
   private initialize() {
     this.showSurvey = true;
-    this.model = new ModelSurvey();
+
+    if(this.model == null) {
+      console.log("Initializing survey-maker model to default");
+      this.model = new ModelSurvey();
+    }
+
     this.elements = this.model.pages[0].elements;
     this.model.progressBarType = "questions";
     this.questionType = "";
@@ -101,20 +96,6 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
     console.log(this.elements);
   }
 
-  public preview() {
-    console.log('Rendering Survey...');
-
-    for(let i = 0; i < this.elements.length; i++) {
-      if(this.elements[i] instanceof Checkbox) {
-        <Checkbox>this.elements[i].convertChoices();
-      } else if(this.elements[i] instanceof Radiogroup) {
-        <Radiogroup>this.elements[i].convertChoices();
-      }
-    }
-
-    this.surveyView.render(this.model);
-  }
-
   public createSurvey() {
     this.surveyService.create(this.model).subscribe((res) => {
       this.refreshData();
@@ -124,8 +105,6 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
   public refreshData() {
     this.surveyService.getData().subscribe(res => {
       this.surveys = res;
-      //this.surveys.push(res);
-      console.log(this.surveys);
     },
     (err) => {
       console.log('Something went wrong connecting to the database');
@@ -176,17 +155,5 @@ export class SurveyMakerComponent implements OnInit, OnChanges, AfterViewInit {
 
   public typeOf(value) {
     return typeof value;
-  }
-
-  public makeEditable() {
-    
-    var mode = this.model.mode;
-    if(mode === 'display') {
-      this.model.mode = '';
-    } else {
-      this.model.mode = 'display';
-    }
-
-    this.surveyView.render(this.model);
   }
 }

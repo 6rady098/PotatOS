@@ -1,29 +1,99 @@
 <div fxLayout="row" fxLayoutAlign="space-between">
 
+  <!-- 
+  **************************************************************
+    Sidebar
+  **************************************************************
+  -->
   <!-- This card represents the side panel for the buttons (e.g. Edit, Delete, etc) and study image -->
-  <mat-card fxFlex="20%">
-    <img src="../../../assets/images/logo2.jpg" style="margin: 20px">
+  <mat-card fxFlex="{{ sidebarWidth }}%">
+    <img mat-card-image src="../../../assets/images/logo2.jpg">
     <mat-divider></mat-divider>
-    <!--  -->
-    <button mat-button color="primary" class="sidebar-button" *ngIf="!displaySurvey" (click)="renderSurvey()">Start Survey</button>
-    <button mat-button color="primary" class="sidebar-button" *ngIf="displaySurvey" (click)="hideSurvey()">Hide Survey</button>
-    <mat-divider></mat-divider>
-    <button mat-button color="primary" class="sidebar-button">Edit</button>
-    <mat-divider></mat-divider>
-    <button mat-button color="primary" class="sidebar-button">Delete</button>
-    <mat-divider></mat-divider>
+
+    <!-- These buttons are hidden when the survey-make is displayed -->
+    <span *ngIf="!displaySurveyMaker">
+      <button mat-button color="primary" class="sidebar-button" *ngIf="!displaySurvey" (click)="renderSurvey()">Start
+        Survey</button>
+      <button mat-button color="primary" class="sidebar-button" *ngIf="displaySurvey" (click)="hideSurvey()">Hide
+        Survey</button>
+      <mat-divider></mat-divider>
+      <button mat-button color="primary"  (click)="showSurveyMaker()">Edit</button>
+      <mat-divider></mat-divider>
+      <button mat-button color="accent" class="sidebar-button" (click)="preview()">Show Preview</button>
+      <mat-divider></mat-divider>
+    </span>
+    <!-- These buttons are only shown when the survey-maker is active, which means that the survey is being edited -->
+    <span *ngIf="displaySurveyMaker">
+      <button mat-button color="primary" class="sidebar-button" (click)="hideSurveyMaker()">Finish Editing</button>
+      <mat-divider></mat-divider>
+      <button mat-button color="warn" class="sidebar-button">Delete</button>
+      <mat-divider></mat-divider>
+    </span>
   </mat-card>
 
+  <!-- These dividers separate the sidebar from the main display -->
   <mat-divider [vertical]="true"></mat-divider>
   <mat-divider [vertical]="true"></mat-divider>
-  
-  <!-- This card will contain most of the other elements -->
-  <mat-card fxFlex="80%">
 
-    <!-- This element renders a survey if the study is a survey -->
-    <div *ngIf="displaySurvey">
-      <survey-view [template]="survey"></survey-view>
+  <!-- 
+  **************************************************************
+    Main Display
+  **************************************************************
+  -->
+  <!-- This card represents the main display, and is where all content will be displayed -->
+  <mat-card fxFlex="{{ mainPanelWidth }}%">
+
+    <!-- This DIV displays the study's information, such as title, descript, etc. -->
+    <div>
+      <mat-card-title>
+        <h2>{{ study.title }}</h2>
+      </mat-card-title>
+      <mat-card-content>{{ study.description }}</mat-card-content>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h5>Study Information</h5>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div fxLayout="row" fxLayoutGap="1em">
+          <mat-label>Type:</mat-label>
+          <mat-label>{{ studyTypes | findValue : study.type : selectedLanguage }} Study</mat-label>
+        </div>
+        <div fxLayout="row" fxLayoutGap="1em">
+          <mat-label>Creator:</mat-label>
+          <mat-label>{{ study.researcher }}</mat-label>
+        </div>
+        <div fxLayout="row" fxLayoutGap="1em">
+          <mat-label>Upper Age Range:</mat-label>
+          <mat-label>{{ study.upperAgeRange }}</mat-label>
+        </div>
+        <div fxLayout="row" fxLayoutGap="1em">
+          <mat-label>Lower Age Range:</mat-label>
+          <mat-label>{{ study.lowerAgeRange }}</mat-label>
+        </div>
+        <div fxLayout="row" fxLayoutGap="1em">
+          <mat-label>Sex:</mat-label>
+          <mat-label>{{ studySexes | findValue : study.sex : selectedLanguage }}</mat-label>
+        </div>
+      </mat-expansion-panel>
     </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top: 1em">
+      <!-- This DIV handles the editing of questionnaire surveys -->
+      <div *ngIf="displaySurveyMaker && study.type === 0">
+        <survey-maker [model]="survey"></survey-maker>
+      </div>
+
+      <!-- This element renders a survey if the study is a survey -->
+      <!-- The flex % is dynamically calculated when the button is clicked, to move the survey next to the survey-maker -->
+      <div fxFlex="{{surveyWidth}}%" *ngIf="displaySurvey && study.type === 0">
+        <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
+        <survey-view [template]="survey"></survey-view>
+      </div>
+    </div>
+
   </mat-card>
 
 </div>
