@@ -10,35 +10,48 @@
     <img mat-card-image src="../../../assets/images/logo2.jpg">
     <mat-divider></mat-divider>
 
-    <!-- These buttons are hidden when the survey-make is displayed -->
-    <span *ngIf="!displaySurveyMaker">
-      <button mat-button color="primary" class="sidebar-button" (click)="showSurveyMaker()">Edit</button>
-      <mat-divider></mat-divider>
-    </span>
-    <!-- These buttons are only shown when the survey-maker is active, which means that the survey is being edited -->
-    <span *ngIf="displaySurveyMaker">
-      <button mat-button color="primary" class="sidebar-button" (click)="hideSurveyMaker()">Finish Editing</button>
-      <mat-divider></mat-divider>
-      <button mat-button color="primary" class="sidebar-button" (click)="preview()">Show Preview</button>
-      <mat-divider></mat-divider>
-      <button mat-button color="primary" class="sidebar-button" (click)="updateSurvey()">Update Survey</button>
-      <mat-divider></mat-divider>
-      <button mat-button color="warn" class="sidebar-button">Delete Survey</button>
-      <mat-divider></mat-divider>
-    </span>
+    <!-- This DIV will contain all buttons specific to the researcher's view of the page -->
+    <div *ngIf="loggedInUser.role === 1">
 
-    <!--
-    ========================================================
-    Diary buttons go here
-    ========================================================
-    -->
+      <!-- These buttons are hidden when the survey-make is displayed -->
+      <span *ngIf="!displaySurveyMaker">
+        <button mat-button color="primary" class="sidebar-button" (click)="showSurveyMaker()">Edit</button>
+        <mat-divider></mat-divider>
+      </span>
 
+      <!-- These buttons are only shown when the survey-maker is active, which means that the survey is being edited -->
+      <span *ngIf="displaySurveyMaker">
+        <button mat-button color="primary" class="sidebar-button" (click)="hideSurveyMaker()">Finish Editing</button>
+        <mat-divider></mat-divider>
+        <button mat-button color="primary" class="sidebar-button" (click)="preview()">Show Preview</button>
+        <mat-divider></mat-divider>
+        <button mat-button color="primary" class="sidebar-button" (click)="updateSurvey()">Update Survey</button>
+        <mat-divider></mat-divider>
+        <button mat-button color="warn" class="sidebar-button">Delete Survey</button>
+        <mat-divider></mat-divider>
+      </span>
+
+      <!--
+      ========================================================
+      Diary buttons go here
+      ========================================================
+      -->
+      
+    </div>
+
+    <!-- This DIV will handle all buttons for the Participant's functions -->
+    <div *ngIf="loggedInUser.type === 2">
+    </div>
 
   </mat-card>
 
-  <!-- These dividers separate the sidebar from the main display -->
+  <!-- 
+    --------------------------------------------------------------------------------------------------------------------------------------------------------
+    These dividers separate the sidebar from the main display -->
   <mat-divider [vertical]="true"></mat-divider>
   <mat-divider [vertical]="true"></mat-divider>
+  <!--
+    ------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
   <!-- 
   **************************************************************
@@ -53,14 +66,13 @@
       <study-creation-form [study]="study"></study-creation-form>
     </div>
 
-    <!--
+    <!-- 
     ========================================================
-    Diary components go here
+    Survey Component
     ========================================================
-    -->
-
+     -->
     <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top: 1em">
-      <!-- This DIV handles the editing of questionnaire surveys -->
+      <!-- This DIV handles Survey-Creation -->
       <div *ngIf="displaySurveyMaker && study.type === 0">
         <survey-maker [model]="survey"></survey-maker>
       </div>
@@ -72,6 +84,17 @@
         <mat-divider></mat-divider>
         <survey-view></survey-view>
       </div>
+    </div>
+
+    <!--
+    ========================================================
+    Diary components go here
+    ========================================================
+    -->
+
+    
+    <div>
+
     </div>
 
   </mat-card>
