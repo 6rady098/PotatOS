@@ -129,23 +129,9 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
     })
   }
 
-  public updateSurvey() {
-    this.surveyService.update(this.model, this.model._id).subscribe(
-      res => {
-        console.log('Update successful?');
-      },
-    
-      err => {
-        if(err) {
-          throw err;
-        }
-    })
-  }
-
   public loadSurvey(index: number) {
     this.model = this.surveys[index];
     this.elements = this.model.pages[0].elements;
-    this.preview();
   }
 
   public toggleTable() {

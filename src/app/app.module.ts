@@ -42,6 +42,9 @@ import { RatingFormComponent } from './views/surveys/survey-maker/rating-form/ra
 import { SurveyService } from './services/survey.service';
 import { AgeGateComponent } from './views/age-gate/age-gate.component';
 import { StudyPageComponent } from './views/study-page/study-page.component';
+import { StudyCreationFormComponent } from './views/study-creation-form/study-creation-form.component';
+import { DiaryFormComponent } from './views/diary-form/diary-form.component';
+import { StudyService } from './services/study.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,9 @@ import { StudyPageComponent } from './views/study-page/study-page.component';
     BooleanelementFormComponent,
     RatingFormComponent,
     AgeGateComponent,
-    StudyPageComponent
+    StudyPageComponent,
+    StudyCreationFormComponent,
+    DiaryFormComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +101,8 @@ import { StudyPageComponent } from './views/study-page/study-page.component';
     DiaryService,
     ChatService,
     CodetableService,
-    SurveyService
+    SurveyService,
+    StudyService
   ],
   bootstrap: [AppComponent]
 })

@@ -12,23 +12,28 @@
 
     <!-- These buttons are hidden when the survey-make is displayed -->
     <span *ngIf="!displaySurveyMaker">
-      <button mat-button color="primary" class="sidebar-button" *ngIf="!displaySurvey" (click)="renderSurvey()">Start
-        Survey</button>
-      <button mat-button color="primary" class="sidebar-button" *ngIf="displaySurvey" (click)="hideSurvey()">Hide
-        Survey</button>
-      <mat-divider></mat-divider>
-      <button mat-button color="primary"  (click)="showSurveyMaker()">Edit</button>
-      <mat-divider></mat-divider>
-      <button mat-button color="accent" class="sidebar-button" (click)="preview()">Show Preview</button>
+      <button mat-button color="primary" class="sidebar-button" (click)="showSurveyMaker()">Edit</button>
       <mat-divider></mat-divider>
     </span>
     <!-- These buttons are only shown when the survey-maker is active, which means that the survey is being edited -->
     <span *ngIf="displaySurveyMaker">
       <button mat-button color="primary" class="sidebar-button" (click)="hideSurveyMaker()">Finish Editing</button>
       <mat-divider></mat-divider>
-      <button mat-button color="warn" class="sidebar-button">Delete</button>
+      <button mat-button color="primary" class="sidebar-button" (click)="preview()">Show Preview</button>
+      <mat-divider></mat-divider>
+      <button mat-button color="primary" class="sidebar-button" (click)="updateSurvey()">Update Survey</button>
+      <mat-divider></mat-divider>
+      <button mat-button color="warn" class="sidebar-button">Delete Survey</button>
       <mat-divider></mat-divider>
     </span>
+
+    <!--
+    ========================================================
+    Diary buttons go here
+    ========================================================
+    -->
+
+
   </mat-card>
 
   <!-- These dividers separate the sidebar from the main display -->
@@ -45,39 +50,14 @@
 
     <!-- This DIV displays the study's information, such as title, descript, etc. -->
     <div>
-      <mat-card-title>
-        <h2>{{ study.title }}</h2>
-      </mat-card-title>
-      <mat-card-content>{{ study.description }}</mat-card-content>
-
-      <mat-expansion-panel [expanded]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <h5>Study Information</h5>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div fxLayout="row" fxLayoutGap="1em">
-          <mat-label>Type:</mat-label>
-          <mat-label>{{ studyTypes | findValue : study.type : selectedLanguage }} Study</mat-label>
-        </div>
-        <div fxLayout="row" fxLayoutGap="1em">
-          <mat-label>Creator:</mat-label>
-          <mat-label>{{ study.researcher }}</mat-label>
-        </div>
-        <div fxLayout="row" fxLayoutGap="1em">
-          <mat-label>Upper Age Range:</mat-label>
-          <mat-label>{{ study.upperAgeRange }}</mat-label>
-        </div>
-        <div fxLayout="row" fxLayoutGap="1em">
-          <mat-label>Lower Age Range:</mat-label>
-          <mat-label>{{ study.lowerAgeRange }}</mat-label>
-        </div>
-        <div fxLayout="row" fxLayoutGap="1em">
-          <mat-label>Sex:</mat-label>
-          <mat-label>{{ studySexes | findValue : study.sex : selectedLanguage }}</mat-label>
-        </div>
-      </mat-expansion-panel>
+      <study-creation-form [study]="study"></study-creation-form>
     </div>
+
+    <!--
+    ========================================================
+    Diary components go here
+    ========================================================
+    -->
 
     <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top: 1em">
       <!-- This DIV handles the editing of questionnaire surveys -->
@@ -90,7 +70,7 @@
       <div fxFlex="{{surveyWidth}}%" *ngIf="displaySurvey && study.type === 0">
         <mat-divider></mat-divider>
         <mat-divider></mat-divider>
-        <survey-view [template]="survey"></survey-view>
+        <survey-view></survey-view>
       </div>
     </div>
 
