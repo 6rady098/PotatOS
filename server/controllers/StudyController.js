@@ -30,6 +30,19 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/:id", (req, res) => {
+  Study.findOne({ _id: ObjectId(req.params.id)},
+   null, 
+   (err, results) => {
+    if (err) throw err;
+    if (results.length == 0) {
+      res.status(200).json([]);
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 // Read filtered
 /*
  * TODO: This function may need a rework, this was copied directly from

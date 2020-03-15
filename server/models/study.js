@@ -16,7 +16,7 @@ const studySchema = mongoose.Schema({
   lowerAgeRange: { type: Number },
   sex: { type: Number },
 
-  component_id: { type: String }
+  content_id: { type: String }
 });
 
 module.exports = getDb().model('study', studySchema, COLLECTION);

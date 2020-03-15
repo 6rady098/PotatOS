@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'participant-login', component: ParticipantComponent },//constant path for participant login buttonrr
   { path: 'researcher-login', component: ResearcherloginComponent },
   { path: 'survey-maker', component: SurveyMakerComponent },
-  { path: 'study-page', component: StudyPageComponent }
+  { path: 'study-page/:id', component: StudyPageComponent }
 ];
 
 @NgModule({

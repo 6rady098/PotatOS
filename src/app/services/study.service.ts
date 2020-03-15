@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Study } from '../models/study';
 import { environment } from 'src/environments/environment';
 
-const BACKEND_URL = environment.apiUrl + '/studies/';
+const BACKEND_URL = environment.apiUrl + '/study/';
 @Injectable()
 export class StudyService {
   constructor(private http: HttpClient) { }
@@ -23,6 +23,10 @@ export class StudyService {
 
   getData(): Observable<any[]> {
     return this.http.get<any[]>(BACKEND_URL);
+  }
+
+  getDataById(_id: string): Observable<any> {
+    return this.http.get<any>(BACKEND_URL + _id, {observe: 'response'});
   }
 
   getFilteredData(age: number, sex: string, ids: any[]): Observable<any[]> {

@@ -13,6 +13,7 @@ import { Checkbox } from 'src/app/models/survey-models/checkbox';
 import { Radiogroup } from 'src/app/models/survey-models/radiogroup';
 import { SurveyMakerComponent } from '../surveys/survey-maker/survey-maker.component';
 import { StudyService } from 'src/app/services/study.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'study-page',
@@ -43,6 +44,7 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
   displaySurveyMaker: boolean;
 
   study: any;
+  studyId: string;
   studyTypes: any;
   type: string;
   studySexes: any;
@@ -59,9 +61,19 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
     private authService: AuthService,
     private codetableService: CodetableService,
     private surveyService: SurveyService,
-    private studyService: StudyService
+    private studyService: StudyService,
+    private route: ActivatedRoute
   ) {
     super();
+
+    this.route.params.subscribe((params) => {
+      this.studyId = params.id;
+      this.getStudy(this.studyId);
+    },
+    (err) => {
+      if(err)
+        throw err;
+    });
   }
 
   /**
@@ -72,11 +84,8 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
     //this.studyType = this.study.type; //Enable this when the page is hooked up to the cards
     this.displaySurvey = true;
     this.surveyList = [];
-    this.surveyWidth = 100;
-
+    this.surveyWidth = 100;    
     this.getCodeTable();
-    this.getStudy();
-    this.getSurvey();
   }
 
   /**
@@ -128,7 +137,7 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
   public hideSurveyMaker(): void {
     this.displaySurveyMaker = false;
     this.updateSurvey();
-    this.getSurvey();
+    this.getSurvey(this.study.content_id);
     /*We reset the width of the survey to take up the whole panel */
     this.surveyWidth = 100;
   }
@@ -180,19 +189,18 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
 
   /**
    * This function retrieves the list of surveys from the database. Currently, it takes the first one and loads it directly, for testing.
-   * 
-   * TODO: adjust this function to only look for the survey that would match the Study object it is associated with. 
    */
-  private getSurvey(): void {
-    this.surveyService.getData().subscribe( //This will need to be removed, as the study will be passed in from the studycard
+  private getSurvey(_id: string): void {
+    this.surveyService.getDataById(_id).subscribe(
       (res) => {
-        this.surveyList = res;
-        this.survey = this.surveyList[0];
+        this.survey = res.body;
         this.renderSurvey();
       },
       (err) => {
-        if (err)
+        if (err) {
+          console.log("Something went wrong loading the survey");
           throw err;
+        }
       }
     );
   }
@@ -203,11 +211,12 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
    * TODO: modify this to only retrieve the study being passed into it from the Grid List, then change the object type to retrieve the new "Study"
    * objects, which combines all of the study fields from the Diary, Questionnaire and Chat Log objects into a single class.
    */
-  private getStudy(): void {
-    this.questionnaireService.getData().subscribe(
+  private getStudy(_id: string) {
+    this.studyService.getDataById(_id).subscribe(
       (res) => {
-        this.study = res[0];
+        this.study = res.body;
         this.type = this.study.type;
+        this.getSurvey(this.study.content_id);
       },
       (err) => {
         if (err)
