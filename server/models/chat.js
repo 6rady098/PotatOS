@@ -16,6 +16,8 @@ const chatSchema = mongoose.Schema({
   lowerAgeRange: { type: Number },
   sex: { type: Number },
 
+  studyId: { type: String },
+
   responses: [{
     username: { type: String },
     message: { type: String }
