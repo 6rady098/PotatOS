@@ -45,6 +45,7 @@ import { StudyPageComponent } from './views/study-page/study-page.component';
 import { StudyCreationFormComponent } from './views/study-creation-form/study-creation-form.component';
 import { DiaryFormComponent } from './views/diary-form/diary-form.component';
 import { StudyService } from './services/study.service';
+import { StudySurveysComponent } from './views/study-surveys/study-surveys.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { StudyService } from './services/study.service';
     AgeGateComponent,
     StudyPageComponent,
     StudyCreationFormComponent,
-    DiaryFormComponent
+    DiaryFormComponent,
+    StudySurveysComponent
   ],
   imports: [
     BrowserModule,

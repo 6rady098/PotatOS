@@ -36,11 +36,12 @@
       Diary buttons go here
       ========================================================
       -->
-      
+
     </div>
 
     <!-- This DIV will handle all buttons for the Participant's functions -->
     <div *ngIf="loggedInUser.type === 2">
+
     </div>
 
   </mat-card>
@@ -71,30 +72,15 @@
     Survey Component
     ========================================================
      -->
-    <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top: 1em">
-      <!-- This DIV handles Survey-Creation -->
-      <div *ngIf="displaySurveyMaker && study.type === 0">
-        <survey-maker [model]="survey"></survey-maker>
-      </div>
-
-      <!-- This element renders a survey if the study is a survey -->
-      <!-- The flex % is dynamically calculated when the button is clicked, to move the survey next to the survey-maker -->
-      <div fxFlex="{{surveyWidth}}%" *ngIf="displaySurvey && study.type === 0">
-        <mat-divider></mat-divider>
-        <mat-divider></mat-divider>
-        <survey-view></survey-view>
-      </div>
-    </div>
+    <survey *ngIf="type === 0" [surveyId]="study.content_id"></survey>
 
     <!--
     ========================================================
     Diary components go here
     ========================================================
-    -->
-
-    
+    -->    
     <div>
-
+      <!-- Specifically in here -->
     </div>
 
   </mat-card>
