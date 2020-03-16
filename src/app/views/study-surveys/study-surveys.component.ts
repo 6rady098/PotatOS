@@ -74,7 +74,7 @@ export class StudySurveysComponent implements OnInit {
       this.surveyWidth = 100 - this.surveyMakerWidth;
       this.displaySurveyMaker = true;
       this.displaySurvey = true;
-      this.preview();
+    //  this.preview();
     } catch(e) {
       console.log(e);
     }
@@ -85,20 +85,20 @@ export class StudySurveysComponent implements OnInit {
   /**
    * This function hides the survey.
    */
-  public hideSurveyMaker(): void {
+ /* public hideSurveyMaker(): void {
     this.displaySurveyMaker = false;
     this.updateSurvey();
     this.getSurvey(this.study.content_id);
     /*We reset the width of the survey to take up the whole panel */
-    this.surveyWidth = 100;
-  }
+  /*  this.surveyWidth = 100;
+  }*/
 
 
     /**
    * When the Survey-Maker is active, this function updates the model passed into the survey
    * and renders it, to show the updates made to the survey (as it doesn't update dynamically).
    */
-  public preview() {
+ /* public preview() {
     console.log('Rendering Survey...');
     var elements = this.survey.pages[0].elements;
 
@@ -108,7 +108,7 @@ export class StudySurveysComponent implements OnInit {
      * but the survey component can only interpret a string array. This step prepares the string array to be read
      * by the survey component. 
      */
-    for (let i = 0; i < elements.length; i++) {
+ /*   for (let i = 0; i < elements.length; i++) {
       if (elements[i] instanceof Checkbox) {
         <Checkbox>elements[i].convertChoices();
       } else if (elements[i] instanceof Radiogroup) {
@@ -118,12 +118,12 @@ export class StudySurveysComponent implements OnInit {
 
     this.surveyView.render(this.survey);
   }
-
+*/
   
   /**
    * This function retrieves the list of surveys from the database. Currently, it takes the first one and loads it directly, for testing.
    */
-  private getSurvey(_id: string): void {
+/*  private getSurvey(_id: string): void {
     this.surveyService.getDataById(_id).subscribe(
       (res) => {
         this.survey = res.body;
@@ -139,7 +139,7 @@ export class StudySurveysComponent implements OnInit {
   }
 
    /**Updates the current survey's entry in the database */
-   public updateSurvey() {
+/*   public updateSurvey() {
     this.surveyService.update(this.survey, this.survey._id).subscribe(
       res => {
         console.log('Update successful');
@@ -150,5 +150,5 @@ export class StudySurveysComponent implements OnInit {
           throw err;
         }
     });
-  }
+  }*/
 }
