@@ -1,0 +1,88 @@
+<div fxLayout="row" fxLayoutAlign="space-between">
+
+  <!-- 
+  **************************************************************
+    Sidebar
+  **************************************************************
+  -->
+  <!-- This card represents the side panel for the buttons (e.g. Edit, Delete, etc) and study image -->
+  <mat-card fxFlex="{{ sidebarWidth }}%">
+    <img mat-card-image src="../../../assets/images/logo2.jpg">
+    <mat-divider></mat-divider>
+
+    <!-- This DIV will contain all buttons specific to the researcher's view of the page -->
+    <div *ngIf="loggedInUser.role === 1">
+
+      <!-- These buttons are hidden when the survey-make is displayed -->
+      <span *ngIf="!displaySurveyMaker">
+        <button mat-button color="primary" class="sidebar-button" (click)="showSurveyMaker()">Edit</button>
+        <mat-divider></mat-divider>
+      </span>
+
+      <!-- These buttons are only shown when the survey-maker is active, which means that the survey is being edited -->
+      <span *ngIf="displaySurveyMaker">
+        <button mat-button color="primary" class="sidebar-button" (click)="hideSurveyMaker()">Finish Editing</button>
+        <mat-divider></mat-divider>
+        <button mat-button color="primary" class="sidebar-button" (click)="preview()">Show Preview</button>
+        <mat-divider></mat-divider>
+        <button mat-button color="primary" class="sidebar-button" (click)="updateSurvey()">Update Survey</button>
+        <mat-divider></mat-divider>
+        <button mat-button color="warn" class="sidebar-button">Delete Survey</button>
+        <mat-divider></mat-divider>
+      </span>
+
+      <!--
+      ========================================================
+      Diary buttons go here
+      ========================================================
+      -->
+
+    </div>
+
+    <!-- This DIV will handle all buttons for the Participant's functions -->
+    <div *ngIf="loggedInUser.type === 2">
+
+    </div>
+
+  </mat-card>
+
+  <!-- 
+    --------------------------------------------------------------------------------------------------------------------------------------------------------
+    These dividers separate the sidebar from the main display -->
+  <mat-divider [vertical]="true"></mat-divider>
+  <mat-divider [vertical]="true"></mat-divider>
+  <!--
+    ------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <!-- 
+  **************************************************************
+    Main Display
+  **************************************************************
+  -->
+  <!-- This card represents the main display, and is where all content will be displayed -->
+  <mat-card fxFlex="{{ mainPanelWidth }}%">
+
+    <!-- This DIV displays the study's information, such as title, descript, etc. -->
+    <div>
+      <study-creation-form [study]="study"></study-creation-form>
+    </div>
+
+    <!-- 
+    ========================================================
+    Survey Component
+    ========================================================
+     -->
+    <survey *ngIf="type === 0" [surveyId]="study.content_id"></survey>
+
+    <!--
+    ========================================================
+    Diary components go here
+    ========================================================
+    -->    
+    <div>
+      <!-- Specifically in here -->
+    </div>
+
+  </mat-card>
+
+</div>

@@ -1,18 +1,17 @@
-
 var express = require("express");
 var router = express.Router();
 var bodyParser = require("body-parser");
 
 const ObjectId = require("mongodb").ObjectID;
 
-const Questionnaire = require("../models/questionnaire");
+const Study = require("../models/study");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 // Create a document
 router.post("/", (req, res) => {
-  Questionnaire.create(req.body, (err, result) => {
+  Study.create(req.body, (err, result) => {
     if (err) throw err;
     res.status(201);
     res.send({ message: "success" });
@@ -21,7 +20,7 @@ router.post("/", (req, res) => {
 
 // Read a document
 router.get("/", (req, res) => {
-  Questionnaire.find({}, null, (err, results) => {
+  Study.find({}, null, (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
       res.status(200).json([]);
@@ -32,7 +31,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  Questionnaire.findOne({ _id: ObjectId(req.params.id)},
+  Study.findOne({ _id: ObjectId(req.params.id)},
    null, 
    (err, results) => {
     if (err) throw err;
@@ -45,8 +44,12 @@ router.get("/:id", (req, res) => {
 });
 
 // Read filtered
+/*
+ * TODO: This function may need a rework, this was copied directly from
+ *  the questionnaire's controller
+ */
 router.post("/filtered", (req, res) => {
-  Questionnaire.find(
+  Study.find(
     {
       'upperAgeRange': { $gte: req.body.age },
       'lowerAgeRange': { $lte: req.body.age }, 
@@ -64,7 +67,7 @@ router.post("/filtered", (req, res) => {
 
 // Update a document
 router.put("/:id", (req, res) => {
-  Questionnaire.updateOne(
+  Study.updateOne(
     { _id: ObjectId(req.params.id) },
     { $set: req.body },
     (err, results) => {
@@ -81,7 +84,7 @@ router.put("/:id", (req, res) => {
 
 // Delete a document
 router.delete("/:id", (req, res) => {
-  Questionnaire.deleteOne({ _id: ObjectId(req.params.id) }, (err, obj) => {
+  Study.deleteOne({ _id: ObjectId(req.params.id) }, (err, obj) => {
     if (err) throw err;
     if (obj.n == 0) {
       res.status(404);

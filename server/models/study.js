@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const getDb = require("../db").getDb;
-const COLLECTION = require("../db").DIARY_COLLECTION;
+const COLLECTION = require("../db").STUDY_COLLECTION;
 
-const diarySchema = mongoose.Schema({
+const studySchema = mongoose.Schema({
   type: { type: Number },
   creationDate: { type: Date },
   researcher: { type: String },
@@ -16,12 +16,7 @@ const diarySchema = mongoose.Schema({
   lowerAgeRange: { type: Number },
   sex: { type: Number },
 
-  studyId: { type: String },
-
-  entries: [{
-    date: { type: Date },
-    entry: { type: String }
-  }]
+  content_id: { type: String }
 });
 
-module.exports = getDb().model('diary', diarySchema, COLLECTION);
+module.exports = getDb().model('study', studySchema, COLLECTION);

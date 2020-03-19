@@ -8,7 +8,8 @@ const surveySchema = mongoose.Schema({
   showProgressBar: { type: String },
   progressBarType: { type: String },
   questionsOnPageMode: { type: String },
-  mode: { type: String },
+  
+  studyId: { type: String },
 
   pages: [{
 

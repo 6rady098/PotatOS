@@ -32,6 +32,19 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/:id", (req, res) => {
+  Survey.findOne({ _id: ObjectId(req.params.id)},
+   null, 
+   (err, results) => {
+    if (err) throw err;
+    if (results.length == 0) {
+      res.status(200).json([]);
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 //Update a Survey
 router.put("/:id", (req, res) => {
   Survey.updateOne(
