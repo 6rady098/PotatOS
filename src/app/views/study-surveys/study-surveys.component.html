@@ -6,9 +6,9 @@
 
   <!-- This element renders a survey if the study is a survey -->
   <!-- The flex % is dynamically calculated when the button is clicked, to move the survey next to the survey-maker -->
-  <div fxFlex="{{surveyWidth}}%" *ngIf="displaySurvey && study.type === 0 && isLoaded">
+  <div fxFlex="{{surveyWidth}}%" *ngIf="displaySurvey && study.type === 0">
     <mat-divider></mat-divider>
     <mat-divider></mat-divider>
-    <survey-view></survey-view>
+    <survey-view [template]="survey" *ngIf="isLoaded"></survey-view>
   </div>
 </div>

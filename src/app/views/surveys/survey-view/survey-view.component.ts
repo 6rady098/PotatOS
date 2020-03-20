@@ -22,7 +22,7 @@ export class SurveyViewComponent extends InitPageComponent implements OnInit {
 
   public render(template: ModelSurvey) {
 
-    let model = new Survey.Model(template);
+    var model = new Survey.Model(template);
     model.onComplete
       .add((results) => {
         console.log(results.data);

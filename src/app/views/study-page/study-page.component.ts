@@ -1,11 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { QuestionnaireService } from 'src/app/services/questionnaires.service';
-import { DiaryService } from 'src/app/services/diary.service';
-import { UserService } from 'src/app/services/users.service';
-import { ChatService } from 'src/app/services/chat.service';
-import { AuthService } from 'src/app/auth/auth.service';
 import { CodetableService } from 'src/app/services/codetable.service';
-import { SurveyService } from 'src/app/services/survey.service';
 import { InitPageComponent } from '../init-page.component';
 import { StudyService } from 'src/app/services/study.service';
 import { ActivatedRoute } from '@angular/router';
@@ -50,7 +44,8 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
   isLoaded: boolean;
   /**This boolean determines whether the study and its content are in edit mode */
   editable: boolean;
-
+  /**This boolean sets the page to "Test Mode" to allow a researcher to test a survey */
+  isSurveyActive: boolean;
 
   constructor(
     private codetableService: CodetableService,
@@ -73,6 +68,7 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
     this.loadStudy();
     this.isLoaded = false;
     this.editable = false;
+    this.isSurveyActive = false;
   }
 
   public loadStudy() {
@@ -118,8 +114,6 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
     console.log('Fetching the study');
     this.studyService.getDataById(_id).subscribe(
       (res) => {
-        console.log('Study Service response');
-        console.log(res);
         this.study = res.body;
         this.type = this.study.type;
         this.sex = this.study.sex;
@@ -165,11 +159,43 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
    * If the study is of type questionnaire/survey, this refreshes the survey's model
    */
   public refreshSurvey() {
-
     if (this.type === 0) {
       if (this.studySurvey != null && typeof this.studySurvey !== 'undefined') {
         this.studySurvey.refreshSurvey();
       }
     }
   }
+
+  /**
+   * If the study is of type questionnaire/survey, this updates the survey in the database
+   */
+  public updateSurvey() {
+    if (this.type === 0) {
+      if (this.studySurvey != null && typeof this.studySurvey !== 'undefined') {
+        this.studySurvey.updateSurvey();
+      }
+    }
+  }
+
+  public resetSurvey() {
+    if(this.type === 0 && this.studySurvey) {
+      this.studySurvey.resetSurvey();
+    }
+  }
+
+  public startSurvey() {
+    this.isSurveyActive = true;
+    this.studySurvey.startSurvey();
+  }
+
+  public resetTestSurvey() {
+    this.studySurvey.resetTestSurvey();
+  }
+
+  public stopSurvey() {
+    this.isSurveyActive = false;
+    this.studySurvey.stopSurvey();
+  }
 }
+
+//TODO: Add dialog boxes for the survey reset and delete buttons

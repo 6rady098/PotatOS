@@ -15,8 +15,8 @@ import { InitPageComponent } from '../../init-page.component';
 })
 export class SurveyMakerComponent extends InitPageComponent implements OnInit {
 
-  public readonly navigationBarPositions = [ 'top', 'bottom', 'both' ];
-  public readonly elementTypes = [ 'text', 'checkbox', 'radiogroup'/*, 'dropdown', 'comment', 'boolean', 'rating'*/ ];
+  public readonly navigationBarPositions = ['top', 'bottom', 'both'];
+  public readonly elementTypes = ['text', 'checkbox', 'radiogroup'/*, 'dropdown', 'comment', 'boolean', 'rating'*/];
   private readonly pageMode = 'singlePage';
   showDebug = false;
   questionType: string;
@@ -24,7 +24,7 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
   elements: IElement[];
   showSurvey: boolean;
   surveys: ModelSurvey[];
-  displayedColumns = [ 'title', 'elements', 'options' ];
+  displayedColumns = ['title', 'elements', 'options'];
   showTable = false;
 
   constructor(
@@ -37,10 +37,10 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
     this.initialize();
   }
 
-  private initialize() {
+  private initialize() {
     this.showSurvey = true;
 
-    if(this.model == null) {
+    if (this.model == null) {
       console.log("Initializing survey-maker model to default");
       this.model = new ModelSurvey();
     }
@@ -54,7 +54,7 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
 
   public addQuestion(type: string) {
     let question;
-    switch(type) {
+    switch (type) {
       case 'checkbox': {
         question = new Checkbox();
         question.addChoice('Option 1');
@@ -106,9 +106,27 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
     this.surveyService.getData().subscribe(res => {
       this.surveys = res;
     },
-    (err) => {
-      console.log('Something went wrong connecting to the database');
-      console.log(err);
+      (err) => {
+        console.log('Something went wrong connecting to the database');
+        console.log(err);
+      });
+  }
+
+  public async updateSurvey() {
+    await new Promise((resolve, reject) => {
+      this.surveyService.update(this.model, this.model._id).subscribe(
+        res => {
+          if (res.status === 200) {
+            console.log('Update successful');
+            resolve('Success');
+          }
+        },
+
+        err => {
+          if (err) {
+            reject(err);
+          }
+        });
     });
   }
 
@@ -117,16 +135,16 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
     var survey = this.surveys[index];
 
     this.surveyService.delete(survey._id).subscribe(res => {
-      if(res.status == 200) {
+      if (res.status == 200) {
         this.refreshData();
       }
     },
-    err => {
-      if(err) {
-        console.log(err);
-        throw err;
-      }
-    })
+      err => {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+      })
   }
 
   public loadSurvey(index: number) {
@@ -141,5 +159,30 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
 
   public typeOf(value) {
     return typeof value;
+  }
+
+  /**
+   * This function resets the active survey to default values
+   * 
+   * @return a Promise that resolves if the survey is successfully updated
+   */
+  public async resetSurvey() {
+    //We save the _id, as the re-initialization won't keep the current id, and we'll lose the relationship
+    let id = this.model._id;
+
+    //We nullify the model, as it allows the initialize() method to reset the model
+    this.model = null;
+    this.initialize();
+    this.model._id = id;
+
+    await new Promise((resolve, reject) => {
+      this.updateSurvey()
+        .then(result => {
+          resolve();
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   }
 }

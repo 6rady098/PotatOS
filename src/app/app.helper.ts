@@ -8,6 +8,8 @@ export class AppHelper {
             // set up JWT token decode here
             const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
             return loggedInUser;
+        } else {
+            console.error('loggedInUser could not be found');
         }
     }
 }

@@ -47,6 +47,7 @@ import { DiaryFormComponent } from './views/diary-form/diary-form.component';
 import { StudyService } from './services/study.service';
 import { StudySurveysComponent } from './views/study-surveys/study-surveys.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog'; 
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     // ngx-translate and the loader module
     HttpClientModule,
     MatCheckboxModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

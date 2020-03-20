@@ -15,13 +15,10 @@ import { InitPageComponent } from '../init-page.component';
 })
 export class StudySurveysComponent extends InitPageComponent implements OnInit {
 
-  /**Represents the MongoDB ID assigned to the survey that is associated with this study */
-  surveyId: string;
-
-   /**
-   * This ViewChild corresponds to the embedded <survey-view> component that
-   * is attached in cases where the study is of type questionnaire/survey
-   */
+  /**
+  * This ViewChild corresponds to the embedded <survey-view> component that
+  * is attached in cases where the study is of type questionnaire/survey
+  */
   @ViewChild(SurveyViewComponent, { static: false }) surveyView;
   @ViewChild(SurveyMakerComponent, { static: false }) surveyMaker;
   survey: ModelSurvey;
@@ -37,17 +34,20 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
   private readonly surveyMakerWidth = 55;
 
   constructor(
-    private surveyService: SurveyService,
-    private studyService: StudyService
+    private surveyService: SurveyService
   ) {
     super();
     this.isLoaded = false;
+
   }
 
   ngOnInit() {
-    this.getSurvey(this.study.content_id);
+    this.getSurvey(this.study.content_id)
+      .then(() => {
+        this.refreshSurvey();
+      });
     this.displaySurvey = true;
-    this.surveyWidth = 100;    
+    this.surveyWidth = 100;
   }
 
   /**
@@ -56,18 +56,6 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
   public resetBooleans(): void {
     this.displaySurvey = false;
     this.displaySurveyMaker = false;
-  }
-
-   /**
-   * If the study is a questionnaire/survey, this function tells the survey-view
-   * component to render the study's survey, and displays it on the page.
-   */
-  public renderSurvey(): void {
-    this.displaySurvey = true;
-
-    if(this.surveyView != null) {
-      this.surveyView.render(this.survey);
-    } 
   }
 
   /**
@@ -88,31 +76,35 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
       this.displaySurveyMaker = true;
       this.displaySurvey = true;
       this.refreshSurvey();
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
 
-    
-
   /**
    * This function hides the survey.
    */
-  public hideEdit(): void {
-    this.displaySurveyMaker = false;
-    this.updateSurvey();
-    this.getSurvey(this.study.content_id);
-    /*We reset the width of the survey to take up the whole panel */
-    this.surveyWidth = 100;
+  public async hideEdit() {
+    await this.updateSurvey()
+      .then(() => {
+        this.surveyWidth = 100; //We reset the width of the survey to take up the whole panel
+        this.displaySurveyMaker = false;
+      })
+      .then(value => {
+        this.refreshSurvey();
+      })
+      .catch(err => {
+        if (err) throw err;
+      });
   }
 
 
-    /**
-   * When the Survey-Maker is active, this function updates the model passed into the survey
-   * and renders it, to show the updates made to the survey (as it doesn't update dynamically).
-   */
+  /**
+ * When the Survey-Maker is active, this function updates the model passed into the survey
+ * and renders it, to show the updates made to the survey (as it doesn't update dynamically).
+ */
   public refreshSurvey() {
-    console.log('Rendering Survey...');
+    console.log('Refreshing Survey...');
     var elements = this.survey.pages[0].elements;
 
     /*
@@ -130,44 +122,88 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
         <Radiogroup>elements[i].convertChoices();
       }
     }
-    this.surveyView.render(this.survey);
+    this.displaySurvey = true;
+
+    if (this.surveyView) {
+      this.surveyView.render(this.survey);
+    }
   }
 
-  
   /**
-   * This function retrieves the list of surveys from the database. Currently, it takes the first one and loads it directly, for testing.
+   * This function retrieves the list of surveys from the database.
    */
-  private getSurvey(_id: string): void {
-    this.surveyService.getDataById(_id).subscribe(
-      (res) => {
-        console.log('Survey found, loading data');
-        this.survey = res.body;
-        this.isLoaded = true;
-        this.renderSurvey();
-      },
-      (err) => {
-        if (err) {
-          console.log("Something went wrong loading the survey");
-          throw err;
-        }
-      }
-    );
+  private async getSurvey(_id: string) {
+    if (_id) {
+      await new Promise((resolve, reject) => {
+        console.log('Beginning search for the corresponding survey');
+        this.surveyService.getDataById(_id).subscribe(res => {
+          console.log('SurveyService found survey ' + _id);
+          this.survey = res.body;
+          this.isLoaded = true;
+          resolve();
+        },
+          err => {
+            console.warn('Error occurred while retrieving survey ' + _id);
+            reject(err);
+          });
+      });
+    }
   }
 
-   /**Updates the current survey's entry in the database */
-  public updateSurvey() {
-    this.surveyService.update(this.survey, this.survey._id).subscribe(
-      res => {
-        console.log('Update successful');
-      },
-    
-      err => {
-        if(err) {
-          throw err;
-        }
+  /**Updates the current survey's entry in the database */
+  public async updateSurvey() {
+    await new Promise((resolve, reject) => {
+      if (this.surveyMaker) {
+        this.surveyMaker.updateSurvey()
+          .then(() => {
+            resolve('Success');
+          })
+          .catch(err => {
+            reject(err);
+          });
+      } else {
+        reject('Could not update survey, surveyMaker object is null');
+      }
     });
   }
+
+  public resetSurvey() {
+
+    if (this.surveyMaker) { //Check to make sure that the survey-maker is not null
+
+      console.log('Resetting survey...');
+
+      this.surveyMaker.resetSurvey()
+        .then(() => { //If the resetSurvey() method succeeds, we can then retrieve the new version of the survey, and refresh the survey-view
+          this.getSurvey(this.study.content_id)
+            .then(() => {
+              this.refreshSurvey();
+            })
+            .catch(err => {
+              console.log('Something went wrong while resetting this survey');
+              if (err)
+                throw err;
+            });
+        })
+        .catch(err => {
+          console.warn('Something went wrong while trying to reset the survey');
+
+          if (err) throw err;
+        });
+    }
+  }
+
+  public startSurvey() {
+    this.survey.mode = '';
+    this.refreshSurvey();
+  }
+
+  public resetTestSurvey() {
+    this.refreshSurvey();
+  }
+
+  public stopSurvey() {
+    this.survey.mode = 'display';
+    this.refreshSurvey();
+  }
 }
-
-
-//TODO: fix the update function to update the model correctly
