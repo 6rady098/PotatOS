@@ -14,20 +14,20 @@
     <div *ngIf="loggedInUser.role === 1">
 
       <!-- These buttons are hidden when the survey-make is displayed -->
-      <span *ngIf="!displaySurveyMaker">
-        <button mat-button color="primary" class="sidebar-button" (click)="showSurveyMaker()">Edit</button>
+      <span *ngIf="!editable">
+        <button mat-button color="primary" class="sidebar-button" (click)="edit()">Edit</button>
         <mat-divider></mat-divider>
       </span>
 
       <!-- These buttons are only shown when the survey-maker is active, which means that the survey is being edited -->
-      <span *ngIf="displaySurveyMaker">
-        <button mat-button color="primary" class="sidebar-button" (click)="hideSurveyMaker()">Finish Editing</button>
+      <span *ngIf="editable">
+        <button mat-button color="primary" class="sidebar-button" (click)="hideEdit()">Finish Editing</button>
         <mat-divider></mat-divider>
-        <button mat-button color="primary" class="sidebar-button" (click)="preview()">Show Preview</button>
+        <button mat-button color="primary" class="sidebar-button" (click)="refreshSurvey()" *ngIf="type === 0">Refresh Survey</button>
         <mat-divider></mat-divider>
-        <button mat-button color="primary" class="sidebar-button" (click)="updateSurvey()">Update Survey</button>
+        <button mat-button color="primary" class="sidebar-button" (click)="updateSurvey()" *ngIf="type === 0">Update Survey</button>
         <mat-divider></mat-divider>
-        <button mat-button color="warn" class="sidebar-button">Delete Survey</button>
+        <button mat-button color="warn" class="sidebar-button" *ngIf="type === 0">Delete Survey</button>
         <mat-divider></mat-divider>
       </span>
 
@@ -64,7 +64,7 @@
 
     <!-- This DIV displays the study's information, such as title, descript, etc. -->
     <div>
-      <study-creation-form [study]="study"></study-creation-form>
+      <study-creation-form *ngIf="isLoaded" [study]="study"></study-creation-form>
     </div>
 
     <!-- 
@@ -72,7 +72,7 @@
     Survey Component
     ========================================================
      -->
-    <survey *ngIf="type === 0" [surveyId]="study.content_id"></survey>
+    <survey *ngIf="type === 0" [study]="study"></survey>
 
     <!--
     ========================================================

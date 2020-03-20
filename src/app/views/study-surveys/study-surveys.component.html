@@ -1,12 +1,12 @@
 <div fxLayout="row" fxLayoutAlign="space-between" style="margin-top: 1em">
   <!-- This DIV handles Survey-Creation -->
-  <div *ngIf="displaySurveyMaker && study.type === 0">
+  <div fxFlex="{{surveyMakerWidth}}%" *ngIf="displaySurveyMaker && study.type === 0">
     <survey-maker [model]="survey"></survey-maker>
   </div>
 
   <!-- This element renders a survey if the study is a survey -->
   <!-- The flex % is dynamically calculated when the button is clicked, to move the survey next to the survey-maker -->
-  <div fxFlex="{{surveyWidth}}%" *ngIf="displaySurvey && study.type === 0">
+  <div fxFlex="{{surveyWidth}}%" *ngIf="displaySurvey && study.type === 0 && isLoaded">
     <mat-divider></mat-divider>
     <mat-divider></mat-divider>
     <survey-view></survey-view>
