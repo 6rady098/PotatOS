@@ -89,39 +89,22 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
       .then(() => {
         this.surveyWidth = 100; //We reset the width of the survey to take up the whole panel
         this.displaySurveyMaker = false;
-      })
+        this.refreshSurvey();
+      })/*
       .then(value => {
         this.refreshSurvey();
-      })
+      })*/
       .catch(err => {
         if (err) throw err;
       });
   }
-
-
+ 
   /**
- * When the Survey-Maker is active, this function updates the model passed into the survey
- * and renders it, to show the updates made to the survey (as it doesn't update dynamically).
- */
+   * When the Survey-Maker is active, this function updates the model passed into the survey
+   * and renders it, to show the updates made to the survey (as it doesn't update dynamically).
+   */
   public refreshSurvey() {
     console.log('Refreshing Survey...');
-    var elements = this.survey.pages[0].elements;
-
-    /*
-     * This loop is necesssary in order to convert the Choice object array into an array of strings.
-     * The Choice objects are necessary to pass data between the components (else the data won't update correctly),
-     * but the survey component can only interpret a string array. This step prepares the string array to be read
-     * by the survey component. 
-     */
-    for (let i = 0; i < elements.length; i++) {
-
-      if (elements[i] instanceof Checkbox) {
-        <Checkbox>elements[i].convertChoices();
-
-      } else if (elements[i] instanceof Radiogroup) {
-        <Radiogroup>elements[i].convertChoices();
-      }
-    }
     this.displaySurvey = true;
 
     if (this.surveyView) {
