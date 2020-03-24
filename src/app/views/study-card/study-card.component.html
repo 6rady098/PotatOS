@@ -7,8 +7,7 @@
     </div>
 </div>
 -->
-<div class="row">
-    <div class="col-4">
+    <!-- <div class="col-4">
         <article class="card card--2">
             <div class="card__info-hover">
                 <svg class="card__like" viewBox="0 0 24 24">
@@ -28,228 +27,25 @@
                 <div class="card__img--hover"></div>
             </a>
             <div class="card__info">
-                <span class="card__category"> Study type</span>
-                <h3 class="card__title">Study Title</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
+                <span class="card__category">{{studyTypes | findValue : study.type : selectedLanguage}}Study type</span>
+                <h3 class="card__title">{{study.title}}Study Title</h3>
+                <p>index: {{i}}Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
                     deserunt
                     eligendi dolor</p>
-                <span class="card__by">by <a href="#" class="card__author" title="author">Researcher name</a></span>
+                <span class="card__by">by <a href="#" class="card__author" title="author">{{study.researcher}}</a></span>
             </div>
         </article>
-    </div>
-    <div class="col-4">
-        <article class="card card--2">
-            <div class="card__info-hover">
-                <svg class="card__like" viewBox="0 0 24 24">
-                    <path
-                        d="M17.684,7.925l-5.131-0.67L10.329,2.57c-0.131-0.275-0.527-0.275-0.658,0L7.447,7.255l-5.131,0.67C2.014,7.964,1.892,8.333,2.113,8.54l3.76,3.568L4.924,17.21c-0.056,0.297,0.261,0.525,0.533,0.379L10,15.109l4.543,2.479c0.273,0.153,0.587-0.089,0.533-0.379l-0.949-5.103l3.76-3.568C18.108,8.333,17.986,7.964,17.684,7.925 M13.481,11.723c-0.089,0.083-0.129,0.205-0.105,0.324l0.848,4.547l-4.047-2.208c-0.055-0.03-0.116-0.045-0.176-0.045s-0.122,0.015-0.176,0.045l-4.047,2.208l0.847-4.547c0.023-0.119-0.016-0.241-0.105-0.324L3.162,8.54L7.74,7.941c0.124-0.016,0.229-0.093,0.282-0.203L10,3.568l1.978,4.17c0.053,0.11,0.158,0.187,0.282,0.203l4.578,0.598L13.481,11.723z">
-                    </path>
-                </svg>
-                <div class="card__clock-info">
-                    <svg class="card__clock" viewBox="0 0 24 24">
-                        <path
-                            d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-                    </svg><span class="card__time">1 hr</span>
-                </div>
-            </div>
-            <div class="card__img"></div>
-            <a href="#" class="card_link">
-                <div class="card__img--hover"></div>
-            </a>
-            <div class="card__info">
-                <span class="card__category"> Study type</span>
-                <h3 class="card__title">Study Title</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
-                    deserunt
-                    eligendi dolor</p>
-                <span class="card__by">by <a href="#" class="card__author" title="author">Researcher name</a></span>
-            </div>
-        </article>
-    </div>
-    <div class="col-4">
-        <article class="card card--2">
-            <div class="card__info-hover">
-                <svg class="card__like" viewBox="0 0 24 24">
-                    <path
-                        d="M17.684,7.925l-5.131-0.67L10.329,2.57c-0.131-0.275-0.527-0.275-0.658,0L7.447,7.255l-5.131,0.67C2.014,7.964,1.892,8.333,2.113,8.54l3.76,3.568L4.924,17.21c-0.056,0.297,0.261,0.525,0.533,0.379L10,15.109l4.543,2.479c0.273,0.153,0.587-0.089,0.533-0.379l-0.949-5.103l3.76-3.568C18.108,8.333,17.986,7.964,17.684,7.925 M13.481,11.723c-0.089,0.083-0.129,0.205-0.105,0.324l0.848,4.547l-4.047-2.208c-0.055-0.03-0.116-0.045-0.176-0.045s-0.122,0.015-0.176,0.045l-4.047,2.208l0.847-4.547c0.023-0.119-0.016-0.241-0.105-0.324L3.162,8.54L7.74,7.941c0.124-0.016,0.229-0.093,0.282-0.203L10,3.568l1.978,4.17c0.053,0.11,0.158,0.187,0.282,0.203l4.578,0.598L13.481,11.723z">
-                    </path>
-                </svg>
-                <div class="card__clock-info">
-                    <svg class="card__clock" viewBox="0 0 24 24">
-                        <path
-                            d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-                    </svg><span class="card__time">1 hr</span>
-                </div>
-            </div>
-            <div class="card__img"></div>
-            <a href="#" class="card_link">
-                <div class="card__img--hover"></div>
-            </a>
-            <div class="card__info">
-                <span class="card__category"> Study type</span>
-                <h3 class="card__title">Study Title</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
-                    deserunt
-                    eligendi dolor</p>
-                <span class="card__by">by <a href="#" class="card__author" title="author">Researcher name</a></span>
-            </div>
-        </article>
-    </div>
-</div>
-<div class="row">
-    <div class="col-4">
-        <article class="card card--2">
-            <div class="card__info-hover">
-                <svg class="card__like" viewBox="0 0 24 24">
-                    <path
-                        d="M17.684,7.925l-5.131-0.67L10.329,2.57c-0.131-0.275-0.527-0.275-0.658,0L7.447,7.255l-5.131,0.67C2.014,7.964,1.892,8.333,2.113,8.54l3.76,3.568L4.924,17.21c-0.056,0.297,0.261,0.525,0.533,0.379L10,15.109l4.543,2.479c0.273,0.153,0.587-0.089,0.533-0.379l-0.949-5.103l3.76-3.568C18.108,8.333,17.986,7.964,17.684,7.925 M13.481,11.723c-0.089,0.083-0.129,0.205-0.105,0.324l0.848,4.547l-4.047-2.208c-0.055-0.03-0.116-0.045-0.176-0.045s-0.122,0.015-0.176,0.045l-4.047,2.208l0.847-4.547c0.023-0.119-0.016-0.241-0.105-0.324L3.162,8.54L7.74,7.941c0.124-0.016,0.229-0.093,0.282-0.203L10,3.568l1.978,4.17c0.053,0.11,0.158,0.187,0.282,0.203l4.578,0.598L13.481,11.723z">
-                    </path>
-                </svg>
-                <div class="card__clock-info">
-                    <svg class="card__clock" viewBox="0 0 24 24">
-                        <path
-                            d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-                    </svg><span class="card__time">1 hr</span>
-                </div>
-            </div>
-            <div class="card__img"></div>
-            <a href="#" class="card_link">
-                <div class="card__img--hover"></div>
-            </a>
-            <div class="card__info">
-                <span class="card__category"> Study type</span>
-                <h3 class="card__title">Study Title</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
-                    deserunt
-                    eligendi dolor</p>
-                <span class="card__by">by <a href="#" class="card__author" title="author">Researcher name</a></span>
-            </div>
-        </article>
-    </div>
-    <div class="col-4">
-        <article class="card card--2">
-            <div class="card__info-hover">
-                <svg class="card__like" viewBox="0 0 24 24">
-                    <path
-                        d="M17.684,7.925l-5.131-0.67L10.329,2.57c-0.131-0.275-0.527-0.275-0.658,0L7.447,7.255l-5.131,0.67C2.014,7.964,1.892,8.333,2.113,8.54l3.76,3.568L4.924,17.21c-0.056,0.297,0.261,0.525,0.533,0.379L10,15.109l4.543,2.479c0.273,0.153,0.587-0.089,0.533-0.379l-0.949-5.103l3.76-3.568C18.108,8.333,17.986,7.964,17.684,7.925 M13.481,11.723c-0.089,0.083-0.129,0.205-0.105,0.324l0.848,4.547l-4.047-2.208c-0.055-0.03-0.116-0.045-0.176-0.045s-0.122,0.015-0.176,0.045l-4.047,2.208l0.847-4.547c0.023-0.119-0.016-0.241-0.105-0.324L3.162,8.54L7.74,7.941c0.124-0.016,0.229-0.093,0.282-0.203L10,3.568l1.978,4.17c0.053,0.11,0.158,0.187,0.282,0.203l4.578,0.598L13.481,11.723z">
-                    </path>
-                </svg>
-                <div class="card__clock-info">
-                    <svg class="card__clock" viewBox="0 0 24 24">
-                        <path
-                            d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-                    </svg><span class="card__time">1 hr</span>
-                </div>
-            </div>
-            <div class="card__img"></div>
-            <a href="#" class="card_link">
-                <div class="card__img--hover"></div>
-            </a>
-            <div class="card__info">
-                <span class="card__category"> Study type</span>
-                <h3 class="card__title">Study Title</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
-                    deserunt
-                    eligendi dolor</p>
-                <span class="card__by">by <a href="#" class="card__author" title="author">Researcher name</a></span>
-            </div>
-        </article>
-    </div>
-    <div class="col-4">
-        <article class="card card--2">
-            <div class="card__info-hover">
-                <svg class="card__like" viewBox="0 0 24 24">
-                    <path
-                        d="M17.684,7.925l-5.131-0.67L10.329,2.57c-0.131-0.275-0.527-0.275-0.658,0L7.447,7.255l-5.131,0.67C2.014,7.964,1.892,8.333,2.113,8.54l3.76,3.568L4.924,17.21c-0.056,0.297,0.261,0.525,0.533,0.379L10,15.109l4.543,2.479c0.273,0.153,0.587-0.089,0.533-0.379l-0.949-5.103l3.76-3.568C18.108,8.333,17.986,7.964,17.684,7.925 M13.481,11.723c-0.089,0.083-0.129,0.205-0.105,0.324l0.848,4.547l-4.047-2.208c-0.055-0.03-0.116-0.045-0.176-0.045s-0.122,0.015-0.176,0.045l-4.047,2.208l0.847-4.547c0.023-0.119-0.016-0.241-0.105-0.324L3.162,8.54L7.74,7.941c0.124-0.016,0.229-0.093,0.282-0.203L10,3.568l1.978,4.17c0.053,0.11,0.158,0.187,0.282,0.203l4.578,0.598L13.481,11.723z">
-                    </path>
-                </svg>
-                <div class="card__clock-info">
-                    <svg class="card__clock" viewBox="0 0 24 24">
-                        <path
-                            d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-                    </svg><span class="card__time">1 hr</span>
-                </div>
-            </div>
-            <div class="card__img"></div>
-            <a href="#" class="card_link">
-                <div class="card__img--hover"></div>
-            </a>
-            <div class="card__info">
-                <span class="card__category"> Study type</span>
-                <h3 class="card__title">Study Title</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
-                    deserunt
-                    eligendi dolor</p>
-                <span class="card__by">by <a href="#" class="card__author" title="author">Researcher name</a></span>
-            </div>
-        </article>
-    </div>
-</div>
-<!--
-<mat-grid-list cols="2" rowHeight="2:1" style="margin-top: 30px;">
-    <mat-grid-tile>
-        <article class="card card--2">
-            <div class="card__info-hover">
-                <svg class="card__like" viewBox="0 0 24 24">
-                    <path fill="#000000"
-                        d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-                </svg>
-                <div class="card__clock-info">
-                    <svg class="card__clock" viewBox="0 0 24 24">
-                        <path
-                            d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-                    </svg><span class="card__time">1 hr</span>
-                </div>
-            </div>
-            <div class="card__img"></div>
-            <a href="#" class="card_link">
-                <div class="card__img--hover"></div>
-            </a>
-            <div class="card__info">
-                <span class="card__category"> Study type</span>
-                <h3 class="card__title">Study Title</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
-                    deserunt
-                    eligendi dolor</p>
-                <span class="card__by">by <a href="#" class="card__author" title="author">Researcher name</a></span>
-            </div>
-        </article>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <article class="card card--2">
-            <div class="card__info-hover">
-                <svg class="card__like" viewBox="0 0 24 24">
-                    <path fill="#000000"
-                        d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-                </svg>
-                <div class="card__clock-info">
-                    <svg class="card__clock" viewBox="0 0 24 24">
-                        <path
-                            d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-                    </svg><span class="card__time">1 hr</span>
-                </div>
+    </div>  -->
 
-            </div>
-            <div class="card__img"></div>
-            <a href="#" class="card_link">
-                <div class="card__img--hover"></div>
-            </a>
-            <div class="card__info">
-                <span class="card__category"> Study type</span>
-                <h3 class="card__title">Study Title</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
-                    deserunt
-                    eligendi dolor</p>
-                <span class="card__by">by <a href="#" class="card__author" title="author">Researcher name</a></span>
-            </div>
-        </article>
-    </mat-grid-tile>
-    <mat-grid-tile>
+
+<mat-grid-list cols="3" rowHeight="1:1" style="margin-top: 30px;">
+    <mat-grid-tile *ngFor="let study of _listOfStudies">
         <article class="card card--2">
             <div class="card__info-hover">
                 <svg class="card__like" viewBox="0 0 24 24">
                     <path fill="#000000"
-                        d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                    d="M17.684,7.925l-5.131-0.67L10.329,2.57c-0.131-0.275-0.527-0.275-0.658,0L7.447,7.255l-5.131,0.67C2.014,7.964,1.892,8.333,2.113,8.54l3.76,3.568L4.924,17.21c-0.056,0.297,0.261,0.525,0.533,0.379L10,15.109l4.543,2.479c0.273,0.153,0.587-0.089,0.533-0.379l-0.949-5.103l3.76-3.568C18.108,8.333,17.986,7.964,17.684,7.925 M13.481,11.723c-0.089,0.083-0.129,0.205-0.105,0.324l0.848,4.547l-4.047-2.208c-0.055-0.03-0.116-0.045-0.176-0.045s-0.122,0.015-0.176,0.045l-4.047,2.208l0.847-4.547c0.023-0.119-0.016-0.241-0.105-0.324L3.162,8.54L7.74,7.941c0.124-0.016,0.229-0.093,0.282-0.203L10,3.568l1.978,4.17c0.053,0.11,0.158,0.187,0.282,0.203l4.578,0.598L13.481,11.723z">
+                    </path>
                 </svg>
                 <div class="card__clock-info">
                     <svg class="card__clock" viewBox="0 0 24 24">
@@ -257,21 +53,16 @@
                             d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
                     </svg><span class="card__time">1 hr</span>
                 </div>
-
             </div>
             <div class="card__img"></div>
-            <a href="#" class="card_link">
+            <a href="#" class="card_link" routerLink="/study-page/{{study._id}}">
                 <div class="card__img--hover"></div>
             </a>
             <div class="card__info">
-                <span class="card__category"> Study type</span>
-                <h3 class="card__title">Study Title</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
-                    deserunt
-                    eligendi dolor</p>
-                <span class="card__by">by <a href="#" class="card__author" title="author">Researcher name</a></span>
+                <span class="card__category">{{_studyTypes | findValue : study.type : selectedLanguage}}</span>
+                <h3 class="card__title">{{study.title}}</h3>
+                <span class="card__by">by <a href="#" class="card__author" title="author">{{study.researcher}}</a></span>
             </div>
         </article>
-    </mat-grid-tile>
+    </mat-grid-tile>  
 </mat-grid-list>
- -->

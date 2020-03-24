@@ -1,5 +1,4 @@
-
-<div *ngIf="displayStudy" style="padding-bottom: 3em">
+<div *ngIf="displayStudy && display" style="padding-bottom: 3em">
     <mat-card *ngIf="model.type === 0">
         <mat-card-title class="entry-card-title">{{model.title}}</mat-card-title>
         <mat-card-subtitle>{{studyTypes | findValue : model.type : selectedLanguage}}</mat-card-subtitle>
@@ -216,7 +215,7 @@
         &nbsp;
     </div>
 
-    <div class="mat-elevation-z1">
+    <div *ngIf="display" class="mat-elevation-z1">
         <br>
         <table mat-table [dataSource]="listOfStudies" matSort>
             <ng-container matColumnDef="title">
@@ -266,7 +265,7 @@
         </table>
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
-    <div class="mat-elevation-z1">
+    <div *ngIf="display" class="mat-elevation-z1">
         <br>
         <table mat-table [dataSource]="newStudyList" matSort>
             <ng-container matColumnDef="title">
@@ -317,4 +316,6 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
 </div>
-<app-study-card></app-study-card>
+
+<!-- This element holds the grid list that contains all of the study cards -->
+<app-study-card [studyTypes]="studyTypes" [listOfStudies]="newStudyList"></app-study-card>
