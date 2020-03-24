@@ -28,6 +28,7 @@ export class SurveyViewComponent extends InitPageComponent implements OnInit {
     model.onComplete
       .add((results) => {
         console.log(results.data);
+        console.log(results.data.question3);
       });
 
     Survey.StylesManager.applyTheme("bootstrap");

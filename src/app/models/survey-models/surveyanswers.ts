@@ -1,6 +1,7 @@
 
 export class SurveyAnswers {
-  user: string;
+  user_id: string;
+  survey_id: string;
   responses: [
     {
       questionName: string,
