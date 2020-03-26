@@ -65,6 +65,7 @@ export class Checkbox extends TextElement implements IElement {
    * This method dumps all refChoice values (i.e. the string contained within each)
    * to the choices array, in order to make the values compatible with the 
    * Survey.Model() used by the SurveyJS API for creating the survey. 
+   * @deprecated This method is no longer necessary, as it was causing too many bugs
    */
   public convertChoices() {
     for(let i = 0; i < this.refChoices.length; i++) {

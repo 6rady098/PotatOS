@@ -24,6 +24,8 @@ import { Response } from 'src/app/models/response';
 import { Diary } from 'src/app/models/diary';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { ActivatedRoute } from "@angular/router";
+import { StudyService } from 'src/app/services/study.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -55,6 +57,10 @@ export class AvailableStudiesComponent extends InitPageComponent
   titleFormControl: any;
   studyTypeFormControl: any;
 
+  /*Temporary additions */
+  newStudyList: any;
+  display: boolean;
+
   matcher = new MyErrorStateMatcher();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -67,13 +73,16 @@ export class AvailableStudiesComponent extends InitPageComponent
     private chatService: ChatService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    private codetableService: CodetableService
+    private codetableService: CodetableService,
+    private studyService: StudyService
   ) {
     super();
   }
 
   ngOnInit() {
     this.initializeOnLoad();
+
+    this.display = false;
 
     this.codetableService.getData().subscribe(res => {
       // tslint:disable-next-line: no-string-literal
@@ -88,6 +97,8 @@ export class AvailableStudiesComponent extends InitPageComponent
     for (const study of this.loggedInUser.studies) {
       ids.push(study._id);
     }
+
+    this.getStudies();
 
     if (this.loggedInUser.role === 2) {
       this.questionnaireService
@@ -155,6 +166,7 @@ export class AvailableStudiesComponent extends InitPageComponent
 
   initializeOnLoad() {
     this.listOfStudies = [];
+    this.newStudyList;
     this.entryFlag = false;
     this.editEntryFlag = false;
     this.displayStudy = false;
@@ -448,5 +460,16 @@ export class AvailableStudiesComponent extends InitPageComponent
 
   ngOnDestroy() {
     this.cdr.detach();
+  }
+
+  public getStudies() {
+    this.studyService.getData().subscribe((res) => {
+      this.newStudyList = res;
+      console.log(res);
+    },
+    (err) => {
+      if(err)
+        throw err;
+    });
   }
 }

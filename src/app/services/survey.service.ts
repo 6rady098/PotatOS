@@ -27,4 +27,8 @@ export class SurveyService {
   getData(): Observable<ModelSurvey[]> {
     return this.http.get<ModelSurvey[]>(BACKEND_URL);
   }
+  
+  getDataById(_id: string): Observable<any> {
+    return this.http.get<any>(BACKEND_URL + _id, {observe: 'response'});
+  }
 }

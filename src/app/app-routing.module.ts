@@ -13,6 +13,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { ResearcherCompletedStudiesComponent } from './views/studies/researcher-completed-studies.component';
 import { SurveyMakerComponent } from './views/surveys/survey-maker/survey-maker.component';
 import { AgeGateComponent } from './views/age-gate/age-gate.component';
+import { StudyPageComponent } from './views/study-page/study-page.component'
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'participant-login', component: ParticipantComponent },//constant path for participant login buttonrr
   { path: 'researcher-login', component: ResearcherloginComponent },
-  { path: 'survey-maker', component: SurveyMakerComponent }
+  { path: 'survey-maker', component: SurveyMakerComponent },
+  { path: 'study-page/:id', component: StudyPageComponent }
 ];
 
 @NgModule({

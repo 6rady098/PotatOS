@@ -31,6 +31,19 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/:id", (req, res) => {
+  Questionnaire.findOne({ _id: ObjectId(req.params.id)},
+   null, 
+   (err, results) => {
+    if (err) throw err;
+    if (results.length == 0) {
+      res.status(200).json([]);
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 // Read filtered
 router.post("/filtered", (req, res) => {
   Questionnaire.find(

@@ -1,13 +1,8 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
+  toWelcomePage() {
     return browser.get(browser.baseUrl) as Promise<any>;
-  }
-
-  getTitleText() {
-    //return element(by.css('app-root .content span')).getText() as Promise<string>;
-    return element(by.tagName("h1")).getText() as Promise<string>;
   }
 
   clickResearcherLogin() {
@@ -24,4 +19,5 @@ export class AppPage {
 
     browser.sleep(10000);
   }
+  
 }
