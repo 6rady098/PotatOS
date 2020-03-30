@@ -1,3 +1,11 @@
+/**
+ * This component displays the study-pages, which is where the details of a study
+ * are displayed, where the researcher can edit a study/survey/etc., and where the
+ * participant will be able to complete a study.
+ * 
+ * @author Frederic Joly
+ * @author Brady Ryan
+ */
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { CodetableService } from 'src/app/services/codetable.service';
 import { InitPageComponent } from '../init-page.component';

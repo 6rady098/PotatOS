@@ -1,3 +1,10 @@
+/**
+ * This models the SurveyJS PageModel, but more simplified. In the current
+ * implementation, each survey only has a single page in order to keep the 
+ * form and functionality simple.
+ * 
+ * @author Frederic Joly
+ */
 import { IElement } from './IElement';
 
 export class Page {

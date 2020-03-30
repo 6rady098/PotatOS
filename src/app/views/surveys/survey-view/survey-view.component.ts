@@ -1,9 +1,13 @@
+/**
+ * This component is responsible for rendering and displaying a survey.
+ * It can be used both for editing, previewing, and completing a survey.
+ * 
+ * @author Frederic Joly
+ */
 import { Component, OnInit, Input, OnChanges, Output } from '@angular/core';
 import * as Survey from 'survey-angular';
 import { ModelSurvey } from '../../../models/survey-models/survey';
 import { InitPageComponent } from '../../init-page.component';
-import { Checkbox } from 'src/app/models/survey-models/checkbox';
-import { Radiogroup } from 'src/app/models/survey-models/radiogroup';
 
 @Component({
   selector: 'survey-view',
