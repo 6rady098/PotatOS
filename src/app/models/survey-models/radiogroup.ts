@@ -1,7 +1,10 @@
+/**
+ * This class models questions that correspond to the SurveyJS questions of type "radiogroup"
+ * 
+ * @author Frederic Joly
+ */
 import { Checkbox } from './checkbox';
 import { IElement } from './IElement';
-import { ɵMetadataOverrider } from '@angular/core/testing';
-
 
 export class Radiogroup extends Checkbox implements IElement {
   

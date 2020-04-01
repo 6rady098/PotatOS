@@ -1,3 +1,9 @@
+/**
+ * This class models questions in the SurveyJS API of type "text", and consist
+ * of a single textbox in which a user can type their response.
+ * 
+ * @author Frederic Joly
+ */
 import { IElement } from './IElement';
 
 export class TextElement implements IElement {

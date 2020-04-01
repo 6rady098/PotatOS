@@ -57,7 +57,9 @@ export class AvailableStudiesComponent extends InitPageComponent
   titleFormControl: any;
   studyTypeFormControl: any;
 
+  /*Temporary additions */
   newStudyList: any;
+  display: boolean;
 
   matcher = new MyErrorStateMatcher();
 
@@ -79,6 +81,8 @@ export class AvailableStudiesComponent extends InitPageComponent
 
   ngOnInit() {
     this.initializeOnLoad();
+
+    this.display = false;
 
     this.codetableService.getData().subscribe(res => {
       // tslint:disable-next-line: no-string-literal

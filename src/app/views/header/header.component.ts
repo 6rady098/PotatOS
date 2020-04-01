@@ -35,6 +35,8 @@ export class HeaderComponent extends InitPageComponent implements OnInit, OnDest
         this.userIsAuthenticated = isAuthenticated;
         if (this.userIsAuthenticated) {
           this.token = JSON.parse(this.authService.getToken());
+        } else {
+          console.warn('HeaderComponent: User was not authenticated');
         }
       });
   }

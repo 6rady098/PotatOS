@@ -1,3 +1,9 @@
+/**
+ * This is the model class for a survey. It corresponds to the SurveyJS model "SurveyModel".
+ * The name was changed so as to avoid ambiguity with imports. 
+ * 
+ * @author Frederic Joly
+ */
 import { Page } from './page';
 import { IElement } from './IElement';
 
@@ -11,7 +17,7 @@ export class ModelSurvey {
   pages: Page[];
 
   public constructor() {
-    this.title = "Title";
+    this.title = "Default Survey Title";
     this.showProgression = "top";
     this.progressBarType = "questions";
     this.mode = "display";
