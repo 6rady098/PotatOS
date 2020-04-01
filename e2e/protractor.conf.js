@@ -8,12 +8,12 @@ const { SpecReporter } = require('jasmine-spec-reporter');
  * @type { import("protractor").Config }
  */
 exports.config = {
-  allScriptsTimeout: 11000,
+  allScriptsTimeout: 5000,
   specs: [
     './src/**/*-spec.ts'
   ],
   capabilities: {
-    'browserName': /*'chrome'*/ 'firefox'
+    'browserName': 'firefox' //'chrome'
   },
   directConnect: true,
   baseUrl: 'http://localhost:4201/',

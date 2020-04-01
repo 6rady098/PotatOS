@@ -1,6 +1,6 @@
 import { AppPage } from '../app.po';
 import { browser, logging } from 'protractor';
-import { WelcomePage } from './age-gate_methods';
+import { WelcomePage } from './age-gate-methods';
 
 
 describe('Tests to make sure that the welcome page loads', () => {
@@ -43,7 +43,7 @@ describe('Tests the Age-Gate', () => {
     welcomePage.clickAgeConfirm()
       .then(() => {
         expect(welcomePage.getPopUp().getText()).toContain('Access denied!');
-        browser.sleep(2000);
+        //browser.sleep(2000);
         welcomePage.clickPopUp();
       })
       .catch(() => {
@@ -66,7 +66,7 @@ describe('Tests the Age-Gate', () => {
     welcomePage.clickAgeConfirm()
       .then(() => {
         expect(welcomePage.getPopUp().getText()).toContain('Access denied!');
-        browser.sleep(2000);
+        //browser.sleep(2000);
         welcomePage.clickPopUp();
       })
       .catch(() => {
