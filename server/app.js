@@ -34,6 +34,9 @@ app.use('/api/surveys', SurveyController);
 var StudyController = require('./controllers/StudyController');
 app.use('/api/study', StudyController);
 
+var SurveyAnswerController = require('./controllers/SurveyAnswerController');
+app.use('/api/surveyanswer', SurveyAnswerController);
+
 app.all('*', (req, res) => {
     res.status(200).sendFile('/', {root: publicweb});
 });
