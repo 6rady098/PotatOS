@@ -48,6 +48,7 @@ import { StudyService } from './services/study.service';
 import { StudySurveysComponent } from './views/study-surveys/study-surveys.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog'; 
+import { SurveyanswerService } from './services/surveyanswer.service';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ChatService,
     CodetableService,
     SurveyService,
-    StudyService
+    StudyService,
+    SurveyanswerService
   ],
   bootstrap: [AppComponent]
 })

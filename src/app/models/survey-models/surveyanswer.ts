@@ -4,7 +4,7 @@
  * 
  * @author Frederic Joly
  */
-export class SurveyAnswers {
+export class SurveyAnswer {
   user_id: string;
   survey_id: string;
   responses: any[];
