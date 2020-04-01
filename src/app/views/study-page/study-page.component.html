@@ -71,7 +71,7 @@
 
     <!-- This DIV will handle all buttons for the Participant's functions -->
     <div *ngIf="loggedInUser.role === 2">
-      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 0">Start Survey</button>
+      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 0 && !isSurveyActive" (click)="startSurvey()">Start Survey</button>
       <mat-divider></mat-divider>
     </div>
 

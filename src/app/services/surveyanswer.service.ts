@@ -32,11 +32,13 @@ export class SurveyanswerService {
     return this.http.get<any>(BACKEND_URL + _id, {observe: 'response'});
   }
 
-  getAnswerByUserId(user_id: string): Observable<any> {
-    return this.http.get<any>(BACKEND_URL + user_id, {observe: 'response'});
+  //TODO: fix the SurveyAnswerController, we didn't have time to figure out how to query an object by something other than its _id
+  getAnswerByUserId(username: string): Observable<any> {
+    return this.http.get<any>(BACKEND_URL + 'user/' + username, {observe: 'response'});
   }
 
+  //TODO: fix the SurveyAnswerController, we didn't have time to figure out how to query an object by something other than its _id
   getAnswerBySurveyId(survey_id: string): Observable<any> {
-    return this.http.get<any>(BACKEND_URL + survey_id, {observe: 'response'});
+    return this.http.get<any>(BACKEND_URL + 'survey/' + survey_id, {observe: 'response'});
   }
 }

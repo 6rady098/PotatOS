@@ -5,9 +5,9 @@ const COLLECTION = require("../db").SURVEY_ANSWER_COLLECTION;
 
 const surveyAnswerSchema = mongoose.Schema({
 
-  user_id: { type: String },
+  username: { type: String },
   survey_id: { type: String },
-  responses: []
+  responses: {}
 
 });
 
