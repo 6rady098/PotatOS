@@ -34,7 +34,7 @@ router.get("/", (req, res) => {
 /**
  * Retrieves a survey response based on its unique ID
  */
-router.getById("/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   Answer.findOne({ _id: ObjectId(req.params.id)},
    null, 
    (err, results) => {
@@ -49,10 +49,10 @@ router.getById("/:id", (req, res) => {
 
 /**
  * Retrieves a response based on the unique ID of the user who submitted it.
- * ODO: Fix this to actually query answers, and not simply retrieve a user instead
+ * TODO: Fix this to actually query answers, and not simply retrieve a user instead
  */
-router.getByUserId("/:userid", (req, res) => {
-  Answer.findOne({ user_id: ObjectId(req.params.userid)},
+router.get("/user/:username", (req, res) => {
+  Answer.findOne({ username: ObjectId(req.params.username)},
    null, 
    (err, results) => {
     if (err) throw err;
@@ -69,7 +69,8 @@ router.getByUserId("/:userid", (req, res) => {
  * 
  * TODO: Fix this to actually query answers, and not simply retrieve a survey instead
  */
-router.getBySurveyId("/:surveyid", (req, res) => {
+
+router.get("/survey/:surveyid", (req, res) => {
   Answer.findOne({ survey_id: ObjectId(req.params.surveyid)},
    null, 
    (err, results) => {

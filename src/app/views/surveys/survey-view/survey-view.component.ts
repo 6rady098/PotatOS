@@ -8,6 +8,8 @@ import { Component, OnInit, Input, OnChanges, Output } from '@angular/core';
 import * as Survey from 'survey-angular';
 import { ModelSurvey } from '../../../models/survey-models/survey';
 import { InitPageComponent } from '../../init-page.component';
+import { SurveyAnswer } from 'src/app/models/survey-models/surveyanswer';
+import { SurveyanswerService } from 'src/app/services/surveyanswer.service';
 
 @Component({
   selector: 'survey-view',
@@ -18,7 +20,7 @@ export class SurveyViewComponent extends InitPageComponent implements OnInit {
 
   @Input() template: ModelSurvey;
 
-  constructor() {
+  constructor(private answerService: SurveyanswerService) {
     super();
   }
 
@@ -29,10 +31,15 @@ export class SurveyViewComponent extends InitPageComponent implements OnInit {
   public render(template: ModelSurvey) {
     this.convertChoices(template);
     var model = new Survey.Model(template);
+
     model.onComplete
       .add((results) => {
-        console.log(results.data);
-        console.log(results.data.question3);
+        let answer = new SurveyAnswer();
+        answer.survey_id = template._id;
+        answer.username = this.loggedInUser.username;
+        answer.responses = results.data;
+        
+        this.submitAnswer(answer);
       });
 
     Survey.StylesManager.applyTheme("bootstrap");
@@ -65,5 +72,21 @@ export class SurveyViewComponent extends InitPageComponent implements OnInit {
         }
       }
     }
+  }
+
+  async submitAnswer(answer: SurveyAnswer) {
+    await new Promise((resolve, reject) => {
+      this.answerService.create(answer).subscribe(
+        result => {
+          if(result.status === 201)
+            console.log('Answers were successfully saved');
+        },
+        err => {
+          if(err) {
+            console.log('A problem occurred while submitting the survey answers');
+          }
+        }
+      );
+    });
   }
 }
