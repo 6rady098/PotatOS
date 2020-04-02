@@ -31,13 +31,27 @@ router.get("/", (req, res) => {
   });
 });
 
+// Read by id
+router.get("/:id", (req, res) => {
+  Diary.findOne({ _id: ObjectId(req.params.id)},
+   null,
+   (err, results) => {
+    if (err) throw err;
+    if (results.length == 0) {
+      res.status(200).json([]);
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 // Read filtered
 router.post("/filtered", (req, res) => {
-  Diary.find({ 
+  Diary.find({
     'upperAgeRange': { $gte: req.body.age },
-    'lowerAgeRange': { $lte: req.body.age }, 
+    'lowerAgeRange': { $lte: req.body.age },
     'sex': { $in: [req.body.sex, null] },
-    '_id': { $nin: req.body.ids.map(ObjectId) } 
+    '_id': { $nin: req.body.ids.map(ObjectId) }
   }, null, (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
