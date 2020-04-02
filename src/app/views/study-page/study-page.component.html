@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between">
 
-  <!-- 
+  <!--
   **************************************************************
     Sidebar
   **************************************************************
@@ -65,13 +65,24 @@
         Diary buttons go here
         ========================================================
         -->
-
+      <!-- This DIV is only rendered if the study is of type diary -->
+      <div *ngIf="type === 2">
+        <div *ngIf="editable">
+          <button mat-button color="warn" class="sidebar-button"
+            matTooltip="Deletes this diary study altogether, allowing you to switch to a different type of study">Delete Diary</button>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
 
     </div>
 
     <!-- This DIV will handle all buttons for the Participant's functions -->
     <div *ngIf="loggedInUser.role === 2">
+      <!-- button for Survey Component  -->
       <button mat-button color="primary" class="sidebar-button" *ngIf="type === 0 && !isSurveyActive" (click)="startSurvey()">Start Survey</button>
+      <!-- button for Diary Component  -->
+      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 2 && !isSurveyActive" (click)="startSurvey()">Log Diary</button>
+      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 2 && isSurveyActive" (click)="stopSurvey()">Submit</button>
       <mat-divider></mat-divider>
     </div>
 
@@ -81,7 +92,7 @@
     <mat-divider></mat-divider>
   </mat-card>
 
-  <!-- 
+  <!--
     --------------------------------------------------------------------------------------------------------------------------------------------------------
     These dividers separate the sidebar from the main display -->
   <mat-divider [vertical]="true"></mat-divider>
@@ -89,7 +100,7 @@
   <!--
     ------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-  <!-- 
+  <!--
   **************************************************************
     Main Display
   **************************************************************
@@ -102,20 +113,22 @@
       <study-creation-form *ngIf="isLoaded && !isSurveyActive" [study]="study"></study-creation-form>
     </div>
 
-    <!-- 
+    <!--
     ========================================================
     Survey Component
     ========================================================
      -->
-    <survey *ngIf="type === 0" [study]="study"></survey>
+    <div *ngIf="type === 0">
+      <survey [study]="study"></survey>
+    </div>
 
     <!--
     ========================================================
     Diary components go here
     ========================================================
     -->
-    <div>
-      <!-- Specifically in here -->
+    <div *ngIf="type === 2">
+      <diary-form [study]="study"></diary-form>
     </div>
 
   </mat-card>
