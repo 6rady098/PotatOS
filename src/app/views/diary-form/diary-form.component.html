@@ -8,7 +8,23 @@ On the researcher side, we will likely need a way to display a table/list of use
 then display this form when the researcher clicks on that user to see their submission.
 -->
 <br>
-<div *ngIf="isLoaded && loggedInUser.role === 1">
+
+<div *ngIf="isLoaded && loggedInUser.role === 2 && displayDiaryEdit">
+  <mat-card>
+    <mat-card-title>Please log your diary here</mat-card-title>
+    <mat-form-field width=100%>
+      <textarea matInput [(ngModel)]='newEntryForParticipant.entry' [name]="newEntryForParticipant.entry" matTextareaAutosize matAutosizeMinRows="2"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput [matDatepicker]="daypicker" [(ngModel)]="newEntryForParticipant.date">
+      <mat-datepicker-toggle matSuffix [for]="daypicker"></mat-datepicker-toggle>
+      <mat-datepicker #daypicker></mat-datepicker>
+    </mat-form-field>
+  </mat-card>
+</div>
+
+<div *ngIf="isLoaded">
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -36,21 +52,8 @@ then display this form when the researcher clicks on that user to see their subm
         </div>
       </mat-card-content>
     </div>
-    <button *ngIf="displayDiaryEdit" mat-raised-button color="primary" (click)="newEntry()">Add</button>
+    <button *ngIf="displayDiaryEdit && loggedInUser.role === 1 " mat-raised-button color="primary" (click)="newEntry()">Add</button>
   </mat-expansion-panel>
 </div>
 
-<div *ngIf="isLoaded && loggedInUser.role === 2 && displayDiaryEdit">
-  <mat-card>
-    <mat-card-title>Please log your diary here</mat-card-title>
-    <mat-form-field width=100%>
-      <textarea matInput [(ngModel)]='newEntryForParticipant.entry' [name]="newEntryForParticipant.entry" matTextareaAutosize matAutosizeMinRows="2"></textarea>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput [matDatepicker]="daypicker" [(ngModel)]="newEntryForParticipant.date">
-      <mat-datepicker-toggle matSuffix [for]="daypicker"></mat-datepicker-toggle>
-      <mat-datepicker #daypicker></mat-datepicker>
-    </mat-form-field>
-  </mat-card>
-</div>
+
