@@ -24,17 +24,14 @@ export class StudyCreationFormComponent extends InitPageComponent implements OnI
   studyStatus: any;
   status: string;
 
+  editMode: boolean;
+
   constructor(
-    private questionnaireService: QuestionnaireService,
-    private diaryService: DiaryService,
-    private userService: UserService,
-    private chatService: ChatService,
-    private authService: AuthService,
     private codetableService: CodetableService,
-    private surveyService: SurveyService,
     private studyService: StudyService
   ) {
     super();
+    this.editMode = false;
   }
 
   ngOnInit() {
@@ -61,22 +58,55 @@ export class StudyCreationFormComponent extends InitPageComponent implements OnI
     );
   }
 
-  /**
-   * Currently, this function only searches for questionnaires, takes the first one, and loads it as this page's study for testing purposes.
-   * 
-   * TODO: modify this to only retrieve the study being passed into it from the Grid List, then change the object type to retrieve the new "Study"
-   * objects, which combines all of the study fields from the Diary, Questionnaire and Chat Log objects into a single class.
-   */
-  private getStudy(): void {
-    this.questionnaireService.getData().subscribe(
-      (res) => {
-        this.study = res[0];
-        this.type = this.study.type;
-      },
-      (err) => {
-        if (err)
-          throw err;
-      }
-    );
+  async getStudy() {
+    await new Promise((resolve, reject) => {
+      this.studyService.getDataById(this.study._id).subscribe(
+        (res) => {
+          this.study = res.body;
+          this.type = this.study.type;
+          resolve();
+        },
+        (err) => {
+          if (err)
+            reject(err);
+        }
+      );
+    });
+  }
+
+  async deleteStudy() {
+    await new Promise((resolve, reject) => {
+      this.studyService.delete(this.study._id).subscribe(res => {
+        resolve();
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+
+  edit() {
+    this.editMode = true;
+  }
+
+  hideEdit() {
+    this.updateStudy()
+      .then(() => {
+        this.editMode = false;
+      });
+  }
+
+  async updateStudy() {
+    await new Promise((resolve, reject) => {
+      this.studyService.update(this.study, this.study._id).subscribe(
+        res => {
+          if (res.status === 200) {
+            resolve();
+          }
+        }, err => {
+          if (err)
+            reject(err);
+        }
+      );
+    });
   }
 }

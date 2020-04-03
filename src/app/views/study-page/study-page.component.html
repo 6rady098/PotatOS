@@ -14,12 +14,13 @@
     <!-- This DIV will contain all buttons specific to the researcher's view of the page -->
     <div *ngIf="loggedInUser.role === 1">
 
-      <button mat-button color="primary" class="sidebar-button" (click)="edit()"
-        *ngIf="!isSurveyActive && !editable" matTooltip="Allows you to edit your study">Edit</button>
+      <button mat-button color="primary" class="sidebar-button" (click)="edit()" *ngIf="!isSurveyActive && !editable"
+        matTooltip="Allows you to edit your study">Edit</button>
       <mat-divider></mat-divider>
 
       <!-- These buttons are only shown when the survey-maker is active, which means that the survey is being edited -->
-      <button mat-button color="primary" class="sidebar-button" (click)="hideEdit()" *ngIf="editable" matTooltip="Saves your changes and takes you back to the main page">
+      <button mat-button color="primary" class="sidebar-button" (click)="hideEdit()" *ngIf="editable"
+        matTooltip="Saves your changes and takes you back to the main page">
         Finish Editing</button>
       <mat-divider></mat-divider>
 
@@ -40,8 +41,9 @@
 
           <!-- TODO: Implement functionality for deleting a survey, which effectively means changing the study type -->
           <button mat-button color="warn" class="sidebar-button"
-            matTooltip="Deletes the survey altogether, allowing you to switch to a different type of study">Delete
-            Survey</button>
+            matTooltip="Deletes the survey altogether, allowing you to switch to a different type of study"
+            (click)="delete()" routerLink="/available-studies">Delete
+            Study</button>
           <mat-divider></mat-divider>
         </div>
 
@@ -69,7 +71,8 @@
       <div *ngIf="type === 2">
         <div *ngIf="editable">
           <button mat-button color="warn" class="sidebar-button"
-            matTooltip="Deletes this diary study altogether, allowing you to switch to a different type of study">Delete Diary</button>
+            matTooltip="Deletes this diary study altogether, allowing you to switch to a different type of study"
+            (click)="delete()" routerLink="/available-studies">Delete Study</button>
           <mat-divider></mat-divider>
         </div>
       </div>
@@ -79,16 +82,19 @@
     <!-- This DIV will handle all buttons for the Participant's functions -->
     <div *ngIf="loggedInUser.role === 2">
       <!-- button for Survey Component  -->
-      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 0 && !isSurveyActive" (click)="startSurvey()">Start Survey</button>
+      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 0 && !isSurveyActive"
+        (click)="startSurvey()">Start Survey</button>
       <!-- button for Diary Component  -->
-      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 2 && !isSurveyActive" (click)="startSurvey()">Log Diary</button>
-      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 2 && isSurveyActive" (click)="stopSurvey()">Submit</button>
+      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 2 && !isSurveyActive"
+        (click)="startSurvey()">Log Diary</button>
+      <button mat-button color="primary" class="sidebar-button" *ngIf="type === 2 && isSurveyActive"
+        (click)="stopSurvey()">Submit</button>
       <mat-divider></mat-divider>
     </div>
 
     <!-- This button takes you back to the study list -->
     <button mat-button color="primary" class="sidebar-button" routerLink="/available-studies"
-    matTooltip="Return to the study list">Back</button>
+      matTooltip="Return to the study list">Back</button>
     <mat-divider></mat-divider>
   </mat-card>
 

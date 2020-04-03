@@ -1,22 +1,7 @@
-<!--
-  This will be the form where the users will create a study (using the new Study model, see the study.js model in the server folder).
-
-  We may also just want to consider using this form to not only create a study, but also edit an existing one.
-
-  We could have the researcher click on "Add" to create a new study, which would take them straight to the study-page component, where they could
-  then fill out this form to create a new study. 
-
-  This is likely where we'll need to add a button to delete/edit a study's component (component in this context = survey/diary/log, I'm open to alternative names)
-  to allow the user to change the type of study before publishing. 
-
-
-
-  For the time being, I've moved the elements I already had for the study information to this component, we'll have to figure out how to integrate it into the study-page.
--->
-
 <mat-card-title>
   <h2>{{ study.title }}</h2>
 </mat-card-title>
+<mat-card-subtitle>by {{ study.researcher }}</mat-card-subtitle>
 <mat-card-content>{{ study.description }}</mat-card-content>
 
 <mat-expansion-panel [expanded]="true">
@@ -25,24 +10,48 @@
       <h5>Study Information</h5>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <div fxLayout="row" fxLayoutGap="1em">
-    <mat-label>Study Type:</mat-label>
-    <mat-label>{{ studyTypes | findValue : study.type : selectedLanguage }}</mat-label>
-  </div>
-  <div fxLayout="row" fxLayoutGap="1em">
-    <mat-label>Creator:</mat-label>
-    <mat-label>{{ study.researcher }}</mat-label>
-  </div>
-  <div fxLayout="row" fxLayoutGap="1em">
-    <mat-label>Upper Age Range:</mat-label>
-    <mat-label>{{ study.upperAgeRange }}</mat-label>
-  </div>
-  <div fxLayout="row" fxLayoutGap="1em">
-    <mat-label>Lower Age Range:</mat-label>
-    <mat-label>{{ study.lowerAgeRange }}</mat-label>
-  </div>
-  <div fxLayout="row" fxLayoutGap="1em">
-    <mat-label>Sex:</mat-label>
-    <mat-label>{{ studySexes | findValue : study.sex : selectedLanguage }}</mat-label>
-  </div>
+
+  <table>
+    <tr>
+      <td>Study Type:</td>
+      <td>{{ studyTypes | findValue : study.type : selectedLanguage }}</td>
+    </tr>
+    <tr>
+      <td>Upper Age Range:</td>
+      <td *ngIf="!editMode">
+        {{ study.upperAgeRange }}
+      </td>
+      <td>
+        <mat-form-field *ngIf="editMode">
+          <input matInput type="text" [(ngModel)]="study.upperAgeRange">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>Lower Age Range:</td>
+      <td *ngIf="!editMode">
+        {{ study.lowerAgeRange }}
+      </td>
+      <td>
+        <mat-form-field *ngIf="editMode">
+          <input matInput type="text" [(ngModel)]="study.lowerAgeRange">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>Sex:</td>
+      <td *ngIf="!editMode">
+        {{ studySexes | findValue : study.sex : selectedLanguage }}
+      </td>
+      <td>
+        <mat-form-field *ngIf="editMode">
+          <mat-select [(ngModel)]="study.sex">
+            <mat-option *ngFor="let s of studySexes" [value]="s.id">
+              {{selectedLanguage === 'en' ? s.nameEn : s.nameFr}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
 </mat-expansion-panel>

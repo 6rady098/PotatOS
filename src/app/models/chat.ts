@@ -16,6 +16,8 @@ export class Chat {
     public status: number;
     public description: string;
 
+    public studyId: string;
+
     public responses: Response[];
 
     constructor() {

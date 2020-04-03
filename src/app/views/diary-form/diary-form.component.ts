@@ -26,7 +26,7 @@ export class DiaryFormComponent extends InitPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDiary(this.study.content_id);
+    this.getDiary(this.study.component);
     this.displayDiary = true;
     this.displayDiaryEdit = false;
   }
@@ -123,4 +123,15 @@ export class DiaryFormComponent extends InitPageComponent implements OnInit {
     });
   }
 
+  async deleteDiary() {
+    await new Promise((resolve, reject) => {
+      this.diaryService.delete(this.diary._id).subscribe(res => {
+        resolve();
+      }, err => {
+        if (err) {
+          reject(err);
+        }
+      });
+    });
+  }
 }
