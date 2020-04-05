@@ -1,6 +1,10 @@
-<mat-card-title>
-  <h2>{{ study.title }}</h2>
+<mat-card-title *ngIf="!editMode">
+  <h2 >{{ study.title }}</h2>
 </mat-card-title>
+<mat-form-field *ngIf="editMode" appearance="outline">
+  <mat-label>Study Title</mat-label>
+  <input matInput type="text" [(ngModel)]="study.title">
+</mat-form-field>
 <mat-card-subtitle>by {{ study.researcher }}</mat-card-subtitle>
 <mat-card-content>{{ study.description }}</mat-card-content>
 
