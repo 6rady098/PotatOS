@@ -1,3 +1,18 @@
+export class Study {
+  public _id: string;
+  public id: number;
+  public type: number;
+  public creationDate: Date;
+  public researcher: string;
+
+  public upperAgeRange: number;
+  public lowerAgeRange: number;
+  public sex;
+
+  public title: string;
+  public status: number;
+  public description: string;
+
 /**
  * This model is meant to replace the study model contained in the
  * User model.

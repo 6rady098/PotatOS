@@ -1,3 +1,4 @@
+
 /**
  * This component displays the study-pages, which is where the details of a study
  * are displayed, where the researcher can edit a study/survey/etc., and where the

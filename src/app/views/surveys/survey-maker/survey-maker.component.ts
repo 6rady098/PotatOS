@@ -1,3 +1,4 @@
+
 /**
  * This component is used to edit a survey.
  * 
@@ -192,6 +193,11 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
   public loadSurvey(index: number) {
     this.model = this.surveys[index];
     this.elements = this.model.pages[0].elements;
+  }
+
+  public toggleTable() {
+    this.showTable = !this.showTable;
+    this.refreshData();
   }
 
   /**
