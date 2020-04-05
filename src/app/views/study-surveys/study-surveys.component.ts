@@ -9,10 +9,6 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SurveyViewComponent } from '../surveys/survey-view/survey-view.component';
 import { SurveyMakerComponent } from '../surveys/survey-maker/survey-maker.component';
 import { ModelSurvey } from 'src/app/models/survey-models/survey';
-import { Checkbox } from 'src/app/models/survey-models/checkbox';
-import { Radiogroup } from 'src/app/models/survey-models/radiogroup';
-import { SurveyService } from 'src/app/services/survey.service';
-import { StudyService } from 'src/app/services/study.service';
 import { SurveyService } from 'src/app/services/survey.service';
 import { InitPageComponent } from '../init-page.component';
 
