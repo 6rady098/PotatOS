@@ -16,13 +16,26 @@ router.post("/", (req, res) => {
       throw err;
 
     res.status(201);
-    res.send({message: "success"});
+    res.send(result._id);
   });
 });
 
 //Read a Survey
 router.get("/", (req, res) => {
   Survey.find({}, null, (err, results) => {
+    if (err) throw err;
+    if (results.length == 0) {
+      res.status(200).json([]);
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+router.get("/:id", (req, res) => {
+  Survey.findOne({ _id: ObjectId(req.params.id)},
+   null, 
+   (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
       res.status(200).json([]);

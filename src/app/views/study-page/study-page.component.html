@@ -1,0 +1,146 @@
+<div fxLayout="row" fxLayoutAlign="space-between">
+
+  <!-- 
+  **************************************************************
+    Sidebar
+  **************************************************************
+  -->
+  <!-- This card represents the side panel for the buttons (e.g. Edit, Delete, etc) and study image -->
+  <mat-card fxFlex="{{ sidebarWidth }}%">
+    <img mat-card-image src="../../../assets/images/research.jpg" *ngIf="loggedInUser.role === 1">
+    <img mat-card-image src="../../../assets/images/participant.jpg" *ngIf="loggedInUser.role === 2">
+    <mat-divider></mat-divider>
+
+    <!-- This DIV will contain all buttons specific to the researcher's view of the page -->
+    <div *ngIf="loggedInUser.role === 1">
+
+      <button mat-button class="sidebar-button btn-gradient green large" (click)="edit()" *ngIf="!isSurveyActive && !editable"
+        matTooltip="Allows you to edit your study">Edit</button>
+      <mat-divider></mat-divider>
+
+      <!-- These buttons are only shown when the survey-maker is active, which means that the survey is being edited -->
+      <button mat-button class="sidebar-button btn-gradient green large" (click)="hideEdit()" *ngIf="editable"
+        matTooltip="Saves your changes and takes you back to the main page">
+
+        Finish Editing</button>
+      <mat-divider></mat-divider>
+
+      <!--
+        ========================================================
+        Survey Buttons here
+        ========================================================
+        -->
+      <!-- This DIV is only rendered if the study is of type Questionnaire/Survey -->
+      <div *ngIf="type === 0">
+        <div *ngIf="editable && !isSurveyActive">
+          <button class="sidebar-button btn-gradient blue large" (click)="refreshSurvey()"
+            matTooltip="Updates the survey preview on the right to reflect your changes">Refresh Survey</button>
+          <mat-divider></mat-divider>
+          <button class="sidebar-button btn-gradient red large" (click)="resetSurvey()"
+            matTooltip="Resets the survey back to default settings - Cannot be undone">Reset Survey</button>
+          <mat-divider></mat-divider>
+
+          <!-- TODO: Implement functionality for deleting a survey, which effectively means changing the study type -->
+
+          <button mat-button class="sidebar-button btn-gradient red large"
+            matTooltip="Deletes the survey altogether, allowing you to switch to a different type of study"
+            (click)="delete()" routerLink="/available-studies">Delete
+            Study</button>
+
+          <mat-divider></mat-divider>
+        </div>
+
+        <button class="sidebar-button btn-gradient green large" (click)="startSurvey()"
+          *ngIf="!isSurveyActive && !editable">Test Survey</button>
+        <mat-divider></mat-divider>
+
+        <div *ngIf="isSurveyActive && !editable">
+          <button class="sidebar-button btn-gradient blue large" (click)="resetTestSurvey()"
+            matTooltip="Allows you to take the survey again">Reset</button>
+          <mat-divider></mat-divider>
+
+          <button class="sidebar-button btn-gradient red large" (click)="stopSurvey()"
+            matTooltip="Ends the test and returns to the main page">End Test</button>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+
+      <!--
+        ========================================================
+        Diary buttons go here
+        ========================================================
+        -->
+      <!-- This DIV is only rendered if the study is of type diary -->
+      <div *ngIf="type === 2">
+        <div *ngIf="editable">
+          <button mat-button class="sidebar-button btn-gradient red large"
+            matTooltip="Deletes this diary study altogether, allowing you to switch to a different type of study"
+            (click)="delete()" routerLink="/available-studies">Delete Study</button>
+
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- This DIV will handle all buttons for the Participant's functions -->
+    <div *ngIf="loggedInUser.role === 2">
+      <!-- button for Survey Component  -->
+      <button mat-button class="sidebar-button btn-gradient green large" *ngIf="type === 0 && !isSurveyActive"
+        (click)="startSurvey()">Start Survey</button>
+      <!-- button for Diary Component  -->
+      <button mat-button class="sidebar-button btn-gradient green large" *ngIf="type === 2 && !isSurveyActive"
+        (click)="startSurvey()">Log Diary</button>
+      <button mat-button class="sidebar-button btn-gradient green large" *ngIf="type === 2 && isSurveyActive"
+        (click)="stopSurvey()">Submit</button>
+      <mat-divider></mat-divider>
+    </div>
+
+    <!-- This button takes you back to the study list -->
+
+    <button mat-button class="sidebar-button btn-gradient blue large" routerLink="/available-studies"
+      matTooltip="Return to the study list">Back</button>
+    <mat-divider></mat-divider>
+  </mat-card>
+
+  <!--
+    --------------------------------------------------------------------------------------------------------------------------------------------------------
+    These dividers separate the sidebar from the main display -->
+  <mat-divider [vertical]="true"></mat-divider>
+  <mat-divider [vertical]="true"></mat-divider>
+  <!--
+    ------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <!--
+  **************************************************************
+    Main Display
+  **************************************************************
+  -->
+  <!-- This card represents the main display, and is where all content will be displayed -->
+  <mat-card fxFlex="{{ mainPanelWidth }}%">
+
+    <!-- This DIV displays the study's information, such as title, descript, etc. -->
+    <div>
+      <study-creation-form *ngIf="isLoaded && !isSurveyActive" [study]="study"></study-creation-form>
+    </div>
+    <!--
+    ========================================================
+    Survey Component
+    ========================================================
+     -->
+    <div *ngIf="type === 0">
+      <survey [study]="study"></survey>
+    </div>
+
+    <!--
+    ========================================================
+    Diary components go here
+    ========================================================
+    -->
+    <div *ngIf="type === 2">
+      <diary-form [study]="study"></diary-form>
+    </div>
+
+  </mat-card>
+
+</div>

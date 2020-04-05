@@ -75,6 +75,11 @@ export class LoginComponent extends InitPageComponent
 
   matcher = new MyErrorStateMatcher();
 
+  firstName: any;
+  lastName: any;
+  age: any;
+  gender: any;
+
   constructor(
     private userService: UserService,
     private authService: AuthService,

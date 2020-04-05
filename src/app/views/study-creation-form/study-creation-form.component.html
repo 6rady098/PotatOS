@@ -1,0 +1,61 @@
+<mat-card-title *ngIf="!editMode">
+  <h2 >{{ study.title }}</h2>
+</mat-card-title>
+<mat-form-field *ngIf="editMode" appearance="outline">
+  <mat-label>Study Title</mat-label>
+  <input matInput type="text" [(ngModel)]="study.title">
+</mat-form-field>
+<mat-card-subtitle>by {{ study.researcher }}</mat-card-subtitle>
+<mat-card-content>{{ study.description }}</mat-card-content>
+
+<mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h5>Study Information</h5>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <table>
+    <tr>
+      <td>Study Type:</td>
+      <td>{{ studyTypes | findValue : study.type : selectedLanguage }}</td>
+    </tr>
+    <tr>
+      <td>Upper Age Range:</td>
+      <td *ngIf="!editMode">
+        {{ study.upperAgeRange }}
+      </td>
+      <td>
+        <mat-form-field *ngIf="editMode">
+          <input matInput type="text" [(ngModel)]="study.upperAgeRange">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>Lower Age Range:</td>
+      <td *ngIf="!editMode">
+        {{ study.lowerAgeRange }}
+      </td>
+      <td>
+        <mat-form-field *ngIf="editMode">
+          <input matInput type="text" [(ngModel)]="study.lowerAgeRange">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>Sex:</td>
+      <td *ngIf="!editMode">
+        {{ studySexes | findValue : study.sex : selectedLanguage }}
+      </td>
+      <td>
+        <mat-form-field *ngIf="editMode">
+          <mat-select [(ngModel)]="study.sex">
+            <mat-option *ngFor="let s of studySexes" [value]="s.id">
+              {{selectedLanguage === 'en' ? s.nameEn : s.nameFr}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+</mat-expansion-panel>
