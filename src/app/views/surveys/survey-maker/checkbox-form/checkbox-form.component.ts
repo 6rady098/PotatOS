@@ -1,3 +1,9 @@
+/**
+ * This component controls the form used to create survey questions of type
+ * "checkbox" and "radiogroup", as they required more elements than other types.
+ * 
+ * @author Frederic Joly
+ */
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Checkbox } from 'src/app/models/survey-models/checkbox';
 import { Choice } from 'src/app/models/survey-models/choice';

@@ -1,27 +1,27 @@
-
 var express = require("express");
 var router = express.Router();
 var bodyParser = require("body-parser");
 
 const ObjectId = require("mongodb").ObjectID;
-
-const Diary = require("../models/diary");
+const Answer = require("../models/surveyanswer");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-// Create a document
+//Create a Survey
 router.post("/", (req, res) => {
-  Diary.create(req.body, (err, result) => {
-    if (err) throw err;
+  Answer.create(req.body, (err, result) => {
+    if(err)
+      throw err;
+
     res.status(201);
-    res.send({ message: "success" });
+    res.send({message: "success"});
   });
 });
 
-// Read a document
+//Read a Survey
 router.get("/", (req, res) => {
-  Diary.find({}, null, (err, results) => {
+  Answer.find({}, null, (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
       res.status(200).json([]);
@@ -31,10 +31,12 @@ router.get("/", (req, res) => {
   });
 });
 
-// Read by id
+/**
+ * Retrieves a survey response based on its unique ID
+ */
 router.get("/:id", (req, res) => {
-  Diary.findOne({ _id: ObjectId(req.params.id)},
-   null,
+  Answer.findOne({ _id: ObjectId(req.params.id)},
+   null, 
    (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
@@ -45,14 +47,14 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// Read filtered
-router.post("/filtered", (req, res) => {
-  Diary.find({
-    'upperAgeRange': { $gte: req.body.age },
-    'lowerAgeRange': { $lte: req.body.age },
-    'sex': { $in: [req.body.sex, null] },
-    '_id': { $nin: req.body.ids.map(ObjectId) }
-  }, null, (err, results) => {
+/**
+ * Retrieves a response based on the unique ID of the user who submitted it.
+ * TODO: Fix this to actually query answers, and not simply retrieve a user instead
+ */
+router.get("/user/:username", (req, res) => {
+  Answer.findOne({ username: ObjectId(req.params.username)},
+   null, 
+   (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
       res.status(200).json([]);
@@ -62,9 +64,28 @@ router.post("/filtered", (req, res) => {
   });
 });
 
-// Update a document
+/**
+ * Retrieves a response based on the unique ID of the survey to which it corresponds
+ * 
+ * TODO: Fix this to actually query answers, and not simply retrieve a survey instead
+ */
+
+router.get("/survey/:surveyid", (req, res) => {
+  Answer.findOne({ survey_id: ObjectId(req.params.surveyid)},
+   null, 
+   (err, results) => {
+    if (err) throw err;
+    if (results.length == 0) {
+      res.status(200).json([]);
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+//Update a Survey
 router.put("/:id", (req, res) => {
-  Diary.updateOne(
+  Answer.updateOne(
     { _id: ObjectId(req.params.id) },
     { $set: req.body },
     (err, results) => {
@@ -79,9 +100,9 @@ router.put("/:id", (req, res) => {
   );
 });
 
-// Delete a document
+//Delete a Survey
 router.delete("/:id", (req, res) => {
-  Diary.deleteOne({ _id: ObjectId(req.params.id) }, (err, obj) => {
+  Answer.deleteOne({ _id: ObjectId(req.params.id) }, (err, obj) => {
     if (err) throw err;
     if (obj.n == 0) {
       res.status(404);

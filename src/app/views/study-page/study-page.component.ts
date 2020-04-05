@@ -1,3 +1,12 @@
+
+/**
+ * This component displays the study-pages, which is where the details of a study
+ * are displayed, where the researcher can edit a study/survey/etc., and where the
+ * participant will be able to complete a study.
+ *
+ * @author Frederic Joly
+ * @author Brady Ryan
+ */
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { CodetableService } from 'src/app/services/codetable.service';
 import { InitPageComponent } from '../init-page.component';
@@ -5,6 +14,7 @@ import { StudyService } from 'src/app/services/study.service';
 import { ActivatedRoute } from '@angular/router';
 import { StudyCreationFormComponent } from '../study-creation-form/study-creation-form.component';
 import { StudySurveysComponent } from '../study-surveys/study-surveys.component';
+import { DiaryFormComponent } from '../diary-form/diary-form.component';
 
 @Component({
   selector: 'study-page',
@@ -15,8 +25,11 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
 
   /**Represents the component that holds the form for editing/viewing the details of the study */
   @ViewChild(StudyCreationFormComponent, { static: true }) studyForm;
-  /**Represents teh component that holds all survey-related elements, such as the survey-maker and the survey-view */
+  /**Represents the component that holds all survey-related elements, such as the survey-maker and the survey-view */
   @ViewChild(StudySurveysComponent, { static: false }) studySurvey;
+  /**Represents the component that holds all diary-related elements */
+  @ViewChild(DiaryFormComponent, { static: false }) diaryForm;
+
 
   /**Determines the size (as a percentage) of the sidebar */
   private readonly sidebarWidth = 15;
@@ -84,7 +97,7 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
 
   /**
    * This function fetches all of the codetable values (e.g. the sexes, study type codes, etc) and loads them into
-   * arrays. These values can then be accessed in the HTML component using statements such as: 
+   * arrays. These values can then be accessed in the HTML component using statements such as:
    * "{{ studyTypes | findValue : study.type : selectedLanguage }}" which converts the study code (e.g. 0) into
    * "Questionnaire", adjustable by language.
    */
@@ -106,7 +119,7 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
 
   /**
    * Currently, this function only searches for questionnaires, takes the first one, and loads it as this page's study for testing purposes.
-   * 
+   *
    * TODO: modify this to only retrieve the study being passed into it from the Grid List, then change the object type to retrieve the new "Study"
    * objects, which combines all of the study fields from the Diary, Questionnaire and Chat Log objects into a single class.
    */
@@ -134,7 +147,9 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
 
     if (this.type == 0) {
       this.studySurvey.edit();
-    } else if (this.type == 2) {
+    } else
+    if (this.type == 2) {
+      this.diaryForm.edit();
       //TODO: Add code to toggle the diary's edit mode
     }
 
@@ -150,6 +165,7 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
       this.studySurvey.hideEdit();
     } else if (this.type == 2) {
       //TODO: Add code to toggle the diary's edit mode
+      this.diaryForm.hideEdit();
     }
 
     this.editable = false;
@@ -185,7 +201,12 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
 
   public startSurvey() {
     this.isSurveyActive = true;
-    this.studySurvey.startSurvey();
+    if (this.type == 0) {
+      this.studySurvey.startSurvey();
+    } else
+    if (this.type == 2) {
+      this.diaryForm.startSurvey();
+    }
   }
 
   public resetTestSurvey() {
@@ -194,7 +215,12 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
 
   public stopSurvey() {
     this.isSurveyActive = false;
-    this.studySurvey.stopSurvey();
+    if (this.type == 0) {
+      this.studySurvey.stopSurvey();
+    } else
+    if (this.type == 2) {
+      this.diaryForm.stopSurvey();
+    }
   }
 }
 

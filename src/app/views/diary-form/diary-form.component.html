@@ -2,8 +2,58 @@
 This component will hold the form that currently allows participants to create and fill out diary entries.
 
 Ideally, this form will be visible to participants prior to submission, then will only be visible to researchers
-once a user has submitted their entries. 
+once a user has submitted their entries.
 
 On the researcher side, we will likely need a way to display a table/list of users who've filled out diary entries,
-then display this form when the researcher clicks on that user to see their submission. 
+then display this form when the researcher clicks on that user to see their submission.
 -->
+<br>
+
+<div *ngIf="isLoaded && loggedInUser.role === 2 && displayDiaryEdit">
+  <mat-card>
+    <mat-card-title>Please log your diary here</mat-card-title>
+    <mat-form-field width=100%>
+      <textarea matInput [(ngModel)]='newEntryForParticipant.entry' [name]="newEntryForParticipant.entry" matTextareaAutosize matAutosizeMinRows="2"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput [matDatepicker]="daypicker" [(ngModel)]="newEntryForParticipant.date">
+      <mat-datepicker-toggle matSuffix [for]="daypicker"></mat-datepicker-toggle>
+      <mat-datepicker #daypicker></mat-datepicker>
+    </mat-form-field>
+  </mat-card>
+</div>
+
+<div *ngIf="isLoaded">
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h5>Diary Logs</h5>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor="let e of diary.entries; index as i">
+      <mat-card-content>
+        <hr>
+        <div *ngIf="!displayDiaryEdit">
+          <p>{{ e.entry }}</p>
+          <p>{{ e.date | date:'medium'}}</p>
+        </div>
+        <div *ngIf="displayDiaryEdit">
+          <mat-form-field width=100%>
+            <textarea matInput [(ngModel)]='diary.entries[i].entry' [name]="diary.entries[i].entry" matTextareaAutosize matAutosizeMinRows="2"></textarea>
+          </mat-form-field>
+          <button mat-raised-button justify-content="flex-end" color="warn" (click)="diary.entries.splice(i, 1)">Delete</button>
+          <br>
+          <mat-form-field>
+            <input matInput [matDatepicker]="daypicker" [(ngModel)]="diary.entries[i].date">
+            <mat-datepicker-toggle matSuffix [for]="daypicker"></mat-datepicker-toggle>
+            <mat-datepicker #daypicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </div>
+    <button *ngIf="displayDiaryEdit && loggedInUser.role === 1 " mat-raised-button color="primary" (click)="newEntry()">Add</button>
+  </mat-expansion-panel>
+</div>
+
+

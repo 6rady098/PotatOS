@@ -1,3 +1,9 @@
+/**
+ * This models the SurveyJS questions of type "Checkbox". These questions are made up of a
+ * series of checkboxes that a user can select, and multiple checkboxes can be selected at once.
+ * 
+ * @author Frederic Joly
+ */
 import { IElement } from './IElement';
 import { TextElement } from './textelement';
 import { Choice } from './choice';

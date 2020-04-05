@@ -1,3 +1,10 @@
+/**
+ * This component handles every other component that deals with surveys in
+ * the context of the study-page component. This is where the survey-marker
+ * and survey-view are displayed to researcher and/or participant.
+ * 
+ * @author Frederic Joly
+ */
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SurveyViewComponent } from '../surveys/survey-view/survey-view.component';
 import { SurveyMakerComponent } from '../surveys/survey-maker/survey-maker.component';
@@ -6,6 +13,7 @@ import { Checkbox } from 'src/app/models/survey-models/checkbox';
 import { Radiogroup } from 'src/app/models/survey-models/radiogroup';
 import { SurveyService } from 'src/app/services/survey.service';
 import { StudyService } from 'src/app/services/study.service';
+import { SurveyService } from 'src/app/services/survey.service';
 import { InitPageComponent } from '../init-page.component';
 
 @Component({

@@ -1,3 +1,9 @@
+/**
+ * This is the model class for a survey. It corresponds to the SurveyJS model "SurveyModel".
+ * The name was changed so as to avoid ambiguity with imports. 
+ * 
+ * @author Frederic Joly
+ */
 import { Page } from './page';
 import { IElement } from './IElement';
 

@@ -1,10 +1,15 @@
+
+/**
+ * This component is used to edit a survey.
+ * 
+ * @author Frederic Joly
+ */
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ModelSurvey } from '../../../models/survey-models/survey';
 import { Checkbox } from '../../../models/survey-models/checkbox';
 import { IElement } from 'src/app/models/survey-models/IElement';
 import { Radiogroup } from 'src/app/models/survey-models/radiogroup';
 import { TextElement } from 'src/app/models/survey-models/textelement';
-import { SurveyViewComponent } from '../survey-view/survey-view.component';
 import { SurveyService } from 'src/app/services/survey.service';
 import { InitPageComponent } from '../../init-page.component';
 
@@ -37,6 +42,9 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
     this.initialize();
   }
 
+  /**
+   * This function initializes many of the component's fields to their default values
+   */
   private initialize() {
     this.showSurvey = true;
 
@@ -52,6 +60,10 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
     this.refreshData();
   }
 
+  /**
+   * This function adds a question to the survey based on the input.
+   * @param type Is a string that determines the type of question that will be added.
+   */
   public addQuestion(type: string) {
     let question;
     switch (type) {
@@ -86,22 +98,36 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
     this.elements.push(question);
   }
 
+  /**
+   * Removes an element from the survey model's elements array.
+   * @param index The index of the question that needs to be removed.
+   */
   public removeQuestion(index: number) {
     console.log('Removing element at index ' + index);
     this.elements.splice(index, 1);
   }
 
+  /**
+   * Used to log information to the console. Can be assigned to a button (click) event
+   * for debugging.
+   */
   public debug() {
     console.log(this.model);
     console.log(this.elements);
   }
 
+  /**
+   * @deprecated
+   */
   public createSurvey() {
     this.surveyService.create(this.model).subscribe((res) => {
       this.refreshData();
     })
   }
 
+  /**
+   * @deprecated
+   */
   public refreshData() {
     this.surveyService.getData().subscribe(res => {
       this.surveys = res;
@@ -112,6 +138,9 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
       });
   }
 
+  /**
+   * This function updates the current survey's database entry.
+   */
   public async updateSurvey() {
     await new Promise((resolve, reject) => {
       this.surveyService.update(this.model, this.model._id).subscribe(
@@ -130,6 +159,13 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
     });
   }
 
+  /**
+   * This function was initially used to delete surveys from a list retrieved from the database.
+   * This functionality has since changed now that surveys are now tied to studies, and are only
+   * retrieved individually.
+   * @deprecated 
+   */
+ /*
   public deleteSurvey(index: number) {
     console.log('Index is ' + index);
     var survey = this.surveys[index];
@@ -146,7 +182,14 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
         }
       })
   }
+*/
 
+  /**
+   * This function was initially written to load a survey from a list of surveys. This function
+   * is no longer used, as surveys are now retrieved individually from a different component.
+   * @param index 
+   * @deprecated
+   */
   public loadSurvey(index: number) {
     this.model = this.surveys[index];
     this.elements = this.model.pages[0].elements;
@@ -157,6 +200,10 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
     this.refreshData();
   }
 
+  /**
+   * This function returns the value of the typeof operator for a given variable.
+   * @param value An object whose type needs to be determined.
+   */
   public typeOf(value) {
     return typeof value;
   }
