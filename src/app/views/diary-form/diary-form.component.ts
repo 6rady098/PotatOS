@@ -6,8 +6,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CodetableService } from 'src/app/services/codetable.service';
 import { SurveyService } from 'src/app/services/survey.service';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { DiaryService } from 'src/app/services/diary.service';
+import { Input, ViewChild } from '@angular/core';
 import { Diary } from 'src/app/models/diary';
 import { Entry } from 'src/app/models/entry';
 import { StudyService } from 'src/app/services/study.service';
@@ -20,20 +19,6 @@ import { InitPageComponent } from '../init-page.component';
 })
 export class DiaryFormComponent extends InitPageComponent implements OnInit {
 
-  constructor(
-    private questionnaireService: QuestionnaireService,
-    private diaryService: DiaryService,
-    private userService: UserService,
-    private chatService: ChatService,
-    private authService: AuthService,
-    private codetableService: CodetableService,
-    private surveyService: SurveyService,
-    private studyService: StudyService
-  ) {
-    super();
-  }
-
-  ngOnInit() {
   diary: Diary
   displayDiary: boolean;
   displayDiaryEdit: boolean;
