@@ -8,6 +8,8 @@ import { Component, OnInit, Input, OnChanges, Output } from '@angular/core';
 import * as Survey from 'survey-angular';
 import { ModelSurvey } from '../../../models/survey-models/survey';
 import { InitPageComponent } from '../../init-page.component';
+import { Checkbox } from 'src/app/models/survey-models/checkbox';
+import { Radiogroup } from 'src/app/models/survey-models/radiogroup';
 import { SurveyAnswer } from 'src/app/models/survey-models/surveyanswer';
 import { SurveyanswerService } from 'src/app/services/surveyanswer.service';
 

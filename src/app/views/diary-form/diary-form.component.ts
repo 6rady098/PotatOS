@@ -1,5 +1,12 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { QuestionnaireService } from 'src/app/services/questionnaires.service';
 import { DiaryService } from 'src/app/services/diary.service';
+import { UserService } from 'src/app/services/users.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { CodetableService } from 'src/app/services/codetable.service';
+import { SurveyService } from 'src/app/services/survey.service';
+import { Input, ViewChild } from '@angular/core';
 import { Diary } from 'src/app/models/diary';
 import { Entry } from 'src/app/models/entry';
 import { StudyService } from 'src/app/services/study.service';
@@ -11,6 +18,7 @@ import { InitPageComponent } from '../init-page.component';
   styleUrls: ['./diary-form.component.css']
 })
 export class DiaryFormComponent extends InitPageComponent implements OnInit {
+
   diary: Diary
   displayDiary: boolean;
   displayDiaryEdit: boolean;
