@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
   Diary.create(req.body, (err, result) => {
     if (err) throw err;
     res.status(201);
-    res.send({ message: "success" });
+    res.send(result._id);
   });
 });
 

@@ -24,7 +24,7 @@ import { DiaryFormComponent } from '../diary-form/diary-form.component';
 export class StudyPageComponent extends InitPageComponent implements OnInit {
 
   /**Represents the component that holds the form for editing/viewing the details of the study */
-  @ViewChild(StudyCreationFormComponent, { static: true }) studyForm;
+  @ViewChild(StudyCreationFormComponent, { static: false }) studyForm;
   /**Represents the component that holds all survey-related elements, such as the survey-maker and the survey-view */
   @ViewChild(StudySurveysComponent, { static: false }) studySurvey;
   /**Represents the component that holds all diary-related elements */
@@ -42,7 +42,7 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
   studyId: string;
   /**This is an array loaded from the codetable that holds all values for the study types, from 0 to 2, with associated string values */
   studyTypes: any;
-  /**Holds the value of the current study's type, i.e. 0 for questionnaire, 2 for dairy, etc.*/
+  /**Holds the value of the current study's type, i.e. 0 for questionnaire, 2 for diary, etc.*/
   type: number;
   /**This is an array that holds all possible values for the "sex" property of a study */
   studySexes: any;
@@ -129,6 +129,7 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
       (res) => {
         this.study = res.body;
         this.type = this.study.type;
+        console.log('Study type is ' + this.study.type);
         this.sex = this.study.sex;
         this.isLoaded = true;
       },
@@ -144,14 +145,15 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
    * Switches on the page to Edit Mode, and invokes the appropriate child components' edit methods
    */
   public edit() {
-
+    this.studyForm.edit();
+    
     if (this.type == 0) {
       this.studySurvey.edit();
     } else
-    if (this.type == 2) {
-      this.diaryForm.edit();
-      //TODO: Add code to toggle the diary's edit mode
-    }
+      if (this.type == 2) {
+        this.diaryForm.edit();
+        //TODO: Add code to toggle the diary's edit mode
+      }
 
     this.editable = true;
   }
@@ -160,11 +162,11 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
    * Switches off the page's edit mode and hides all edit forms
    */
   public hideEdit() {
+    this.studyForm.hideEdit();
 
     if (this.type == 0) {
       this.studySurvey.hideEdit();
     } else if (this.type == 2) {
-      //TODO: Add code to toggle the diary's edit mode
       this.diaryForm.hideEdit();
     }
 
@@ -194,7 +196,7 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
   }
 
   public resetSurvey() {
-    if(this.type === 0 && this.studySurvey) {
+    if (this.type === 0 && this.studySurvey) {
       this.studySurvey.resetSurvey();
     }
   }
@@ -204,9 +206,9 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
     if (this.type == 0) {
       this.studySurvey.startSurvey();
     } else
-    if (this.type == 2) {
-      this.diaryForm.startSurvey();
-    }
+      if (this.type == 2) {
+        this.diaryForm.startSurvey();
+      }
   }
 
   public resetTestSurvey() {
@@ -218,10 +220,48 @@ export class StudyPageComponent extends InitPageComponent implements OnInit {
     if (this.type == 0) {
       this.studySurvey.stopSurvey();
     } else
-    if (this.type == 2) {
-      this.diaryForm.stopSurvey();
-    }
+      if (this.type == 2) {
+        this.diaryForm.stopSurvey();
+      }
   }
+
+  delete() {
+    this.studyForm.deleteStudy()
+      .then(() => {
+        switch (this.type) {
+          case 0:
+            if (this.studySurvey) {
+              console.log('Deleting survey');
+              this.studySurvey.deleteSurvey()
+                .then(() => 'The Diary was successfully deleted');
+            }
+            break;
+
+          case 1:
+            console.log('Deleting chatlog');
+            //TODO: Implement ChatLogs
+            break;
+
+          case 2:
+            if (this.diaryForm) {
+              console.log('Deleting diary');
+              this.diaryForm.deleteDiary()
+                .then(() => 'The Diary was successfully deleted');
+            }
+            break;
+
+          default:
+            console.log('Something went not quite but somewhat horribly wrong, the type is all wrong');
+
+        }
+      })
+      .catch(err => {
+        console.log('Something went wrong deleting this study');
+        if (err) throw err;
+      });
+  }
+
+  
 }
 
 //TODO: Add dialog boxes for the survey reset and delete buttons

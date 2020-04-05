@@ -7,7 +7,6 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { QuestionnaireService } from 'src/app/services/questionnaires.service';
-import { Questionnaire } from 'src/app/models/questionnaire';
 import { Question } from 'src/app/models/question';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -22,10 +21,12 @@ import { ChatService } from 'src/app/services/chat.service';
 import { Chat } from 'src/app/models/chat';
 import { Response } from 'src/app/models/response';
 import { Diary } from 'src/app/models/diary';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-import { ActivatedRoute } from "@angular/router";
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { StudyService } from 'src/app/services/study.service';
+import { ModelSurvey } from 'src/app/models/survey-models/survey';
+import { Study } from 'src/app/models/study';
+import { SurveyService } from 'src/app/services/survey.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -59,7 +60,9 @@ export class AvailableStudiesComponent extends InitPageComponent
 
   /*Temporary additions */
   newStudyList: any;
-  display: boolean;
+  display = false;
+
+  modelComponent: any;
 
   matcher = new MyErrorStateMatcher();
 
@@ -74,15 +77,14 @@ export class AvailableStudiesComponent extends InitPageComponent
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
     private codetableService: CodetableService,
-    private studyService: StudyService
+    private studyService: StudyService,
+    private surveyService: SurveyService
   ) {
     super();
   }
 
   ngOnInit() {
     this.initializeOnLoad();
-
-    this.display = false;
 
     this.codetableService.getData().subscribe(res => {
       // tslint:disable-next-line: no-string-literal
@@ -177,7 +179,7 @@ export class AvailableStudiesComponent extends InitPageComponent
     this.titleFormControl = new FormControl('', [
       Validators.required
     ]);
-  
+
     this.studyTypeFormControl = new FormControl('', [
       Validators.required
     ]);
@@ -232,18 +234,21 @@ export class AvailableStudiesComponent extends InitPageComponent
     const upperAgeRange = this.model.upperAgeRange;
     const lowerAgeRange = this.model.lowerAgeRange;
     const sex = this.model.sex;
-    if (studyType === 0) {
-      this.model = new Questionnaire();
-    } else if (studyType === 1) {
-      this.model = new Chat();
-    } else if (studyType === 2) {
-      this.model = new Diary();
-    }
+
+    this.model = new Study();
     this.model.title = title;
     this.model.type = type;
     this.model.upperAgeRange = upperAgeRange;
     this.model.lowerAgeRange = lowerAgeRange;
     this.model.sex = sex;
+
+    if (studyType === 0) {
+      this.modelComponent = new ModelSurvey();
+    } else if (studyType === 1) {
+      this.modelComponent = new Chat();
+    } else if (studyType === 2) {
+      this.modelComponent = new Diary();
+    }
   }
 
   loadEntry(study) {
@@ -276,78 +281,6 @@ export class AvailableStudiesComponent extends InitPageComponent
       ? false : true;
   }
 
-  refreshData() {
-    this.initializeOnLoad();
-
-    const ids = [];
-    for (const study of this.loggedInUser.studies) {
-      ids.push(study._id);
-    }
-
-    if (this.loggedInUser.role === 2) {
-      this.questionnaireService
-        .getFilteredData(this.loggedInUser.age, this.loggedInUser.sex, ids)
-        .subscribe(questionnaireRes => {
-          if (questionnaireRes.length > 0) {
-            for (const questionnaire of questionnaireRes) {
-              this.listOfStudies.push(questionnaire);
-            }
-          }
-          this.chatService
-            .getFilteredData(this.loggedInUser.age, this.loggedInUser.sex, ids)
-            .subscribe(chatRes => {
-              if (chatRes.length > 0) {
-                for (const chat of chatRes) {
-                  this.listOfStudies.push(chat);
-                }
-              }
-              this.diaryService
-                .getFilteredData(this.loggedInUser.age, this.loggedInUser.sex, ids)
-                .subscribe(diaryRes => {
-                  if (diaryRes.length > 0) {
-                    for (const diary of diaryRes) {
-                      this.listOfStudies.push(diary);
-                    }
-                  }
-                  this.listOfStudies = new MatTableDataSource(
-                    this.listOfStudies
-                  );
-                  this.listOfStudies.sort = this.sort;
-                  this.listOfStudies.paginator = this.paginator;
-                });
-            });
-        });
-    } else {
-      this.questionnaireService.getData().subscribe(questionnaireRes => {
-        if (questionnaireRes.length > 0) {
-          for (const questionnaire of questionnaireRes) {
-            this.listOfStudies.push(questionnaire);
-          }
-        }
-
-        this.chatService.getData().subscribe(chatRes => {
-          if (chatRes.length > 0) {
-            for (const chat of chatRes) {
-              this.listOfStudies.push(chat);
-            }
-          }
-
-          this.diaryService.getData().subscribe(diaryRes => {
-            if (diaryRes.length > 0) {
-              for (const diary of diaryRes) {
-                this.listOfStudies.push(diary);
-              }
-            }
-
-            this.listOfStudies = new MatTableDataSource(this.listOfStudies);
-            this.listOfStudies.sort = this.sort;
-            this.listOfStudies.paginator = this.paginator;
-          });
-        });
-      });
-    }
-  }
-
   submitStudy() {
     if (!this.model.status) {
       this.model.status = 0;
@@ -355,11 +288,9 @@ export class AvailableStudiesComponent extends InitPageComponent
     this.loggedInUser.studies.push(this.model);
 
     const id = this.loggedInUser._id;
-    // delete this.loggedInUser._id;
 
     this.userService.update(this.loggedInUser, id).subscribe(res => {
       if (res.status === 200) {
-        this.refreshData();
         this.close();
         this.authService.updateToken(id);
       }
@@ -375,87 +306,135 @@ export class AvailableStudiesComponent extends InitPageComponent
     }
     this.model.researcher = this.loggedInUser.username;
 
-    if (this.model.type === 0) {
-      this.questionnaireService.create(this.model).subscribe(res => {
-        if (res.status === 201) {
-          this.refreshData();
-          this.close();
+    this.createStudy()
+      .then(result => {
+        this.createModelComponent()
+          .then(result => {
+            this.model.component = this.modelComponent._id;
+            this.modelComponent.studyId = this.model._id;
+          })
+          .then(() => {
+            this.updateStudy()
+            .then(result => {
+              this.updateComponent()
+                .then(result => {
+                  this.getStudies()
+                    .then(() => {
+                      this.close();
+                    })
+                })
+                .catch(err => {
+                  if (err) {
+                    throw err;
+                  } 
+                });
+            })
+            .catch(err => {
+              if (err) throw err;
+            });
+          });
+      })
+      .catch(err => {
+        if (err) {
+          console.log('Something went wrong');
+          throw err;
         }
       });
-    } else if (this.model.type === 1) {
-      this.chatService.create(this.model).subscribe(res => {
-        if (res.status === 201) {
-          this.refreshData();
-          this.close();
-        }
-      });
-    } else if (this.model.type === 2) {
-      this.diaryService.create(this.model).subscribe(res => {
-        if (res.status === 201) {
-          this.refreshData();
-          this.close();
-        }
-      });
-    }
   }
 
-  edit() {
-    if (this.model.lowerAgeRange === undefined) {
-      this.model.lowerAgeRange = 0;
-    }
-    if (this.model.upperAgeRange === undefined) {
-      this.model.upperAgeRange = 1000;
-    }
-    const id = this.model._id;
-    delete this.model._id;
-
-    if (this.model.type === 0) {
-      this.questionnaireService.update(this.model, id).subscribe(res => {
-        if (res.status === 200) {
-          this.refreshData();
-          this.close();
+  createStudy() {
+    return new Promise((resolve, reject) => {
+      this.studyService.create(this.model).subscribe(res => {
+        if (res.status === 201) {
+          this.model._id = res.body;
+          resolve('Success');
+        }
+      }, err => {
+        if (err) {
+          reject(err);
         }
       });
-    } else if (this.model.type === 1) {
-      this.chatService.update(this.model, id).subscribe(res => {
-        if (res.status === 200) {
-          this.refreshData();
-          this.close();
-        }
-      });
-    } else if (this.model.type === 2) {
-      this.diaryService.update(this.model, id).subscribe(res => {
-        if (res.status === 200) {
-          this.refreshData();
-          this.close();
-        }
-      });
-    }
+    });
   }
 
-  delete(study) {
-    if (study.type === 0) {
-      this.questionnaireService.delete(study._id).subscribe(res => {
-        if (res.status === 200) {
-          this.refreshData();
-          this.close();
+  createModelComponent() {
+    return new Promise((resolve, reject) => {
+      if (this.model.type === 0) {
+        this.surveyService.create(this.modelComponent).subscribe(res => {
+          if (res.status === 201) {
+            this.modelComponent._id = res.body;
+            resolve('Success');
+          }
+        }, err => {
+          if (err) {
+            reject(err);
+          }
+        });
+
+      } else if (this.model.type === 1) {
+        this.chatService.create(this.model).subscribe(res => {
+          if (res.status === 201) {
+            this.modelComponent._id = res.body;
+            resolve('Success');
+          }
+        }, err => {
+          if (err) {
+            reject(err);
+          }
+        });
+
+      } else if (this.model.type === 2) {
+        this.diaryService.create(this.model).subscribe(res => {
+          if (res.status === 201) {
+            this.modelComponent._id = res.body;
+            resolve('Success');
+          }
+        }, err => {
+          if (err) {
+            reject(err);
+          }
+        });
+      }
+    });
+  }
+
+  updateStudy() {
+    return new Promise((resolve, reject) => {
+      this.studyService.update(this.model, this.model._id).subscribe(res => {
+        if (res.status === 200)
+          resolve('Success');
+      }, err => {
+        if (err) {
+          reject();
         }
       });
-    } else if (study.type === 1) {
-      this.chatService.delete(study._id).subscribe(res => {
-        if (res.status === 200) {
-          this.refreshData();
-          this.close();
-        }
-      });
-    } else if (study.type === 2) {
-      this.diaryService.delete(study._id).subscribe(res => {
-        if (res.status === 200) {
-          this.refreshData();
-          this.close();
-        }
-      });
-    }
+    });
+  }
+
+  updateComponent() {
+    return new Promise((resolve, reject) => {
+      if (this.model.type === 0) {
+        this.surveyService.update(this.modelComponent, this.modelComponent._id).subscribe(res => {
+          if (res.status === 200)
+            resolve('Success');
+        }, err => {
+          if (err) {
+            reject();
+          }
+        });
+      } else if (this.model.type === 2) {
+        this.diaryService.update(this.modelComponent, this.modelComponent._id).subscribe(res => {
+          if (res.status === 200)
+            resolve('Success');
+        }, err => {
+          if (err) {
+            console.log('Something went wrong updating the component');
+            reject();
+          }
+        });
+      }
+      
+    });
   }
 
   ngOnDestroy() {
@@ -463,13 +442,16 @@ export class AvailableStudiesComponent extends InitPageComponent
   }
 
   public getStudies() {
-    this.studyService.getData().subscribe((res) => {
-      this.newStudyList = res;
-      console.log(res);
-    },
-    (err) => {
-      if(err)
-        throw err;
+    return new Promise((resolve, reject) => {
+      this.studyService.getData().subscribe((res) => {
+        this.newStudyList = res;
+        console.log(res);
+        resolve('Success');
+      },
+        (err) => {
+          if (err)
+            reject();
+        });
     });
   }
 }

@@ -47,8 +47,8 @@ export class SurveyMakerComponent extends InitPageComponent implements OnInit {
    */
   private initialize() {
     this.showSurvey = true;
-
-    if (this.model == null) {
+    console.log(this.model);
+    if (!this.model) {
       console.log("Initializing survey-maker model to default");
       this.model = new ModelSurvey();
     }

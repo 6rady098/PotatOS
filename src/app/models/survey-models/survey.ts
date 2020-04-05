@@ -16,6 +16,8 @@ export class ModelSurvey {
   questionsOnPageMode: string;
   pages: Page[];
 
+  studyId: string;
+
   public constructor() {
     this.title = "Default Survey Title";
     this.showProgression = "top";

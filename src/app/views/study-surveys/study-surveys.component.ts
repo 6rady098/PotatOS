@@ -42,11 +42,12 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
   ) {
     super();
     this.isLoaded = false;
-
   }
 
   ngOnInit() {
-    this.getSurvey(this.study.content_id)
+    console.log("The study's component ID:");
+    console.log(this.study.component);
+    this.getSurvey(this.study.component)
       .then(() => {
         this.refreshSurvey();
       });
@@ -57,7 +58,7 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
   /**
    * This method resets all booleans to false.
    */
-  public resetBooleans(): void {
+  resetBooleans(): void {
     this.displaySurvey = false;
     this.displaySurveyMaker = false;
   }
@@ -65,11 +66,11 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
   /**
    * If the study is a questionnaire/survey, this method hides the survey.
    */
-  public hideSurvey(): void {
+  hideSurvey(): void {
     this.displaySurvey = false;
   }
 
-  public edit(): void {
+  edit(): void {
     /* 
      * This calculation determines the value of the fxFlex attribute of the div in which the survey-maker is located.
      * Since the end result is a percentage, we subtract from 100. The size of the survey-maker is assumed to be static,
@@ -88,7 +89,7 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
   /**
    * This function hides the survey.
    */
-  public async hideEdit() {
+  async hideEdit() {
     await this.updateSurvey()
       .then(() => {
         this.surveyWidth = 100; //We reset the width of the survey to take up the whole panel
@@ -102,12 +103,12 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
         if (err) throw err;
       });
   }
- 
+
   /**
    * When the Survey-Maker is active, this function updates the model passed into the survey
    * and renders it, to show the updates made to the survey (as it doesn't update dynamically).
    */
-  public refreshSurvey() {
+  refreshSurvey() {
     console.log('Refreshing Survey...');
     this.displaySurvey = true;
 
@@ -138,7 +139,7 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
   }
 
   /**Updates the current survey's entry in the database */
-  public async updateSurvey() {
+  async updateSurvey() {
     await new Promise((resolve, reject) => {
       if (this.surveyMaker) {
         this.surveyMaker.updateSurvey()
@@ -154,7 +155,7 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
     });
   }
 
-  public resetSurvey() {
+  resetSurvey() {
 
     if (this.surveyMaker) { //Check to make sure that the survey-maker is not null
 
@@ -180,17 +181,29 @@ export class StudySurveysComponent extends InitPageComponent implements OnInit {
     }
   }
 
-  public startSurvey() {
+  startSurvey() {
     this.survey.mode = '';
     this.refreshSurvey();
   }
 
-  public resetTestSurvey() {
+  resetTestSurvey() {
     this.refreshSurvey();
   }
 
-  public stopSurvey() {
+  stopSurvey() {
     this.survey.mode = 'display';
     this.refreshSurvey();
+  }
+
+  async deleteSurvey() {
+    await new Promise((resolve, reject) => {
+      this.surveyService.delete(this.survey._id).subscribe(res => {
+        resolve();
+      }, err => {
+        if (err) {
+          reject(err);
+        }
+      });
+    });
   }
 }

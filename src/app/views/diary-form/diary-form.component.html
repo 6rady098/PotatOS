@@ -1,12 +1,4 @@
-<!--
-This component will hold the form that currently allows participants to create and fill out diary entries.
 
-Ideally, this form will be visible to participants prior to submission, then will only be visible to researchers
-once a user has submitted their entries.
-
-On the researcher side, we will likely need a way to display a table/list of users who've filled out diary entries,
-then display this form when the researcher clicks on that user to see their submission.
--->
 <br>
 
 <div *ngIf="isLoaded && loggedInUser.role === 2 && displayDiaryEdit">

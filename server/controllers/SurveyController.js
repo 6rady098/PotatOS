@@ -16,7 +16,7 @@ router.post("/", (req, res) => {
       throw err;
 
     res.status(201);
-    res.send({message: "success"});
+    res.send(result._id);
   });
 });
 
