@@ -1,27 +1,31 @@
-
-<html>
-<head><!-- this script should point to an external api and needs ot  be in the head or body
+<!-- this script should point to an external api and needs ot  be in the head or body
 <script src="https://cdn.agechecker.net/static/age-gate/v1/age-gate.js"></script>
 https://agechecker.net/age-gate/create -->
-</head>
-<body>
-
-<h1 fxLayout="row" fxLayoutAlign="center center">Welcome to LinkTheMasses</h1>
-<h2 fxLayout="row" fxLayoutAlign="center center">Only users 18 years of age or older are permitted</h2>
-<p fxLayout="row" fxLayoutAlign="center center">Click upon Login if so, elsewise you may not pro.</p>
 
 
+<mat-card style="margin-top: 50px;">
+  <div style="margin-bottom: 40px;">
+    <h1 style="margin-top: 50px;" class="text-center">Welcome to Link The Masses</h1>
+    <h2 class="text-center">Only users 18 years of age or older are permitted</h2>
+    <p class="text-center">Click upon Login if so, elsewise you may not proceed.</p>
 
-<div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center" style="margin-top: 80px;">
-  <mat-form-field>
-    <mat-label>Choose your birthday</mat-label>
-    <input matInput [matDatepicker]="bdaypicker" [(ngModel)]="birthdate">
-    <mat-datepicker-toggle matSuffix [for]="bdaypicker"></mat-datepicker-toggle>
-    <mat-datepicker #bdaypicker></mat-datepicker>
-  </mat-form-field>
 
-  <button class="btn-gradient green large" mat-raised-button
-      (click)="CalculateAge()">{{'Confirm' | translate}}</button>
-</div>
-</body>
-</html>
+
+    <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center" style="margin-top: 60px;">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-6">
+          <mat-form-field>
+            <mat-label>Enter your birthday</mat-label>
+            <input matInput [matDatepicker]="bdaypicker" [(ngModel)]="birthdate">
+            <mat-datepicker-toggle matSuffix [for]="bdaypicker"></mat-datepicker-toggle>
+            <mat-datepicker #bdaypicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="center center">
+      <button class="btn-gradient green large" mat-raised-button
+        (click)="CalculateAge()">{{'Confirm' | translate}}</button>
+    </div>
+  </div>
+</mat-card>

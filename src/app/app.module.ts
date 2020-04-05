@@ -41,6 +41,14 @@ import { BooleanelementFormComponent } from './views/surveys/survey-maker/boolea
 import { RatingFormComponent } from './views/surveys/survey-maker/rating-form/rating-form.component';
 import { SurveyService } from './services/survey.service';
 import { AgeGateComponent } from './views/age-gate/age-gate.component';
+import { StudyPageComponent } from './views/study-page/study-page.component';
+import { StudyCreationFormComponent } from './views/study-creation-form/study-creation-form.component';
+import { DiaryFormComponent } from './views/diary-form/diary-form.component';
+import { StudyService } from './services/study.service';
+import { StudySurveysComponent } from './views/study-surveys/study-surveys.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog'; 
+import { SurveyanswerService } from './services/surveyanswer.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +73,11 @@ import { AgeGateComponent } from './views/age-gate/age-gate.component';
     RadiogroupFormComponent,
     BooleanelementFormComponent,
     RatingFormComponent,
-    AgeGateComponent
+    AgeGateComponent,
+    StudyPageComponent,
+    StudyCreationFormComponent,
+    DiaryFormComponent,
+    StudySurveysComponent
   ],
   imports: [
     BrowserModule,
@@ -76,9 +88,11 @@ import { AgeGateComponent } from './views/age-gate/age-gate.component';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    MatTooltipModule,
     // ngx-translate and the loader module
     HttpClientModule,
     MatCheckboxModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -94,7 +108,9 @@ import { AgeGateComponent } from './views/age-gate/age-gate.component';
     DiaryService,
     ChatService,
     CodetableService,
-    SurveyService
+    SurveyService,
+    StudyService,
+    SurveyanswerService
   ],
   bootstrap: [AppComponent]
 })

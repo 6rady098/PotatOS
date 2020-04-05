@@ -1,0 +1,12 @@
+.sidebar-button {
+  padding: 15px;
+  width: 100%;
+}
+
+mat-card {
+  border-radius: 0px;
+}
+
+.info-col {
+  width: 200px;
+}
