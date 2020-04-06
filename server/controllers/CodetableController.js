@@ -1,5 +1,5 @@
 
-var express = require("express");
+var express = require("express"); // creating an expres sapplication which returns a function reference
 var router = express.Router();
 var bodyParser = require("body-parser");
 
