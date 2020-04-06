@@ -19,6 +19,8 @@ export class AppPage {
     element(by.name('password')).sendKeys('Password');
     element(by.name('Login2')).click();
 
+  }
+  
   toLoginPage() {
     this.toWelcomePage().then(() => {
       let welcome = new WelcomePage();

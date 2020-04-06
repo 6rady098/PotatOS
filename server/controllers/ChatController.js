@@ -11,20 +11,22 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 // Create a document
-router.post("/", (req, res) => {
+// Creating a chat blog for studies
+router.post("/", (req, res) => { // req contains info about HTTP request that raised the event
   Chat.create(req.body, (err, result) => {
     if (err) throw err;
-    res.status(201);
-    res.send(result._id);
+    res.status(201); //set the status code of this response
+    res.send({ message: "success" });  //send a response message saying success--!>
   });
 });
 
 // Read a document
-router.get("/", (req, res) => {
+router.get("/", (req, res) => { // req contains info about HTTP request that raised the event
+  //res send back the desired HTTP response
   Chat.find({}, null, (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
-      res.status(200).json([]);
+      res.status(200).json([]);  //set the status code of this response
     } else {
       res.status(200).json(results);
     }
@@ -32,13 +34,13 @@ router.get("/", (req, res) => {
 });
 
 // Read filtered
-router.post("/filtered", (req, res) => {
+router.post("/filtered", (req, res) => {  //POST request submits data to a specified resource to be processed
   Chat.find(
-    { 
-      'upperAgeRange': { $gte: req.body.age },
-      'lowerAgeRange': { $lte: req.body.age }, 
+    {
+      'upperAgeRange': { $gte: req.body.age }, // find people within a certain range of age, sex to participate in the Chat
+      'lowerAgeRange': { $lte: req.body.age },
       'sex': { $in: [req.body.sex, null] },
-      '_id': { $nin: req.body.ids.map(ObjectId) } 
+      '_id': { $nin: req.body.ids.map(ObjectId) }
     }, null, (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
@@ -50,7 +52,7 @@ router.post("/filtered", (req, res) => {
 });
 
 // Update a document
-router.put("/:id", (req, res) => {
+router.put("/:id", (req, res) => { // Allows single page creation for applications
   Chat.updateOne(
     { _id: ObjectId(req.params.id) },
     { $set: req.body },
@@ -67,7 +69,7 @@ router.put("/:id", (req, res) => {
 });
 
 // Delete a document
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res) => { // respond to a delete request in order to delete a Chat Log;
   Chat.deleteOne({ _id: ObjectId(req.params.id) }, (err, obj) => {
     if (err) throw err;
     if (obj.n == 0) {

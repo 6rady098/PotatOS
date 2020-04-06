@@ -1,5 +1,5 @@
-
-var express = require("express");
+//creating questionnaire controller
+var express = require("express"); // creating an express application which returns a function reference
 var router = express.Router();
 var bodyParser = require("body-parser");
 
@@ -11,20 +11,21 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 // Create a document
-router.post("/", (req, res) => {
+// Creating a questionnaire for studies
+router.post("/", (req, res) => { // req contains info about HTTP request that raised the event
   Questionnaire.create(req.body, (err, result) => {
     if (err) throw err;
-    res.status(201);
-    res.send({ message: "success" });
+    res.status(201); //set the status code of this response
+    res.send({ message: "success" }); //send a response message saying success
   });
 });
 
 // Read a document
-router.get("/", (req, res) => {
+router.get("/", (req, res) => { // req contains info about HTTP request that raised the event
   Questionnaire.find({}, null, (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
-      res.status(200).json([]);
+      res.status(200).json([]); //set the status code of this response
     } else {
       res.status(200).json(results);
     }
@@ -33,7 +34,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Questionnaire.findOne({ _id: ObjectId(req.params.id)},
-   null, 
+   null,
    (err, results) => {
     if (err) throw err;
     if (results.length == 0) {
@@ -49,9 +50,9 @@ router.post("/filtered", (req, res) => {
   Questionnaire.find(
     {
       'upperAgeRange': { $gte: req.body.age },
-      'lowerAgeRange': { $lte: req.body.age }, 
+      'lowerAgeRange': { $lte: req.body.age },
       'sex': { $in: [req.body.sex, null] },
-      '_id': { $nin: req.body.ids.map(ObjectId) } 
+      '_id': { $nin: req.body.ids.map(ObjectId) }
     }, null, (err, results) => {
     if (err) throw err;
     if (results.length == 0) {

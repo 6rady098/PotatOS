@@ -3,12 +3,12 @@ import { browser, by, element } from 'protractor';
 export class WelcomePage {
 
   inputAge(date) {
-    var field = element(by.xpath('/html/body/app-root/main/app-age-gate/html/body/div/mat-form-field/div/div[1]/div[1]/input'));
+    var field = element(by.xpath('/html/body/app-root/main/app-age-gate/mat-card/div/div[1]/div/div/mat-form-field/div/div[1]/div[1]/input'));
     return field.sendKeys(date);
   }
 
   clickAgeConfirm() {
-    return element(by.xpath('/html/body/app-root/main/app-age-gate/html/body/div/button/span')).click();
+    return element(by.xpath('/html/body/app-root/main/app-age-gate/mat-card/div/div[2]/button')).click();
   }
 
   clickPopUp() {
